@@ -1,9 +1,10 @@
 import React from 'react';
+import LocationForm from './LocationForm'
 
 class EditLocation extends React.Component {
     render() {
         return (
-            <h1>Edit Location</h1>
+            <LocationForm submit={this.onFormSubmit}/>
         )
     }
 }

@@ -28,7 +28,6 @@ class ShowLocation extends React.Component {
     
     render() {
         const location = this.state
-        console.log(typeof(location))
         return (
           <>
           {location ? this.renderLocation(location) : this.loadFromRails()}

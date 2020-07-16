@@ -1,18 +1,36 @@
 import React from "react";
-import { LocationsContext } from "../context/LocationsContext";
+import { LocationsContext, dispatch } from "../context/LocationsContext";
 import { Link } from "react-router-dom";
 
 class MainPage extends React.Component {
+  static contextType = LocationsContext
+  
+  getLocations = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/locations");
+      const locations = await response.json();
+      this.context.dispatch("populate", { locations })
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
+  async componentDidMount() {
+    await this.getLocations()
+  }
+
+  setLoading = () => this.setState({ loading: false });
+
   static contextType = LocationsContext;
   render() {
     const { locations } = this.context;
-    return (
+    return locations && (
       <div className="MainPage">
-      {locations.map(location => {
-        return <Link to={{
+      {locations.map((location, index) => {
+        return (<div key={index}><Link to={{
           pathname: `/location/${location.id}`,
           state: location,
-        }}>{location.name}</Link>
+        }}>{location.name}</Link></div>)
       })}
     </div>
     )  

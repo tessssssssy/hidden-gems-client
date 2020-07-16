@@ -20,10 +20,8 @@ class LocationForm extends React.Component {
 
   componentDidMount() {
     const location = this.props.location;
-    const { name } = location;
     this.setState({ ...location, loading: false });
     console.log(this.state);
-    console.log("sayhello");
   }
 
   setLoading = () => this.setState({ loading: false });

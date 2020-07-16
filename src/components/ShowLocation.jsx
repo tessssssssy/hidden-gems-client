@@ -2,7 +2,8 @@ import React from 'react';
 
 class ShowLocation extends React.Component {
     render() {
-        console.log(this.props)
+        const location = this.props.location.state;
+        console.log(location)
         return (
             <h1>Location Show Page</h1>
         )

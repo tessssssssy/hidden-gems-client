@@ -14,26 +14,6 @@ class LocationForm extends React.Component {
 
   onInputChange = (event) => {
     this.setState({
-<<<<<<< HEAD
-      [event.target.id]: event.target.value
-    })
-}     
-onFormSubmit = async (event) => {
-  console.log(this.state)
-    event.preventDefault()
-    try {
-      await fetch(`http://localhost:3000/locations`, {
-          method: "POST",
-          headers: {
-            'Content-Type': "application/json"     
-          },
-          body: JSON.stringify(this.state)
-        })
-    } catch (err) {
-      console.log(err)
-    }     
-}
-=======
       [event.target.id]: event.target.value,
     });
   };
@@ -45,7 +25,7 @@ onFormSubmit = async (event) => {
   }
 
   setLoading = () => this.setState({ loading: false });
->>>>>>> d556b188312f66e1ba5c70263dd95df39acedf4b
+
   render() {
     const {
       name, tagline, description, address, longitude, latitude, } = this.state;

@@ -1,6 +1,5 @@
 import { locationBuilder } from '../support/generate'
 
-
 describe("when adding text to make a new location user", () => {
   beforeEach(() => {
     cy.fixture("token").then(({ jwt }) => {
@@ -24,3 +23,4 @@ describe("when adding text to make a new location user", () => {
     window.sessionStorage.removeItem("auth")
   })
 });
+

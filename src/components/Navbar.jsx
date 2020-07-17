@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from "react-router-dom";
 
-import { LocationsContext } from "../context/LocationsContext";
 
 class Navbar extends React.Component {
   render () {
@@ -9,6 +8,8 @@ class Navbar extends React.Component {
       <nav className="Navbar">
         <NavLink to="/main">Home</NavLink>
         <NavLink to="/location/create">Add Location</NavLink>
+        <NavLink to="/login" data-testid="login">Login</NavLink>
+        <NavLink to="/signup"data-testid="signup">Login</NavLink>
       </nav>
     )
   }

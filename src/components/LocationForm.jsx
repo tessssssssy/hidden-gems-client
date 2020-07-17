@@ -10,14 +10,17 @@ class LocationForm extends React.Component {
 onFormSubmit = async (event) => {
   console.log(this.state)
     event.preventDefault()
-        await fetch(`http://localhost:3000/locations`, {
+    try {
+      await fetch(`http://localhost:3000/locations`, {
           method: "POST",
           headers: {
             'Content-Type': "application/json"     
           },
           body: JSON.stringify(this.state)
         })
-        //this.props.history.push("/main")
+    } catch (err) {
+      console.log(err)
+    }     
 }
   render() {
     return (

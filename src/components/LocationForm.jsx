@@ -18,6 +18,11 @@ class LocationForm extends React.Component {
     });
   };
 
+  onFormSubmit = (event) => {
+    event.preventDefault();
+    this.props.onFormHandler(this.state)
+  }
+
   componentDidMount() {
     const location = this.props.location;
     this.setState({ ...location, loading: false });
@@ -25,6 +30,7 @@ class LocationForm extends React.Component {
   }
 
   setLoading = () => this.setState({ loading: false });
+  
 
   render() {
     const {

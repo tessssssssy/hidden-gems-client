@@ -21,7 +21,7 @@ class EditLocation extends React.Component {
   onFormSubmit = async (event) => {
     event.preventDefault();
     await fetch(`http://localhost:3000/locations/${this.state.id}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },

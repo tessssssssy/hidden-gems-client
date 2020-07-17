@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-
+import ProtectedRoute from "./ProtectedRoute";
 import Landing from "./Landing";
 import MainPage from "./MainPage";
 import CreateLocation from "./CreateLocation";
@@ -13,6 +13,7 @@ import { LocationsContext, dispatch } from "../context/LocationsContext";
 
 class App extends React.Component {
   state = { locations: [], dispatch: dispatch.bind(this) };
+<<<<<<< HEAD
   
   getLocations = async () => {
     try {
@@ -25,22 +26,25 @@ class App extends React.Component {
     }
 
   }
+=======
+>>>>>>> d556b188312f66e1ba5c70263dd95df39acedf4b
 
-  async componentDidMount() {
-    this.getLocations()
-  }
   render() {
     return (
       <LocationsContext.Provider value={this.state}>
         <Navbar />
         <Switch>
+          <ProtectedRoute exact path="/location/:id/edit" component={EditLocation} />
           <Route exact path="/" component={Landing} />
           <Route exact path="/main" component={MainPage} />
           <Route exact path="/location/create" component={CreateLocation} />
           <Route exact path="/location/:id" component={ShowLocation} />
+<<<<<<< HEAD
           <Route exact path="/location/:id/edit" component={EditLocation} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+=======
+>>>>>>> d556b188312f66e1ba5c70263dd95df39acedf4b
         </Switch>
       </LocationsContext.Provider>
     );

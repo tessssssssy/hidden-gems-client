@@ -1,7 +1,7 @@
 import React from "react";
 
 class SignUp extends React.Component {
-  state = { email: "", password: "" };
+  state = { username: "", email: "", password: "" };
 
   onInputChange = (event) => {
     const key = event.target.id;
@@ -12,14 +12,14 @@ class SignUp extends React.Component {
 
   onFormSubmit = async (event) => {
     event.preventDefault();
-    const { email, password } = this.state;
+    const { username, email, password } = this.state;
     try {
       const response = await fetch("http://localhost:3000/sign-up", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user: { email, password }}),
+        body: JSON.stringify({ user: { username, email, password }}),
       });
       if (response.status >= 400) {
         throw new Error("incorrect credentials");
@@ -29,11 +29,11 @@ class SignUp extends React.Component {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ auth: { email, password }}),
+          body: JSON.stringify({ auth: { username, email, password }}),
         })
         const { jwt } = await response.json()
         localStorage.setItem("token", jwt);
-        this.props.history.push("/secrets");
+        this.props.history.push("/main");
       }
     } catch (err) {
       console.log(err.message)
@@ -41,11 +41,19 @@ class SignUp extends React.Component {
   };
 
   render() {
-    const { email, password } = this.state;
+    const { username, email, password } = this.state;
     return (
       <div className="container">
         <h1>Sign Up</h1>
         <form onSubmit={this.onFormSubmit}>
+        <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            value={username}
+            onChange={this.onInputChange}
+          />
           <label htmlFor="email">Email</label>
           <input
             type="email"

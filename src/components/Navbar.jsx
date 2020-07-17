@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Redirect } from "react-router-dom";
 
 
 class Navbar extends React.Component {
@@ -9,7 +9,15 @@ class Navbar extends React.Component {
         <NavLink to="/main">Home</NavLink>
         <NavLink to="/location/create">Add Location</NavLink>
         <NavLink to="/login" data-testid="login">Login</NavLink>
-        <NavLink to="/signup"data-testid="signup">Login</NavLink>
+        <NavLink to="/signup"data-testid="signup">Signup</NavLink>
+        <NavLink
+        to="/main"
+        onClick={() => {
+          localStorage.removeItem("token");
+        }}
+      >
+        Logout
+      </NavLink>
       </nav>
     )
   }

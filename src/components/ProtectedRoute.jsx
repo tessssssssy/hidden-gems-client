@@ -10,19 +10,31 @@ class ProtectedRoute extends React.Component {
   };
 
   async componentDidMount() {
-    await this.getLocations()
-    const token = localStorage.getItem("token");
-    if (token === "password") {
-      this.setState({
-        auth: true,
-        loading: false,
+    try {
+      this.getLocations();
+      const response = await fetch("http://localhost:3000/status", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
       });
-    } else {
-      this.setState({
-        loading: false,
-      });
+      if (response.status >= 400) {
+        throw new Error("not authorized");
+      } else {
+        const { jwt } = await response.json();
+        const response_user = await fetch("http://localhost:3000/status/user", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          },
+        });
+        const { user } = await response_user.json()
+        this.context.dispatch("current user", { user });
+        localStorage.setItem("token", jwt);
+        this.setAuth()
+      }
+    } catch (err) {
+      console.log(err.message);
+      this.setLoading()
     }
-    this.setLoading()
   }
 
   getLocations = async () => {
@@ -34,11 +46,13 @@ class ProtectedRoute extends React.Component {
 
   setLoading = () => this.setState({ loading: false });
 
+  setAuth = () => this.setState({ auth: true, loading: false });
+  
   render() {
     const { loading, auth } = this.state;
-    // if (!loading && !auth) {
-    //   return <Redirect to="/" />;
-    // } else {
+    if (!loading && !auth) {
+      return <Redirect to="/" />;
+    } else {
       return !loading && (
         <Route
           exact={this.props.exact}
@@ -49,7 +63,7 @@ class ProtectedRoute extends React.Component {
     }
 
   }
-
+}
 
 export default ProtectedRoute;
 

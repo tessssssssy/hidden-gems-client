@@ -9,6 +9,8 @@ import ShowLocation from "./ShowLocation";
 import Navbar from "./Navbar";
 import Login from "./Login";
 import Signup from "./Signup"
+import NotFound from "./NotFound";
+
 import { LocationsContext, dispatch } from "../context/LocationsContext";
 
 class App extends React.Component {
@@ -22,6 +24,7 @@ class App extends React.Component {
           <ProtectedRoute exact path="/location/:id/edit" component={EditLocation} />
           <Route exact path="/" component={Landing} />
           <Route exact path="/main" component={MainPage} />
+          <Route exact path="/notfound" component={NotFound} />
           <Route exact path="/location/create" component={CreateLocation} />
           <Route exact path="/location/:id" component={ShowLocation} />
           <Route exact path="/location/:id/edit" component={EditLocation} />

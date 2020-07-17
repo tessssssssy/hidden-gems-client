@@ -18,14 +18,14 @@ class EditLocation extends React.Component {
     this.setState({ ...foundLocation, loading: false });
   }
 
-  onFormSubmit = async (event) => {
-    event.preventDefault();
-    await fetch(`http://localhost:3000/locations/${this.state.id}`, {
+  onFormHandler = async (editedLocation) => {
+    await this.context.dispatch("update", editedLocation);
+    await fetch(`http://localhost:3000/locations/${editedLocation.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(editedLocation),
     });
     this.props.history.push("/main");
   };
@@ -35,7 +35,7 @@ class EditLocation extends React.Component {
     return (
       !this.state.loading && (
         <>
-          <LocationForm submit={this.onFormSubmit} location={this.state} />
+          <LocationForm location={this.state} onFormHandler={this.onFormHandler} />
         </>
       )
     );

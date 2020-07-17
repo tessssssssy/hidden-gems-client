@@ -11,7 +11,7 @@ describe("when adding text to make a new location user", () => {
     const location = locationBuilder()
     cy.visit("/location/create");
     cy.findByLabelText(/Name/).type(location.name);
-    cy.findByLabelText(/Tagline/).type(name.tagline);
+    cy.findByLabelText(/Tagline/).type(location.tagline);
     cy.findByLabelText(/Description/).type(location.description);
     cy.get('form').submit()
     .url()

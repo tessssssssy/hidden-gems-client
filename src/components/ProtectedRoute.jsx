@@ -47,11 +47,11 @@ class ProtectedRoute extends React.Component {
   setLoading = () => this.setState({ loading: false });
 
   setAuth = () => this.setState({ auth: true, loading: false });
-  
+
   render() {
     const { loading, auth } = this.state;
     if (!loading && !auth) {
-      return <Redirect to="/" />;
+      return <Redirect to="/main" />;
     } else {
       return !loading && (
         <Route

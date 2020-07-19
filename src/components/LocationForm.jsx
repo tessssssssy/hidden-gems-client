@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Checkbox, Form } from "semantic-ui-react";
 
+
 class LocationForm extends React.Component {
   state = {
     name: "",
@@ -37,6 +38,18 @@ class LocationForm extends React.Component {
       name, tagline, description, address, longitude, latitude, } = this.state;
     return (
       <Form onSubmit={this.onFormSubmit}>
+        <Form.Field>
+						<label htmlFor="">Address</label>
+						<input type="text" name="address" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.address }/>
+					</Form.Field> 
+					<Form.Field>
+						<label htmlFor="">Latitude</label>
+						<input type="text" name="address" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.latitude }/>
+					</Form.Field>
+					<Form.Field>
+						<label htmlFor="">Longitude</label>
+						<input type="text" name="address" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.longitude }/>
+					</Form.Field>
         <Form.Field>
           <label>Name</label>
           <input onChange={this.onInputChange} value={name} id="name" placeholder="Name" />

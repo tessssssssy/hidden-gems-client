@@ -1,10 +1,13 @@
 import React from 'react';
 import LocationForm from './LocationForm';
 import { LocationsContext } from "../context/LocationsContext";
+import DraggableMap from './DraggableMap';
 
 class CreateLocation extends React.Component {
     static contextType = LocationsContext;
-    onFormHandler = async (newLocation) => {
+
+    //create location
+    createLocation = async (newLocation) => {
         await this.context.dispatch("add", newLocation);
         await fetch(`http://localhost:3000/locations`, {
           method: "POST",
@@ -16,8 +19,18 @@ class CreateLocation extends React.Component {
         this.props.history.push("/main");
       };
     render() {
+      console.log(this.props.google)
         return (
-            <LocationForm onFormHandler={this.onFormHandler}/>
+          <>
+            <DraggableMap
+            google={this.props.google}
+            center={{lat: -37.815, lng: 144.96}}
+            height='300px'
+            zoom={12}
+            createLocation={this.createLocation}
+            />
+            {/* <LocationForm onFormHandler={this.onFormHandler}/> */}
+          </>
         )
     }
 }

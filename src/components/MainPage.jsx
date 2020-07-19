@@ -1,6 +1,7 @@
 import React from "react";
 import { LocationsContext, dispatch } from "../context/LocationsContext";
 import { Link } from "react-router-dom";
+import MapContainer from './MapContainer';
 
 class MainPage extends React.Component {
   static contextType = LocationsContext
@@ -26,6 +27,7 @@ class MainPage extends React.Component {
     const { locations } = this.context;
     return locations && (
       <div className="MainPage">
+        <MapContainer />
       {locations.map((location, index) => {
         return (<div key={index}><Link to={{
           pathname: `/location/${location.id}`,

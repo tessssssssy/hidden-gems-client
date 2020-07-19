@@ -7,7 +7,6 @@ export class MapContainer extends React.Component {
     activeMarker: {},
     selectedPlace: {},
   };
-
   onMarkerClick = (props, marker, e) =>
     this.setState({
       selectedPlace: props,
@@ -47,7 +46,7 @@ export class MapContainer extends React.Component {
             lng: 20,
           }}
         >
-          {this.props.countries.map((country, index) => {
+          {/* {this.props.countries.map((country, index) => {
             return (
               <Marker
                 onClick={this.onMarkerClick}
@@ -56,7 +55,7 @@ export class MapContainer extends React.Component {
                 position={{ lat: country.latlng[0], lng: country.latlng[1] }}
               />
             );
-          })}
+          })} */}
           <InfoWindow onClose={this.onInfoWindowClose}>
             <div>
               <h1>{this.state.selectedPlace.name}</h1>
@@ -69,6 +68,6 @@ export class MapContainer extends React.Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyDGkaCV8ZOzOSIQrIIUU72u8Ke7pP_BIuE",
+  apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
 })(MapContainer);
 

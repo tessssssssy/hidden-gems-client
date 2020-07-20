@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import NewMap from "./NewMap";
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from "react-geocode";
+import SearchBar from './SearchBar';
+import './MainPage.css';
 
 Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
 Geocode.enableDebug();
@@ -37,26 +39,20 @@ class MainPage extends React.Component {
     const mapStyles = {
       position: "relative",
       top: "40px",
+      zIndex: "500"
     };
     return (
       locations && (
         <div className="MainPage">
-          {/* <Autocomplete
-            google={this.props.google}
-            style={{ width: "90%" }}
-            onPlaceSelected={(place) => {
-              console.log(place);
-            }}
-            types={["(regions)"]}
-          /> */}
-          <NewMap
+          <SearchBar />
+          {/* <NewMap
             style={mapStyles}
             google={this.props.google}
             center={{ lat: -37.815, lng: 144.96 }}
             height="500px"
             zoom={12}
             locations={locations}
-          />
+          /> */}
           <div className="locations-container">
             {locations.map((location, index) => {
               return (

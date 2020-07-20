@@ -222,7 +222,7 @@ class NewMap extends React.Component {
             onPlaceSelected={this.onPlaceSelected}
             types={["(regions)"]}
           /> */}
-          <SearchBar place={this.state.place} onPlaceSelected={this.onPlaceSelected}/>
+          {/* <SearchBar place={this.state.place} onPlaceSelected={this.onPlaceSelected}/> */}
         </GoogleMap>
       ))
     );

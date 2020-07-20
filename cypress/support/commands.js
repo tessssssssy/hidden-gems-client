@@ -25,3 +25,9 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 import '@testing-library/cypress/add-commands';
+
+Cypress.Commands.add("fillOutForm", (username, email, password) => {
+    cy.findByLabelText(/username/i).type(username)
+    cy.findByLabelText(/email/i).type(email)
+    cy.findByLabelText(/password/i).type(password)
+})

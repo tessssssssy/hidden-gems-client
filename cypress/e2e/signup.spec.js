@@ -14,8 +14,10 @@ describe("when clicking on signup from the homepage user", () => {
   })
 
   it("should be able to click on submit and be navigated to /main", () => {
+    const { username, email, password } = userBuilder()
+    cy.fillOutForm(username, email, password)
     cy.findByText(/Submit/i).click();
-    cy.url().should('eq', "http://localhost:8080/main")
+    cy.url().should('eq', "http://localhost:8080/main", {timeout: 20000})
     cy.window().its("localStorage.token").should("be.a", "string");
     // cy.findByTestId("no-bookmarks", {timeout: 500});
   });

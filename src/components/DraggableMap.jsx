@@ -336,7 +336,7 @@ class DraggableMap extends React.Component {
               />
             </Form.Field>
             <Form.Field>
-              <label htmlFor="">Name</label>
+              <label htmlFor="name">Name</label>
               <input
                 onChange={this.onChange}
                 value={this.state.name}
@@ -346,7 +346,7 @@ class DraggableMap extends React.Component {
               />
             </Form.Field>
             <Form.Field>
-              <label htmlFor="">Tagline</label>
+              <label htmlFor="tagline">Tagline</label>
               <input
                 onChange={this.onChange}
                 value={this.state.tagline}
@@ -355,8 +355,8 @@ class DraggableMap extends React.Component {
                 placeholder="Tagline"
               />
             </Form.Field>
-            <Form.Field htmlFor="">
-              <label>Description</label>
+            <Form.Field >
+              <label htmlFor="description">Description</label>
               <textarea
                 onChange={this.onChange}
                 value={this.state.description}

@@ -6,15 +6,18 @@ describe("when clicking on signup from the homepage user", () => {
     cy.findByTestId(/signup/).click();
   });
 
-  it("should be able to type into email and password inputs", () => {
-    const { email, password } = userBuilder()
+  it("should be able to type into username, email and password inputs", () => {
+    const { username, email, password } = userBuilder()
+    cy.findByLabelText(/username/i).type(username).should("contain.value", username)
     cy.findByLabelText(/email/i).type(email).should("contain.value", email)
     cy.findByLabelText(/password/i).type(password).should("contain.value", password)
   })
 
   it("should be able to click on submit and be navigated to /main", () => {
-    cy.get("form").submit()
-    cy.url().should('eql', "http://localhost:8080/main")
+    cy.findByText(/Submit/i).click();
+    cy.url().should('eq', "http://localhost:8080/main")
+    cy.window().its("localStorage.token").should("be.a", "string");
+    // cy.findByTestId("no-bookmarks", {timeout: 500});
   });
 });
 

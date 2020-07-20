@@ -22,9 +22,9 @@ describe("with the correct login credentials user", () => {
       })
     });
         
-    it("should be able to click on submit and be navigated to /bookmarks", () => {
+    it("should be able to click on submit and be navigated to /main", () => {
       cy.get("form").submit()
-      cy.url().should('eql', "http://localhost:8080/bookmarks")
+      cy.url().should('eql', "http://localhost:8080/main")
     });
         
     after(() => {

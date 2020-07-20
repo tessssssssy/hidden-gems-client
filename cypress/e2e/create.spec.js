@@ -10,9 +10,9 @@ describe("when adding text to make a new location user", () => {
   it("should be able to submit the form and be redirected to the /main page", () => {
     const location = locationBuilder()
     cy.visit("/location/create");
-    cy.findByLabelText(/Name/).type(location.name);
-    cy.findByLabelText(/Tagline/).type(location.tagline);
-    cy.findByLabelText(/Description/).type(location.description);
+    cy.findByLabelText(/Name/i).type(location.name);
+    cy.findByLabelText(/Tagline/i).type(location.tagline);
+    cy.findByLabelText(/Description/i).type(location.description);
     cy.get('form').submit()
     .url()
     .should('eq', 'http://localhost:8080/main')

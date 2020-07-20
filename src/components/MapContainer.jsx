@@ -39,23 +39,20 @@ export class MapContainer extends React.Component {
       <div style={style}>
         <Map
           google={this.props.google}
-          zoom={2}
+          zoom={12}
           style={style}
-          initialCenter={{
-            lat: 20,
-            lng: 20,
-          }}
+          initialCenter={{lat: -37.815, lng: 144.96}}
         >
-          {/* {this.props.countries.map((country, index) => {
+          {this.props.locations.map((location, index) => {
             return (
               <Marker
                 onClick={this.onMarkerClick}
-                name={country.name}
+                name={location.name}
                 key={index}
-                position={{ lat: country.latlng[0], lng: country.latlng[1] }}
+                position={{ lat: location.latitude, lng: location.longitude }}
               />
             );
-          })} */}
+          })}
           <InfoWindow onClose={this.onInfoWindowClose}>
             <div>
               <h1>{this.state.selectedPlace.name}</h1>

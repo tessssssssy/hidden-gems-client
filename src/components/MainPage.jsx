@@ -27,7 +27,7 @@ class MainPage extends React.Component {
     const { locations } = this.context;
     return locations && (
       <div className="MainPage">
-        <MapContainer />
+        <MapContainer locations={locations}/>
       {locations.map((location, index) => {
         return (<div key={index}><Link to={{
           pathname: `/location/${location.id}`,

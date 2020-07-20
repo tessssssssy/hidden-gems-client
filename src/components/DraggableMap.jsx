@@ -266,7 +266,7 @@ class DraggableMap extends React.Component {
           >
             <div>
               <span style={{ padding: 0, margin: 0 }}>
-                {this.state.address}
+                {this.state.address || "Drag pin to location"}
               </span>
             </div>
           </InfoWindow>

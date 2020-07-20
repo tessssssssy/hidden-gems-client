@@ -11,8 +11,10 @@ import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
 import { GoogleMapsAPI } from "../client-config";
 
-Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
-Geocode.enableDebug();
+import SearchBar from './SearchBar';
+
+// Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
+// Geocode.enableDebug();
 
 class NewMap extends React.Component {
   constructor(props) {
@@ -201,26 +203,26 @@ class NewMap extends React.Component {
             lng: this.state.mapPosition.lng,
           }}
         >
-        {/* {this.props.locations.map(location => {
-            <Marker
+        {this.props.locations.map(location => {
+            return <Marker
             google={this.props.google}
             position={{
               lat: location.latitude,
               lng: location.longitude,
             }}
-          />
-          <Marker />})} */}
-          <Autocomplete
+          /> })}
+          {/* <Autocomplete
             style={{
               width: "100%",
               height: "40px",
               paddingLeft: "16px",
               marginTop: "2px",
-              marginBottom: "500px",
+              marginBottom: "500px"
             }}
             onPlaceSelected={this.onPlaceSelected}
             types={["(regions)"]}
-          />
+          /> */}
+          <SearchBar place={this.state.place} onPlaceSelected={this.onPlaceSelected}/>
         </GoogleMap>
       ))
     );
@@ -247,3 +249,5 @@ class NewMap extends React.Component {
 // })(DraggableMap);
 
 export default NewMap;
+
+

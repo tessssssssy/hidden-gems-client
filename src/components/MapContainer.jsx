@@ -1,5 +1,6 @@
 import React from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
+import Autocomplete from "react-google-autocomplete";
 
 export class MapContainer extends React.Component {
   state = {
@@ -58,6 +59,17 @@ export class MapContainer extends React.Component {
               <h1>{this.state.selectedPlace.name}</h1>
             </div>
           </InfoWindow>
+          <Autocomplete
+            style={{
+              width: "100%",
+              height: "40px",
+              paddingLeft: "16px",
+              marginTop: "2px",
+              marginBottom: "500px",
+            }}
+            // onPlaceSelected={this.onPlaceSelected}
+            types={["(regions)"]}
+          />
         </Map>
       </div>
     );

@@ -25,6 +25,9 @@ class DraggableMap extends React.Component {
       city: "",
       area: "",
       state: "",
+      // name: "",
+      // address: "",
+      // tagline: "",
       mapPosition: {
         lat: this.props.center.lat,
         lng: this.props.center.lng,
@@ -226,8 +229,20 @@ class DraggableMap extends React.Component {
       },
     });
   };
-  saveLocation = () => {
-    console.log(this.state);
+  onFormSubmit = (e) => {
+    e.preventDefault()
+    console.log(this.state)
+    const data = 
+    {
+      address: this.state.address,
+      name: this.state.name,
+      tagline: this.state.tagline,
+      description: this.state.description,
+      latitude: this.state.markerPosition.lat,
+      longitude: this.state.markerPosition.lng
+    }
+    console.log(data) 
+    this.props.createLocation(data)
   };
 
   render() {
@@ -321,34 +336,36 @@ class DraggableMap extends React.Component {
               />
             </Form.Field>
             <Form.Field>
-              <label>Name</label>
+              <label htmlFor="">Name</label>
               <input
                 onChange={this.onChange}
                 value={this.state.name}
                 id="name"
+                name="name"
                 placeholder="Name"
               />
             </Form.Field>
             <Form.Field>
-              <label>Tagline</label>
+              <label htmlFor="">Tagline</label>
               <input
                 onChange={this.onChange}
                 value={this.state.tagline}
                 id="tagline"
+                name="tagline"
                 placeholder="Tagline"
               />
             </Form.Field>
-            <Form.Field>
+            <Form.Field htmlFor="">
               <label>Description</label>
               <textarea
                 onChange={this.onChange}
                 value={this.state.description}
+                name="description"
                 id="description"
               />
             </Form.Field>
             <Button type="submit">Submit</Button>
           </Form>
-          <button onClick={this.saveLocation}>Save</button>
           <AsyncMap
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GoogleMapsAPI}&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}
@@ -363,6 +380,8 @@ class DraggableMap extends React.Component {
     return map;
   }
 }
-export default GoogleApiWrapper({
-  apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
-})(DraggableMap);
+// export default GoogleApiWrapper({
+//   apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
+// })(DraggableMap);
+
+export default DraggableMap;

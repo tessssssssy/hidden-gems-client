@@ -5,7 +5,6 @@ import DraggableMap from './DraggableMap';
 
 class CreateLocation extends React.Component {
     static contextType = LocationsContext;
-
     //create location
     createLocation = async (newLocation) => {
         await this.context.dispatch("add", newLocation);
@@ -19,7 +18,6 @@ class CreateLocation extends React.Component {
         this.props.history.push("/main");
       };
     render() {
-      console.log(this.props.google)
         return (
           <>
             <DraggableMap

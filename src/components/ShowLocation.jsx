@@ -8,7 +8,7 @@ class ShowLocation extends React.Component {
 
   deleteLocation = async (id) => {
     this.context.dispatch("delete", id)
-    await fetch(`http://localhost:3000/locations/${id}`, {
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -29,7 +29,7 @@ class ShowLocation extends React.Component {
 
     getLocation = async () => {
       const id = this.props.match.params.id
-      const response = await fetch(`http://localhost:3000/locations/${id}`);
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations/${id}`);
       const location  = await response.json();
       console.log(location)
       if (location.status >= 400) {

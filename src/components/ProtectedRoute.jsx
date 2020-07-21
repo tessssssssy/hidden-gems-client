@@ -12,7 +12,7 @@ class ProtectedRoute extends React.Component {
   async componentDidMount() {
     try {
       this.getLocations();
-      const response = await fetch("http://localhost:3000/status", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/status`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
         },
@@ -21,7 +21,7 @@ class ProtectedRoute extends React.Component {
         throw new Error("not authorized");
       } else {
         const { jwt } = await response.json();
-        const response_user = await fetch("http://localhost:3000/status/user", {
+        const response_user = await fetch(`${process.env.REACT_APP_BACKEND_URL}status/user`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           },
@@ -38,7 +38,7 @@ class ProtectedRoute extends React.Component {
   }
 
   getLocations = async () => {
-    const response = await fetch("http://localhost:3000/locations");
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations`);
     const locations = await response.json();
 
      this.context.dispatch("populate",{ locations });

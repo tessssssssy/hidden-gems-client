@@ -8,7 +8,7 @@ class CreateLocation extends React.Component {
     //create location
     createLocation = async (newLocation) => {
         await this.context.dispatch("add", newLocation);
-        await fetch(`http://localhost:3000/locations`, {
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

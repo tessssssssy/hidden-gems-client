@@ -20,7 +20,7 @@ class EditLocation extends React.Component {
 
   onFormHandler = async (editedLocation) => {
     await this.context.dispatch("update", editedLocation);
-    await fetch(`http://localhost:3000/locations/${editedLocation.id}`, {
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations/${editedLocation.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

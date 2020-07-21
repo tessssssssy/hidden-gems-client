@@ -16,7 +16,7 @@ class MainPage extends React.Component {
 
   getLocations = async () => {
     try {
-      const response = await fetch("http://localhost:3000/locations");
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations`);
       const locations = await response.json();
       this.context.dispatch("populate", { locations });
     } catch (err) {

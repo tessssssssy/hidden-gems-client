@@ -9,7 +9,7 @@ import './MainPage.css';
 
 // Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
 // Geocode.enableDebug();
-
+// ${process.env.REACT_APP_BACKEND_URL}
 
 class MainPage extends React.Component {
   static contextType = LocationsContext;
@@ -18,6 +18,7 @@ class MainPage extends React.Component {
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations`);
       const locations = await response.json();
+      console.log(locations)
       this.context.dispatch("populate", { locations });
     } catch (err) {
       console.log(err);

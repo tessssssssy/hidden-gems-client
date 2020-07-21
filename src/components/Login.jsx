@@ -28,6 +28,7 @@ class Login extends React.Component {
         throw new Error("incorrect credentials");
       } else {
         const { jwt } = await response.json();
+        console.log(jwt)
         localStorage.setItem("token", jwt);
         this.props.history.push("/main");
       }

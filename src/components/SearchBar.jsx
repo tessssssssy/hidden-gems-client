@@ -1,5 +1,6 @@
 import React from "react";
 import Autocomplete from "react-google-autocomplete";
+import './SearchBar.css';
 
 class SearchBar extends React.Component {
   state = {
@@ -78,14 +79,15 @@ class SearchBar extends React.Component {
       <div className="search-bar">
         <Autocomplete
           style={{
-            width: "100%",
+            width: "200px",
             height: "40px",
             paddingLeft: "16px",
             marginTop: "2px",
-            marginBottom: "500px",
-            zIndex: "1100"
+            // marginBottom: "500px",
+            zIndex: "1100",
+            position: "absolute"
           }}
-          onPlaceSelected={this.onPlaceSelected}
+          onPlaceSelected={this.props.onPlaceSelected}
           types={["(regions)"]}
         />
       </div>

@@ -7,8 +7,8 @@ import Geocode from "react-geocode";
 import SearchBar from './SearchBar';
 import './MainPage.css';
 
-Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
-Geocode.enableDebug();
+// Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
+// Geocode.enableDebug();
 
 
 class MainPage extends React.Component {
@@ -36,23 +36,18 @@ class MainPage extends React.Component {
 
   render() {
     const { locations } = this.context;
-    const mapStyles = {
-      position: "relative",
-      top: "40px",
-      zIndex: "500"
-    };
+   
     return (
       locations && (
         <div className="MainPage">
-          <SearchBar />
-          {/* <NewMap
-            style={mapStyles}
+          {/* <SearchBar /> */}
+          <NewMap className="map"
             google={this.props.google}
             center={{ lat: -37.815, lng: 144.96 }}
             height="500px"
             zoom={12}
             locations={locations}
-          /> */}
+          />
           <div className="locations-container">
             {locations.map((location, index) => {
               return (
@@ -62,7 +57,6 @@ class MainPage extends React.Component {
                       pathname: `/location/${location.id}`,
                       state: location,
                     }}
-                    style={mapStyles}
                   >
                     {location.name}
                   </Link>

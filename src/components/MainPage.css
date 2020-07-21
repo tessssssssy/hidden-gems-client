@@ -1,3 +1,6 @@
-.pac-container {
-    z-index: 1100 !important
+
+
+.MainPage {
+    display: flex;
 }
+

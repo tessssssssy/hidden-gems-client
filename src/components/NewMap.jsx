@@ -9,8 +9,6 @@ import {
 
 import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
-import { GoogleMapsAPI } from "../client-config";
-
 import SearchBar from './SearchBar';
 
 // Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
@@ -193,6 +191,14 @@ class NewMap extends React.Component {
     });
   };
   render() {
+    const mapStyles = {
+        position: "relative",
+        top: "40px",
+        zIndex: "500",
+        top: "0px",
+        width: "500px",
+        height: this.props.height
+      };
     const AsyncMap = withScriptjs(
       withGoogleMap((props) => (
         <GoogleMap
@@ -211,17 +217,18 @@ class NewMap extends React.Component {
               lng: location.longitude,
             }}
           /> })}
-          {/* <Autocomplete
+          <Autocomplete
             style={{
               width: "100%",
               height: "40px",
               paddingLeft: "16px",
               marginTop: "2px",
-              marginBottom: "500px"
+              marginBottom: "500px",
+              position: "absolute"
             }}
             onPlaceSelected={this.onPlaceSelected}
             types={["(regions)"]}
-          /> */}
+          />
           {/* <SearchBar place={this.state.place} onPlaceSelected={this.onPlaceSelected}/> */}
         </GoogleMap>
       ))
@@ -229,9 +236,10 @@ class NewMap extends React.Component {
     let map;
     if (this.props.center.lat !== undefined) {
       map = (
-        <div>
+        <div style={mapStyles}>
           <AsyncMap
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GoogleMapsAPI}&libraries=places`}
+            
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}
             containerElement={<div style={{ height: this.props.height }} />}
             mapElement={<div style={{ height: `100%` }} />}
@@ -239,11 +247,15 @@ class NewMap extends React.Component {
         </div>
       );
     } else {
-      map = <div style={{ height: this.props.height }} />;
+      map = <div  />;
     }
-    return map;
+    return (<div className="newMap">  
+        {map}
+        {/* <SearchBar onPlaceSelected={this.onPlaceSelected}/> */}
+    </div>)
   }
 }
+
 // export default GoogleApiWrapper({
 //   apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
 // })(DraggableMap);

@@ -18,9 +18,11 @@ class ShowLocation extends React.Component {
   }
     renderLocation = (location) => {
       console.log(location.id)
+      console.log(location.image)
       return(
         <>
           <h1>{location.name}</h1>
+          {location.image && <img src={location.image} alt={location.name} />}
           <Link to={`${location.id}/edit`}>Edit</Link>
           <button onClick={() => this.deleteLocation(location.id)}>Delete</button>
         </>

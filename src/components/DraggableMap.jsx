@@ -151,7 +151,16 @@ class DraggableMap extends React.Component {
    * @param event
    */
   onChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+    const key = event.target.id;
+    if (event.target?.files) {
+      this.setState({
+        [key]: event.target.files[0]
+      })
+    } else {
+      this.setState({
+        [key]: event.target.value,
+      });
+    }
   };
   /**
    * This Event triggers when the marker window is closed
@@ -230,16 +239,19 @@ class DraggableMap extends React.Component {
   };
   onFormSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
-    const data = {
+    const formData = {
       address: this.state.address,
       name: this.state.name,
       tagline: this.state.tagline,
       description: this.state.description,
+      image: this.state.image,
       latitude: this.state.markerPosition.lat,
       longitude: this.state.markerPosition.lng,
     };
-    console.log(data);
+    const data = new FormData()
+    for (let key in formData) {
+      data.append(`location[${key}]`, formData[key])
+    }
     this.props.createLocation(data);
   };
 

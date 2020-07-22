@@ -1,7 +1,9 @@
 import React from "react";
 import LocationForm from "./LocationForm";
 import { LocationsContext } from "../context/LocationsContext";
+import DraggableMap from './DraggableMap';
 
+// ${process.env.REACT_APP_BACKEND_URL}
 class EditLocation extends React.Component {
   static contextType = LocationsContext;
   state = {
@@ -18,7 +20,7 @@ class EditLocation extends React.Component {
     this.setState({ ...foundLocation, loading: false });
   }
 
-  onFormHandler = async (editedLocation) => {
+ editLocation = async (editedLocation) => {
     await this.context.dispatch("update", editedLocation);
     await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations/${editedLocation.id}`, {
       method: "PUT",
@@ -36,7 +38,14 @@ class EditLocation extends React.Component {
     return (
       !this.state.loading && (
         <>
-          <LocationForm location={this.state} onFormHandler={this.onFormHandler} />
+        <DraggableMap
+            google={this.props.google}
+            center={{lat: -37.815, lng: 144.96}}
+            height='300px'
+            zoom={12}
+            createLocation={this.editLocation}
+            />
+          {/* <LocationForm location={this.state} onFormHandler={this.onFormHandler} /> */}
         </>
       )
     );

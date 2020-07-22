@@ -7,16 +7,19 @@ class CreateLocation extends React.Component {
     static contextType = LocationsContext;
     //create location
     createLocation = async (newLocation) => {
-        await this.context.dispatch("add", newLocation);
-        await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations`, {
+        // await this.context.dispatch("add", newLocation);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(newLocation),
+          body: newLocation,
         });
+        const { image, location } = await response.json();
+        this.context.dispatch("add", {...location, image});
         this.props.history.push("/main");
-      };
+    };
+
     render() {
         return (
           <>

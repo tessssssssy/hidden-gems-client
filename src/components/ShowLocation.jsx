@@ -53,7 +53,7 @@ class ShowLocation extends React.Component {
         return (
           <>
           {location ? this.renderLocation(location) : this.loadFromRails()}
-          <Comments comments={this.state.comments} location_id={this.props.match.params.id}/>
+          <Comments {...this.props}comments={this.state.comments} location_id={this.props.match.params.id}/>
           </>
         )
 

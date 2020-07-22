@@ -193,6 +193,14 @@ class NewMap extends React.Component {
     });
   };
   render() {
+    const mapStyles = {
+      position: "relative",
+      top: "40px",
+      zIndex: "500",
+      top: "0px",
+      width: "500px",
+      height: this.props.height
+    };
     const AsyncMap = withScriptjs(
       withGoogleMap((props) => (
         <GoogleMap
@@ -213,7 +221,7 @@ class NewMap extends React.Component {
           /> })}
           {/* <Autocomplete
             style={{
-              width: "100%",
+              width: "100px",
               height: "40px",
               paddingLeft: "16px",
               marginTop: "2px",
@@ -229,11 +237,11 @@ class NewMap extends React.Component {
     let map;
     if (this.props.center.lat !== undefined) {
       map = (
-        <div>
+        <div style={mapStyles}>
           <AsyncMap
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GoogleMapsAPI}&libraries=places`}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: this.props.height }} />}
+            containerElement={<div style={{ height: this.props.height, display:'flex', flexDirection: 'column-reverse', width: '100%' }} />}
             mapElement={<div style={{ height: `100%` }} />}
           />
         </div>

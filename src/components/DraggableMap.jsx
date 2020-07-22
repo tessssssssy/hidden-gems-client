@@ -13,7 +13,6 @@ import Geocode from "react-geocode";
 import { GoogleMapsAPI } from "../client-config";
 import LocationForm from "./LocationForm";
 
-
 Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
 Geocode.enableDebug();
 
@@ -25,9 +24,6 @@ class DraggableMap extends React.Component {
       city: "",
       area: "",
       state: "",
-      // name: "",
-      // address: "",
-      // tagline: "",
       mapPosition: {
         lat: this.props.center.lat,
         lng: this.props.center.lng,
@@ -41,7 +37,18 @@ class DraggableMap extends React.Component {
   /**
    * Get the current address from the default map position and set those values in the state
    */
+  prefillForm = () => {
+    if (this.props.location) {
+      this.setState({
+        name: this.props.location.name,
+        tagline: this.props.location.tagline,
+        description: this.props.location.description
+      })
+    }
+  }
   componentDidMount() {
+    console.log("component did mount")
+    this.prefillForm()
     Geocode.fromLatLng(
       this.state.mapPosition.lat,
       this.state.mapPosition.lng
@@ -80,7 +87,10 @@ class DraggableMap extends React.Component {
       this.state.address !== nextState.address ||
       this.state.city !== nextState.city ||
       this.state.area !== nextState.area ||
-      this.state.state !== nextState.state
+      this.state.state !== nextState.state ||
+      this.state.name !== nextState.name ||
+      this.state.tagline !== nextState.tagline ||
+      this.state.description !== nextState.description
     ) {
       return true;
     } else if (this.props.center.lat === nextProps.center.lat) {
@@ -152,7 +162,16 @@ class DraggableMap extends React.Component {
    * @param event
    */
   onChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+    const key = event.target.id;
+    if (event.target?.files) {
+      this.setState({
+        [key]: event.target.files[0]
+      })
+    } else {
+      this.setState({
+        [key]: event.target.value,
+      });
+    }
   };
   /**
    * This Event triggers when the marker window is closed
@@ -230,19 +249,21 @@ class DraggableMap extends React.Component {
     });
   };
   onFormSubmit = (e) => {
-    e.preventDefault()
-    console.log(this.state)
-    const data = 
-    {
+    e.preventDefault();
+    const formData = {
       address: this.state.address,
       name: this.state.name,
       tagline: this.state.tagline,
       description: this.state.description,
+      image: this.state.image,
       latitude: this.state.markerPosition.lat,
-      longitude: this.state.markerPosition.lng
+      longitude: this.state.markerPosition.lng,
+    };
+    const data = new FormData()
+    for (let key in formData) {
+      data.append(`location[${key}]`, formData[key])
     }
-    console.log(data) 
-    this.props.createLocation(data)
+    this.props.sendFormData(data);
   };
 
   render() {
@@ -301,7 +322,7 @@ class DraggableMap extends React.Component {
     if (this.props.center.lat !== undefined) {
       map = (
         <div>
-          <Form onSubmit={this.onFormSubmit}>
+          <Form onSubmit={this.onFormSubmit} encType="multipart/form-data">
             <Form.Field>
               <label htmlFor="">Address</label>
               <input
@@ -355,13 +376,23 @@ class DraggableMap extends React.Component {
                 placeholder="Tagline"
               />
             </Form.Field>
-            <Form.Field >
+            <Form.Field>
               <label htmlFor="description">Description</label>
               <textarea
                 onChange={this.onChange}
                 value={this.state.description}
                 name="description"
                 id="description"
+              />
+            </Form.Field>
+            <Form.Field>
+              <label htmlFor="image">Image</label>
+              <input
+                type="file"
+                name="image"
+                id="image"
+                
+                onChange={this.onChange}
               />
             </Form.Field>
             <Button type="submit">Submit</Button>

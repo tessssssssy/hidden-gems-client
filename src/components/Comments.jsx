@@ -4,6 +4,7 @@ import moment from "moment";
 
 class Comments extends React.Component {
   static contextType = LocationsContext;
+  state = {comments: [], location_id: this.props.location_id}
   
   componentWillReceiveProps=(nextProps)=>{
     this.setNewState(nextProps)
@@ -28,26 +29,26 @@ class Comments extends React.Component {
   }
 
     getComments = async () => {
-      const id = this.props.match.params.id
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/commentss/${id}`);
+      const id = this.state.location_id
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations/${id}/comments`);
       const comments  = await response.json();
       console.log(comments)
       if (comments.status >= 400) {
         this.props.history.push("/notfound")
       } 
-      this.setState({comments: comments, comments: comments})
+      this.setState({comments: comments})
     }
 
     loadFromRails = () => {
-      // this.getComments()
+      this.getComments()
     }
     
 
   render() {
-    console.log(this.state)
     return (
         <>
-        {this.state && this.renderComments(this.state.comments, this.state.location_id) }
+        <p>Comment container here</p>
+        {this.state && this.renderComments(this.state.comments)}
         </>
     );
   }

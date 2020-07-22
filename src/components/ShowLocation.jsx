@@ -22,6 +22,7 @@ class ShowLocation extends React.Component {
       return(
         <div>
           <h1>{location.name}</h1>
+          <p>Ratings: {location.ratings}</p>
           <Link to={`${location.id}/edit`}>Edit</Link>
           <button onClick={() => this.deleteLocation(location.id)}>Delete</button>
         </div>
@@ -44,6 +45,7 @@ class ShowLocation extends React.Component {
     
     render() {
         const {location, comments} = this.state
+        console.log(comments)
         return (
           <>
           {location ? this.renderLocation(location) : this.loadFromRails()}

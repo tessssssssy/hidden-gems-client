@@ -60,6 +60,7 @@ class MainPage extends React.Component {
                   >
                     {location.name}
                   </Link>
+                  <p>Ratings; {location.ratings}</p>
                 </div>
               );
             })}

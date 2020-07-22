@@ -5,7 +5,7 @@ import { Button, Checkbox, Form } from "semantic-ui-react";
 
 class Comments extends React.Component {
   static contextType = LocationsContext;
-  state = { comments: [], location_id: this.props.location_id, disabled: "disabled" };
+  state = { comments: [], location_id: this.props.location_id, body: "", comment_id: null, create: true, disabled: "disabled" };
 
   componentWillReceiveProps = (nextProps) => {
     this.setNewState(nextProps);
@@ -33,13 +33,36 @@ class Comments extends React.Component {
             </span>
             </div>
               <span>{comment.body}</span>
-              {(comment.user === currentUser && this.state.disabled==="disabled") && <span onClick={() => this.handleDisabled(comment.id)}> Edit </span>}
-              {comment.user === currentUser && <span onClick={() => this.deleteComment(comment.id)}> Delete </span>}
+              {comment.user === currentUser && 
+              <>
+                <span onClick={this.onClickEdit} id={comment.id}> Edit </span>
+                <span onClick={() => this.deleteComment(comment.id)}> Delete </span>
+              </>}
           </div>
         );
       });
     }
   };
+
+  componentDidMount=()=>{
+    this.checkUser()
+  }
+
+  checkUser=()=>{
+    (sessionStorage.getItem("currentUser") && localStorage.getItem("token")) && this.setState({disabled: ""})
+  }
+  onClickEdit = (e) => {
+    this.setState({create: false})
+    this.getEditComment(e.target.id)
+  }
+
+  getEditComment = async (id) => {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/locations/${this.state.location_id}/comments/${id}`
+    );
+    const comment = await response.json();
+    this.setState({body: comment.body, comment_id: comment.id})
+  }
 
   getComments = async () => {
     const id = this.state.location_id;
@@ -47,7 +70,6 @@ class Comments extends React.Component {
       `${process.env.REACT_APP_BACKEND_URL}/locations/${id}/comments`
     );
     const comments = await response.json();
-    console.log(comments);
     if (comments.status >= 400) {
       this.state.history.push("/notfound");
     }
@@ -64,13 +86,31 @@ class Comments extends React.Component {
     });
   };
 
-  onFormSubmit = async (event) => {
+  onFormSubmitCreate = async (event) => {
     event.preventDefault();
     const data = { body: this.state.body, location_id: this.state.location_id };
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/locations/${this.state.location_id}/comments`,
       {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    this.setState({ body: "", create: true });
+    this.loadFromRails();
+  };
+
+  onFormSubmitEdit = async (event) => {
+    event.preventDefault();
+    const data = { body: this.state.body, location_id: this.state.location_id };
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/locations/${this.state.location_id}/comments/${this.state.comment_id}`,
+      {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -92,19 +132,8 @@ class Comments extends React.Component {
         },
       }
     );
-    console.log("say hellllllo");
     this.loadFromRails();
   };
-
-  handleDisabled(id) {
-    this.setState( {disabled: !this.state.disabled, commentToBeUpdated: id} )
-  } 
-
-  handleKeyDown=(id, body)=>{
-    const {comments} = this.state
-    comments[id].body=body
-    console.log(comments)
-  }
  
   render() {
     console.log(this.context);
@@ -112,17 +141,29 @@ class Comments extends React.Component {
       <>
         <p>Comment container here</p>
         {this.state && this.renderComments(this.state.comments)}
-        <Form onSubmit={this.onFormSubmit}>
+        {this.state.create && (<><Form onSubmit={this.onFormSubmitCreate}>
           <Form.Field>
-            <label>Comment</label>
+            <label>Add Comment</label>
             <textarea
+              disabled={this.state.disabled}
               onChange={this.onInputChange}
               value={this.state.body}
               id="body"
             />
           </Form.Field>
           <Button type="submit">Submit</Button>
-        </Form>
+        </Form></>)}
+          {!this.state.create && (<><Form onSubmit={this.onFormSubmitEdit}>
+          <Form.Field>
+            <label>Edit Comment</label>
+            <textarea
+              onChange={this.onInputChange}
+              value={this.state.body}
+              id="body"
+            />
+          </Form.Field>
+          <Button type="submit">Update</Button>
+        </Form></>)}
       </>
     );
   }

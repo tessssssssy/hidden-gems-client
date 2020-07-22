@@ -9,6 +9,8 @@ import {
 
 import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
+import { GoogleMapsAPI } from "../client-config";
+
 import SearchBar from './SearchBar';
 
 // Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
@@ -191,14 +193,6 @@ class NewMap extends React.Component {
     });
   };
   render() {
-    const mapStyles = {
-        position: "relative",
-        top: "40px",
-        zIndex: "500",
-        top: "0px",
-        width: "500px",
-        height: this.props.height
-      };
     const AsyncMap = withScriptjs(
       withGoogleMap((props) => (
         <GoogleMap
@@ -217,18 +211,17 @@ class NewMap extends React.Component {
               lng: location.longitude,
             }}
           /> })}
-          <Autocomplete
+          {/* <Autocomplete
             style={{
               width: "100px",
               height: "40px",
               paddingLeft: "16px",
               marginTop: "2px",
-              marginBottom: "500px",
-              position: "absolute"
+              marginBottom: "500px"
             }}
             onPlaceSelected={this.onPlaceSelected}
             types={["(regions)"]}
-          />
+          /> */}
           {/* <SearchBar place={this.state.place} onPlaceSelected={this.onPlaceSelected}/> */}
         </GoogleMap>
       ))
@@ -236,7 +229,7 @@ class NewMap extends React.Component {
     let map;
     if (this.props.center.lat !== undefined) {
       map = (
-        <div style={mapStyles}>
+        <div>
           <AsyncMap
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}
@@ -246,15 +239,11 @@ class NewMap extends React.Component {
         </div>
       );
     } else {
-      map = <div  />;
+      map = <div style={{ height: this.props.height }} />;
     }
-    return (<div className="newMap">  
-        {map}
-        {/* <SearchBar onPlaceSelected={this.onPlaceSelected}/> */}
-    </div>)
+    return map;
   }
 }
-
 // export default GoogleApiWrapper({
 //   apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
 // })(DraggableMap);

@@ -1,6 +1,7 @@
 import React from "react";
 import { LocationsContext } from "../context/LocationsContext";
 import moment from "moment";
+import { Button, Checkbox, Form } from "semantic-ui-react";
 
 class Comments extends React.Component {
   static contextType = LocationsContext;
@@ -42,13 +43,62 @@ class Comments extends React.Component {
     loadFromRails = () => {
       this.getComments()
     }
-    
+
+    onInputChange = (event) => {
+    this.setState({
+      [event.target.id]: event.target.value,
+    });
+  };
+
+  onFormSubmit = async (event) => {
+    event.preventDefault();
+    // this.props.onFormHandler(this.state)
+    const data = {body: this.state.newComment, location_id: this.state.location_id}
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/locations/${this.state.location_id}/comments`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: data,
+      })
+  }
+  // onFormSubmit = async (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData()
+  //   for (let key in this.state) {
+  //     data.append(`bookmark[${key}]`, this.state[key])
+  //   }
+  //   const response = await fetch(
+  //     `${process.env.REACT_APP_BACKEND_URL}/bookmarks`,
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //       body: data,
+  //     }
+  //   );
+  //   const { image, bookmark } = await response.json();
+  //   this.context.dispatch("add", {...bookmark, image});
+  //   this.props.history.push("/bookmarks");
+  // };
+
 
   render() {
     return (
         <>
         <p>Comment container here</p>
         {this.state && this.renderComments(this.state.comments)}
+        <Form onSubmit={this.onFormSubmit}>
+          <Form.Field>
+          <label>Comment</label>
+          <textarea onChange={this.onInputChange}  value={this.state.body} id="body" />
+          </Form.Field>
+          <Button type="submit">Submit</Button>
+        </Form>
         </>
     );
   }

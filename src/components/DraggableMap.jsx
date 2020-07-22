@@ -24,9 +24,6 @@ class DraggableMap extends React.Component {
       city: "",
       area: "",
       state: "",
-      // name: "",
-      // address: "",
-      // tagline: "",
       mapPosition: {
         lat: this.props.center.lat,
         lng: this.props.center.lng,
@@ -40,7 +37,18 @@ class DraggableMap extends React.Component {
   /**
    * Get the current address from the default map position and set those values in the state
    */
+  prefillForm = () => {
+    if (this.props.location) {
+      this.setState({
+        name: this.props.location.name,
+        tagline: this.props.location.tagline,
+        description: this.props.location.description
+      })
+    }
+  }
   componentDidMount() {
+    console.log("component did mount")
+    this.prefillForm()
     Geocode.fromLatLng(
       this.state.mapPosition.lat,
       this.state.mapPosition.lng
@@ -79,7 +87,10 @@ class DraggableMap extends React.Component {
       this.state.address !== nextState.address ||
       this.state.city !== nextState.city ||
       this.state.area !== nextState.area ||
-      this.state.state !== nextState.state
+      this.state.state !== nextState.state ||
+      this.state.name !== nextState.name ||
+      this.state.tagline !== nextState.tagline ||
+      this.state.description !== nextState.description
     ) {
       return true;
     } else if (this.props.center.lat === nextProps.center.lat) {
@@ -252,7 +263,7 @@ class DraggableMap extends React.Component {
     for (let key in formData) {
       data.append(`location[${key}]`, formData[key])
     }
-    this.props.createLocation(data);
+    this.props.sendFormData(data);
   };
 
   render() {
@@ -380,6 +391,7 @@ class DraggableMap extends React.Component {
                 type="file"
                 name="image"
                 id="image"
+                
                 onChange={this.onChange}
               />
             </Form.Field>

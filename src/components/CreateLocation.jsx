@@ -6,14 +6,12 @@ import DraggableMap from './DraggableMap';
 class CreateLocation extends React.Component {
     static contextType = LocationsContext;
     //create location
-    createLocation = async (newLocation) => {
+    sendFormData = async (newLocation) => {
         // await this.context.dispatch("add", newLocation);
+        // debugger
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: newLocation,
+          body: newLocation
         });
         const { image, location } = await response.json();
         this.context.dispatch("add", {...location, image});
@@ -28,7 +26,7 @@ class CreateLocation extends React.Component {
             center={{lat: -37.815, lng: 144.96}}
             height='300px'
             zoom={12}
-            createLocation={this.createLocation}
+            sendFormData={this.sendFormData}
             />
             {/* <LocationForm onFormHandler={this.onFormHandler}/> */}
           </>

@@ -19,16 +19,14 @@ class EditLocation extends React.Component {
     });
     this.setState({ ...foundLocation, loading: false });
   }
-
- editLocation = async (editedLocation) => {
-    await this.context.dispatch("update", editedLocation);
-    await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations/${editedLocation.id}`, {
+  
+ sendFormData = async (editedLocation) => {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations/${editedLocation.id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editedLocation),
+      body: editedLocation
     });
+    const { image, location } = await response.json();
+    this.context.dispatch("update", {...location, image});
     this.props.history.push("/main");
   };
 
@@ -39,10 +37,11 @@ class EditLocation extends React.Component {
         <>
         <DraggableMap
             google={this.props.google}
-            center={{lat: -37.815, lng: 144.96}}
+            center={{lat: this.state.latitude, lng: this.state.longitude}}
             height='300px'
             zoom={12}
-            createLocation={this.editLocation}
+            sendFormData={this.sendFormData}
+            location={this.state}
             />
           {/* <LocationForm location={this.state} onFormHandler={this.onFormHandler} /> */}
         </>

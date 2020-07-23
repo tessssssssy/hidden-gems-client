@@ -2,7 +2,9 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { LocationsContext } from "../context/LocationsContext";
 import Comments from "./Comments";
-import { Rating } from 'semantic-ui-react'
+import RatingBar from "./RatingBar";
+
+
 class ShowLocation extends React.Component {
   static contextType = LocationsContext;
   state = { location: this.props.location.state, comments: [] };
@@ -26,12 +28,7 @@ class ShowLocation extends React.Component {
       <div>
         <h1>{location.name}</h1>
         <span>Ratings: {location.ratings}</span>
-        {currentUser && (
-          <>
-          <Rating maxRating={5} onRate={this.handleRate} />
-          <pre hidden>{JSON.stringify(this.state, null, 2)}</pre>
-          </>
-        )}
+        <RatingBar location_id={location.id} reload={this.loadFromRails}/>
         {location.image && <img src={location.image} alt={location.name} />}
         {location.user === currentUser && (
           <>
@@ -45,29 +42,9 @@ class ShowLocation extends React.Component {
     );
   };
 
-  handleRate = (e, { rating, maxRating }) => {
-    this.setState({rating, maxRating})
-    this.submitRating(rating)
 
-  }
-
-  submitRating = async (rating) => {
-        const data = { ratings: {stars: rating, location_id: this.state.location.id } };
-        console.log(data)
-    console.log(JSON.stringify(data))
-    const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/locations/${this.state.location.id}/ratings`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(data),
-      }
-    );
-  }
   getLocation = async () => {
+    console.log(this.state)
     const id = this.props.match.params.id;
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/locations/${id}`
@@ -80,6 +57,7 @@ class ShowLocation extends React.Component {
   };
 
   loadFromRails = () => {
+    console.log("helllllooooo")
     this.getLocation();
   };
 

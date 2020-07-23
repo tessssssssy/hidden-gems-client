@@ -15,7 +15,7 @@ class Comments extends React.Component {
   };
 
   renderComments = (comments) => {
-    console.log(this.state);
+    console.log("Comment Here");
     let currentUser = sessionStorage.getItem("currentUser");
     console.log(currentUser);
     if (comments.length === 0) {
@@ -27,13 +27,15 @@ class Comments extends React.Component {
         return (
           <div key={index}>
             <div>
-            <span>{comment.user}</span>
+              {console.log(comment)}
+              {console.log(index)}
+            <span>{comment.username}</span>
             <span>
               {moment(comment.created_at).startOf("minute").fromNow()}
             </span>
             </div>
               <span>{comment.body}</span>
-              {comment.user === currentUser && 
+              {comment.username === currentUser && 
               <>
                 <span onClick={this.onClickEdit} id={comment.id}> Edit </span>
                 <span onClick={() => this.deleteComment(comment.id)}> Delete </span>

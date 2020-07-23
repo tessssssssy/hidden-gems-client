@@ -1,18 +1,17 @@
 import React from "react";
-import { Rating } from 'semantic-ui-react'
+import { Rating } from "semantic-ui-react";
 class RatingBar extends React.Component {
   state = this.props;
 
   handleRate = (e, { rating, maxRating }) => {
-    this.submitRating(rating)
-    this.setState({rating, maxRating})
-
-  }
+    this.submitRating(rating);
+    this.setState({ rating, maxRating });
+  };
 
   submitRating = async (rating) => {
-        const data = { ratings: {stars: rating, location_id: this.state.location_id } };
-        console.log(data)
-    console.log(JSON.stringify(data))
+    const data = {
+      ratings: { stars: rating, location_id: this.state.location_id },
+    };
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/locations/${this.state.location_id}/ratings`,
       {
@@ -24,25 +23,23 @@ class RatingBar extends React.Component {
         body: JSON.stringify(data),
       }
     );
-    console.log(response)
-    this.state.reload()
-  }
+    this.state.reload();
+  };
 
   render = () => {
     let currentUser = sessionStorage.getItem("currentUser");
-    console.log(this.state)
+    console.log(this.state);
     return (
       <>
         {currentUser && (
           <>
-          <Rating maxRating={5} onRate={this.handleRate} />
-          <pre hidden>{JSON.stringify(this.state, null, 2)}</pre>
+            <Rating maxRating={5} onRate={this.handleRate} />
+            <pre hidden>{JSON.stringify(this.state, null, 2)}</pre>
           </>
         )}
       </>
     );
   };
-
 }
 
 export default RatingBar;

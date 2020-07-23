@@ -1,11 +1,13 @@
 
-/* .search-bar {
-    position: static;
+.search-bar {
+    position: relative;
     height: 100vh;
-    background-color: grey;
-    z-index: 50;
     width: 200px;
-} */
+    display: flex;
+    flex-direction: column;
+    bottom: 100vh;
+    background-color: grey;
+}
 
 
 .pac-container {

@@ -233,7 +233,7 @@ class NewMap extends React.Component {
           <SearchBar place={this.state.place} onPlaceSelected={this.onPlaceSelected}/>
         </GoogleMap>
       ))
-    );
+    ); 
     let map;
     if (this.props.center.lat !== undefined) {
       map = (
@@ -241,7 +241,7 @@ class NewMap extends React.Component {
           <AsyncMap
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: '100%', display:'flex', flexDirection: 'column-reverse', width: '100%' }} />}
+            containerElement={<div style={{ height: '100%',  width: '100%' }} />}
             mapElement={<div style={{ height: `100%` }} />}
           />
         </div>

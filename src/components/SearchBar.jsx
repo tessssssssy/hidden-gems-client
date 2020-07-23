@@ -1,5 +1,6 @@
 import React from "react";
 import Autocomplete from "react-google-autocomplete";
+import { Select } from "semantic-ui-react";
 import './SearchBar.css';
 
 class SearchBar extends React.Component {
@@ -75,6 +76,12 @@ class SearchBar extends React.Component {
     });
   };
   render() {
+    const categories = [
+      { key: "art", value: "art", text: "Art" },
+      { key: "photo", value: "photo", text: "Photography" },
+      { key: "nature", value: "nature", text: "Nature" },
+      { key: "other", value: "other", text: "Other" }
+    ]
     return (
       <div className="search-bar">
         <Autocomplete
@@ -90,6 +97,7 @@ class SearchBar extends React.Component {
           onPlaceSelected={this.onPlaceSelected}
           types={["(regions)"]}
         />
+        <Select placeholder='Category' options={categories}></Select>
       </div>
     );
   }

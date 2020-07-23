@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link, NavLink, Redirect } from "react-router-dom";
+import { LocationsContext } from "../context/LocationsContext";
 
 
 class Navbar extends React.Component {
+  static contextType = LocationsContext
   render () {
     return (
       <nav className="Navbar">
@@ -14,6 +16,7 @@ class Navbar extends React.Component {
         to="/main"
         onClick={() => {
           localStorage.removeItem("token");
+          sessionStorage.removeItem('currentUser');
         }}
       >
         Logout

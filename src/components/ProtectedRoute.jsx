@@ -26,8 +26,9 @@ class ProtectedRoute extends React.Component {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           },
         });
-        const { user } = await response_user.json()
-        this.context.dispatch("current user", { user });
+        const { user }= await response_user.json()
+        console.log(user)
+        this.context.dispatch("current user", user);
         localStorage.setItem("token", jwt);
         this.setAuth()
       }

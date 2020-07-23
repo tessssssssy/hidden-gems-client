@@ -1,6 +1,8 @@
 import React from "react";
+import { LocationsContext } from "../context/LocationsContext";
 
 class Login extends React.Component {
+  static contextType = LocationsContext
   state = { email: "", password: "", errMessage: "" };
 
   onInputChange = (event) => {
@@ -28,8 +30,8 @@ class Login extends React.Component {
         throw new Error("incorrect credentials");
       } else {
         const { jwt } = await response.json();
-        console.log(jwt)
         localStorage.setItem("token", jwt);
+        this.setCurrentUser()
         this.props.history.push("/main");
       }
     } catch (err) {
@@ -38,6 +40,16 @@ class Login extends React.Component {
       });
     }
   };
+
+  setCurrentUser = async () =>{
+    const response_user = await fetch(`${process.env.REACT_APP_BACKEND_URL}/status/user`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          },
+        });
+        const { user }= await response_user.json()
+        sessionStorage.setItem('currentUser', user);
+  }
 
   render() {
     const { email, password, errMessage } = this.state;

@@ -37,11 +37,10 @@ class MainPage extends React.Component {
 
   render() {
     const { locations } = this.context;
-   
+ 
     return (
       locations && (
         <div className="MainPage">
-          {/* <SearchBar /> */}
           <NewMap className="map"
             google={this.props.google}
             center={{ lat: -37.815, lng: 144.96 }}

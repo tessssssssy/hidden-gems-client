@@ -1,3 +1,13 @@
+
+/* .search-bar {
+    position: static;
+    height: 100vh;
+    background-color: grey;
+    z-index: 50;
+    width: 200px;
+} */
+
+
 .pac-container {
     background-color: #fff;
     position: absolute!important;
@@ -66,7 +76,7 @@
 .hdpi .pac-icon {
     background-image: url(https://maps.gstatic.com/mapfiles/api-3/images/autocomplete-icons_hdpi.png)
 }
-.pac-icon-search {
+/* .pac-icon-search {
     background-position: -1px -1px
 }
 .pac-item-selected .pac-icon-search {
@@ -80,4 +90,6 @@
 }
 .pac-placeholder {
     color: gray
-}
+} */
+
+

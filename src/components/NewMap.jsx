@@ -196,10 +196,10 @@ class NewMap extends React.Component {
     const mapStyles = {
       position: "relative",
       top: "40px",
-      zIndex: "500",
+      zIndex: "1",
       top: "0px",
-      width: "500px",
-      height: this.props.height
+      width: "100vw",
+      height: "100vh"
     };
     const AsyncMap = withScriptjs(
       withGoogleMap((props) => (
@@ -241,7 +241,7 @@ class NewMap extends React.Component {
           <AsyncMap
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: this.props.height, display:'flex', flexDirection: 'column-reverse', width: '100%' }} />}
+            containerElement={<div style={{ height: '100%', display:'flex', flexDirection: 'column-reverse', width: '100%' }} />}
             mapElement={<div style={{ height: `100%` }} />}
           />
         </div>

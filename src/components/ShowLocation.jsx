@@ -19,6 +19,7 @@ class ShowLocation extends React.Component {
     });
     this.props.history.push("/main");
   };
+
   renderLocation = (location) => {
     console.log(location.id);
     console.log(location.image);
@@ -27,7 +28,7 @@ class ShowLocation extends React.Component {
     return (
       <div>
         <h1>{location.name}</h1>
-        <span>Ratings: {location.ratings}</span>
+        <span>Ratings: {location.ratings} (based on {location.numberOfRatings} user)</span>
         <RatingBar location_id={location.id} reload={this.loadFromRails}/>
         {location.image && <img src={location.image} alt={location.name} />}
         {location.user === currentUser && (

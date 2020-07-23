@@ -75,9 +75,22 @@ class SearchBar extends React.Component {
     });
   };
   render() {
+    const menuStyle = {
+      borderRadius: '3px',
+      width: '200px',
+      boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+      background: 'rgba(255, 255, 255, 0.9)',
+      padding: '2px 0',
+      fontSize: '90%',
+      position: 'fixed',
+      overflow: 'hidden',
+      maxHeight: '50%', // TODO: don't cheat, let it flow to the bottom
+      "zIndex": 100,
+    };
     return (
       <div className="search-bar">
         <Autocomplete
+          inputProps={{ style: menuStyle }}
           style={{
             width: "200px",
             height: "40px",

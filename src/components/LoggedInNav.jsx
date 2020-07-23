@@ -4,8 +4,13 @@ import { LocationsContext } from "../context/LocationsContext";
 
 class LoggedInNav extends React.Component {
   static contextType = LocationsContext;
+  componentDidMount() {
+    this.context.dispatch(
+      "current user",
+      sessionStorage.getItem("currentUser")
+    );
+  }
   render() {
-    
     return (
       <>
         <NavLink to="/main">Home</NavLink>
@@ -13,11 +18,10 @@ class LoggedInNav extends React.Component {
         <NavLink
           to="/main"
           onClick={() => {
-            console.log("logging out")
+            console.log("logging out");
             localStorage.removeItem("token");
             sessionStorage.removeItem("currentUser");
-            this.context.dispatch("current user", false)
-            console.log(this.context.currentUser)
+            this.context.dispatch("current user", false);
           }}
         >
           Logout

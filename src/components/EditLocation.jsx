@@ -21,8 +21,11 @@ class EditLocation extends React.Component {
   }
   
  sendFormData = async (editedLocation) => {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations/${editedLocation.id}`, {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations/${this.state.id}`, {
       method: "PUT",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      },
       body: editedLocation
     });
     const { image, location } = await response.json();

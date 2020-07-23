@@ -21,7 +21,6 @@ class ShowLocation extends React.Component {
   };
 
   renderLocation = (location) => {
-    console.log(location.id);
     console.log(location.image);
     let currentUser = sessionStorage.getItem("currentUser");
 

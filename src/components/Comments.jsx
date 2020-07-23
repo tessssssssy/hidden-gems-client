@@ -15,7 +15,6 @@ class Comments extends React.Component {
   };
 
   renderComments = (comments) => {
-    console.log("Comment Here");
     let currentUser = sessionStorage.getItem("currentUser");
     console.log(currentUser);
     if (comments.length === 0) {
@@ -27,8 +26,6 @@ class Comments extends React.Component {
         return (
           <div key={index}>
             <div>
-              {console.log(comment)}
-              {console.log(index)}
             <span>{comment.username}</span>
             <span>
               {moment(comment.created_at).startOf("minute").fromNow()}

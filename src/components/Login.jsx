@@ -49,6 +49,7 @@ class Login extends React.Component {
         });
         const { user }= await response_user.json()
         sessionStorage.setItem('currentUser', user);
+        this.context.dispatch("current user", user)
   }
 
   render() {

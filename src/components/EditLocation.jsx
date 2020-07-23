@@ -32,7 +32,6 @@ class EditLocation extends React.Component {
 
   render() {
     console.log(this.state);
-    console.log("hello")
     return (
       !this.state.loading && (
         <>
@@ -52,3 +51,5 @@ class EditLocation extends React.Component {
 }
 
 export default EditLocation;
+
+

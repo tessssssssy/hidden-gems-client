@@ -26,7 +26,7 @@ class ShowLocation extends React.Component {
       <div>
         <h1>{location.name}</h1>
         <span>Ratings: {location.ratings}</span>
-        {location.user === currentUser && (
+        {currentUser && (
           <>
           <Rating maxRating={5} onRate={this.handleRate} />
           <pre hidden>{JSON.stringify(this.state, null, 2)}</pre>

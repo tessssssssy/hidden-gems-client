@@ -259,6 +259,9 @@ class DraggableMap extends React.Component {
       latitude: this.state.markerPosition.lat,
       longitude: this.state.markerPosition.lng,
     };
+    // if (this.state.image) {
+    //   formData.image = this.state.image
+    // }
     const data = new FormData()
     for (let key in formData) {
       data.append(`location[${key}]`, formData[key])
@@ -398,7 +401,7 @@ class DraggableMap extends React.Component {
             <Button type="submit">Submit</Button>
           </Form>
           <AsyncMap
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GoogleMapsAPI}&libraries=places`}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}
             containerElement={<div style={{ height: this.props.height }} />}
             mapElement={<div style={{ height: `100%` }} />}
@@ -411,6 +414,7 @@ class DraggableMap extends React.Component {
     return map;
   }
 }
+
 // export default GoogleApiWrapper({
 //   apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
 // })(DraggableMap);

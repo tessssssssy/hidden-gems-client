@@ -11,6 +11,9 @@ class CreateLocation extends React.Component {
         // debugger
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations`, {
           method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          },
           body: newLocation
         });
         const { image, location } = await response.json();

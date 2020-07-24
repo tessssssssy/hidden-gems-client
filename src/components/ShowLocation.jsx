@@ -3,7 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import { LocationsContext } from "../context/LocationsContext";
 import Comments from "./Comments";
 import RatingBar from "./RatingBar";
-
+import UploadImage from "./UploadImage";
 
 class ShowLocation extends React.Component {
   static contextType = LocationsContext;
@@ -21,7 +21,6 @@ class ShowLocation extends React.Component {
   };
 
   renderLocation = (location) => {
-    console.log(location.image);
     let currentUser = sessionStorage.getItem("currentUser");
 
     return (
@@ -29,6 +28,7 @@ class ShowLocation extends React.Component {
         <h1>{location.name}</h1>
         <span>Ratings: {location.ratings} (based on {location.numberOfRatings} user)</span>
         <RatingBar location_id={location.id} reload={this.loadFromRails}/>
+        <UploadImage location_id={location.id} reload={this.loadFromRails}/>
         {location.photos && <img src={location.photos[0].image} alt={location.name} />}
         {location.username === currentUser && (
           <>
@@ -57,7 +57,6 @@ class ShowLocation extends React.Component {
   };
 
   loadFromRails = () => {
-    console.log("helllllooooo")
     this.getLocation();
   };
 

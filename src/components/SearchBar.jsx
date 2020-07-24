@@ -94,7 +94,7 @@ class SearchBar extends React.Component {
             zIndex: "1100",
             //position: "absolute"
           }}
-          onPlaceSelected={this.onPlaceSelected}
+          onPlaceSelected={this.props.onPlaceSelected}
           types={["(regions)"]}
         />
         <Select placeholder='Category' options={categories}></Select>

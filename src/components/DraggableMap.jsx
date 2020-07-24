@@ -190,7 +190,6 @@ class DraggableMap extends React.Component {
   onMarkerDragEnd = (event) => {
     let newLat = event.latLng.lat(),
       newLng = event.latLng.lng();
-
     Geocode.fromLatLng(newLat, newLng).then(
       (response) => {
         const address = response.results[0].formatted_address,
@@ -259,9 +258,6 @@ class DraggableMap extends React.Component {
       latitude: this.state.markerPosition.lat,
       longitude: this.state.markerPosition.lng,
     };
-    // if (this.state.image) {
-    //   formData.image = this.state.image
-    // }
     const data = new FormData()
     for (let key in formData) {
       data.append(`location[${key}]`, formData[key])

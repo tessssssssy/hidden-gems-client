@@ -28,18 +28,25 @@ class UploadImage extends React.Component {
       data.append(`photo[${key}]`, formData[key]);
     }
     console.log(data)
-    const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/locations/${this.state.location_id}/photos`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: data,
-      }
-    );
-    this.state.reload();
+    try {
+        const response = await fetch(
+            `${process.env.REACT_APP_BACKEND_URL}/locations/${this.state.location_id}/photos`,
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              body: data,
+            }
+          );
+          this.state.reload();
+          const res = await response.json()
+              console.log(res)
+
+    } catch (err) {
+        console.log(err)
+    }
+    
   };
 
   render() {

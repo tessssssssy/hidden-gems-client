@@ -29,8 +29,8 @@ class ShowLocation extends React.Component {
         <h1>{location.name}</h1>
         <span>Ratings: {location.ratings} (based on {location.numberOfRatings} user)</span>
         <RatingBar location_id={location.id} reload={this.loadFromRails}/>
-        {location.image && <img src={location.image} alt={location.name} />}
-        {location.user === currentUser && (
+        {location.photos && <img src={location.photos[0].image} alt={location.name} />}
+        {location.username === currentUser && (
           <>
             <Link to={`${location.id}/edit`}>Edit</Link>
             <button onClick={() => this.deleteLocation(location.id)}>

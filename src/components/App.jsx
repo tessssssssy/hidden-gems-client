@@ -11,7 +11,7 @@ import Login from "./Login";
 import Signup from "./Signup"
 import NotFound from "./NotFound";
 import '../stylesheets/App.scss';
-import'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 import { LocationsContext, dispatch } from "../context/LocationsContext";

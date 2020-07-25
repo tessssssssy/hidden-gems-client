@@ -8,10 +8,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 #root {
-  background-color: #edf2f4;
-  height: 100vh;
+  background-color: #1f1f1f;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@media (min-width: 601px) {
+  #root {
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+

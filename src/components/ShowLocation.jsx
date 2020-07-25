@@ -21,8 +21,7 @@ class ShowLocation extends React.Component {
   };
 
   renderLocation = (location) => {
-    let currentUser = sessionStorage.getItem("currentUser");
-
+    let currentUser = sessionStorage.getItem("currentUser")
     return (
       <div>
         <h1>{location.name}</h1>

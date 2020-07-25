@@ -1,7 +1,7 @@
 import React from "react";
 import Autocomplete from "react-google-autocomplete";
 import { Select } from "semantic-ui-react";
-import './SearchBar.css';
+import '../stylesheets/SearchBar.scss';
 
 class SearchBar extends React.Component {
   state = {
@@ -85,11 +85,14 @@ class SearchBar extends React.Component {
     return (
       <div className="search-bar">
         <Autocomplete
+          className="autocomplete"
           style={{
-            width: "200px",
+            width: "400px",
             height: "40px",
             paddingLeft: "16px",
             marginTop: "2px",
+            marginRight: "20px",
+            marginLeft: "20px",
             // marginBottom: "500px",
             zIndex: "1100",
             //position: "absolute"

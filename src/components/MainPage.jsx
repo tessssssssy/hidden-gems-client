@@ -1,15 +1,11 @@
 import React from "react";
 import { LocationsContext, dispatch } from "../context/LocationsContext";
 import { Link } from "react-router-dom";
-import NewMap from "./NewMap";
+import LocationsMap from "./LocationsMap";
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from "react-geocode";
 import SearchBar from './SearchBar';
-import './MainPage.css';
-
-// Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
-// Geocode.enableDebug();
-// ${process.env.REACT_APP_BACKEND_URL}
+import '../stylesheets/MainPage.scss';
 
 class MainPage extends React.Component {
   static contextType = LocationsContext;
@@ -40,8 +36,8 @@ class MainPage extends React.Component {
  
     return (
       locations && (
-        <div className="MainPage">
-          <NewMap className="map"
+        <div className="main-page">
+          <LocationsMap className="map"
             google={this.props.google}
             center={{ lat: -37.815, lng: 144.96 }}
             height="500px"
@@ -49,9 +45,11 @@ class MainPage extends React.Component {
             locations={locations}
           />
           <div className="locations-container">
+            <div className="locations-header"></div>
             {locations.map((location, index) => {
               return (
-                <div key={index}>
+                <div className="location" key={index}>
+                  <img src={location.photos[0].image} />
                   <Link
                     to={{
                       pathname: `/location/${location.id}`,

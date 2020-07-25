@@ -1,8 +1,15 @@
-
-.nav-link {
-    padding: 10px;
-    color: black;
+.navbar {
+    #basic-navbar-nav {
+        color: white;
+        .nav-link {
+            color: lightslategrey;
+        }
+        .active {
+            color: turquoise;
+        }
+    }
 }
+
 
 .logged-in-user {
     text-align: right;

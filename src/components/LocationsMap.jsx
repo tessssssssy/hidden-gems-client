@@ -12,11 +12,12 @@ import Geocode from "react-geocode";
 import { GoogleMapsAPI } from "../client-config";
 
 import SearchBar from './SearchBar';
+import '../stylesheets/LocationsMap.scss';
 
 // Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
 // Geocode.enableDebug();
 
-class NewMap extends React.Component {
+class LocationsMap extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -193,14 +194,6 @@ class NewMap extends React.Component {
     });
   };
   render() {
-    const mapStyles = {
-      position: "relative",
-      top: "40px",
-      zIndex: "1",
-      top: "0px",
-      width: "100vw",
-      height: "100vh"
-    };
     const AsyncMap = withScriptjs(
       withGoogleMap((props) => (
         <GoogleMap
@@ -237,7 +230,7 @@ class NewMap extends React.Component {
     let map;
     if (this.props.center.lat !== undefined) {
       map = (
-        <div style={mapStyles}>
+        <div className="map-container">
           <AsyncMap
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}
@@ -256,6 +249,6 @@ class NewMap extends React.Component {
 //   apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
 // })(DraggableMap);
 
-export default NewMap;
+export default LocationsMap;
 
 

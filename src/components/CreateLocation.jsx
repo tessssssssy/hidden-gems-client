@@ -23,6 +23,15 @@ class CreateLocation extends React.Component {
         this.props.history.push("/main");
     };
 
+    // createPhoto = async (image) => {
+    //   const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations/${id}/photos`, {
+    //     method: "POST",
+    //     headers: {
+    //       Authorization: `Bearer ${localStorage.getItem("token")}`
+    //     }, b
+    //   });
+    // }
+
     render() {
         return (
           <>

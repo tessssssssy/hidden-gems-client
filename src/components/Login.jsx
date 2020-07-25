@@ -1,5 +1,7 @@
 import React from "react";
 import { LocationsContext } from "../context/LocationsContext";
+import { Container, Form, Button } from 'semantic-ui-react';
+import '../stylesheets/Login.scss';
 
 class Login extends React.Component {
   static contextType = LocationsContext
@@ -58,7 +60,8 @@ class Login extends React.Component {
       <div className="container">
         <h1>Login</h1>
         {errMessage && <span>{errMessage}</span>}
-        <form onSubmit={this.onFormSubmit}>
+        <Form onSubmit={this.onFormSubmit}>
+        <Form.Field>
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -67,6 +70,8 @@ class Login extends React.Component {
             value={email}
             onChange={this.onInputChange}
           />
+         </Form.Field>
+         <Form.Field>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -75,8 +80,9 @@ class Login extends React.Component {
             value={password}
             onChange={this.onInputChange}
           />
-          <input type="submit" value="Submit" />
-        </form>
+          </Form.Field>
+          <Button type="submit">Submit</Button>
+        </Form>
       </div>
     );
   }

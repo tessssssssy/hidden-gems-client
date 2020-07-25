@@ -10,6 +10,7 @@ import Navbar from "./Navbar";
 import Login from "./Login";
 import Signup from "./Signup"
 import NotFound from "./NotFound";
+import '../stylesheets/App.scss';
 
 import { LocationsContext, dispatch } from "../context/LocationsContext";
 

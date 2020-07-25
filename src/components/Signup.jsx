@@ -1,5 +1,6 @@
 import React from "react";
-
+import { Form, Button } from 'semantic-ui-react';
+import '../stylesheets/Login.scss'
 class SignUp extends React.Component {
   state = { username: "", email: "", password: "" };
 
@@ -45,7 +46,8 @@ class SignUp extends React.Component {
     return (
       <div className="container">
         <h1>Sign Up</h1>
-        <form onSubmit={this.onFormSubmit}>
+        <Form onSubmit={this.onFormSubmit}>
+        <Form.Field>
         <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -54,6 +56,8 @@ class SignUp extends React.Component {
             value={username}
             onChange={this.onInputChange}
           />
+          </Form.Field>
+          <Form.Field>
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -62,6 +66,8 @@ class SignUp extends React.Component {
             value={email}
             onChange={this.onInputChange}
           />
+          </Form.Field>
+          <Form.Field>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -70,8 +76,9 @@ class SignUp extends React.Component {
             value={password}
             onChange={this.onInputChange}
           />
-          <input type="submit" value="Submit" />
-        </form>
+          </Form.Field>
+          <Button type="submit">Submit</Button>
+        </Form>
       </div>
     );
   }

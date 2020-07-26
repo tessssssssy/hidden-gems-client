@@ -6,9 +6,9 @@ import DraggableMap from './DraggableMap';
 class CreateLocation extends React.Component {
     static contextType = LocationsContext;
     sendFormData = async (newLocation) => {
-      console.log(newLocation)
         // await this.context.dispatch("add", newLocation);
         // debugger
+      try {
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations`, {
           method: "POST",
           headers: {
@@ -16,11 +16,13 @@ class CreateLocation extends React.Component {
           },
           body: newLocation
         });
-        const { image, location } = await response.json();
-        // const location = await response.json();
-        this.context.dispatch("add", {...location, image});
-        // this.context.dispatch("add", location);
-        this.props.history.push("/main");
+        const { location, errors } = await response.json();
+        if(errors!=null){throw errors}
+        console.log(location)
+        this.context.dispatch("add", { ...location });
+        this.props.history.push(`/location/${location.id}`);
+      }
+      catch(err) {alert(err)}
     };
 
     render() {
@@ -38,5 +40,4 @@ class CreateLocation extends React.Component {
         )
     }
 }
-
 export default CreateLocation;

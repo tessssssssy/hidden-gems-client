@@ -10,8 +10,23 @@
     // justify-content: space-around;
     bottom: 100vh;
     background-color:#1f1f1f;
+    .options {
+        .view-toggle {
+            visibility: hidden;
+        }
+    }
 }
 
+@media (max-width: 600px){
+    .search-bar {
+        flex-direction: column;
+        .options {
+            .view-toggle {
+                visibility: visible;
+            }
+        }
+    }
+}
 .pac-container {
     background-color: #fff;
     position: absolute!important;

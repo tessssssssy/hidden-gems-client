@@ -32,7 +32,8 @@
 @media (max-width: 600px ) {
     .main-page {
         width: 100vw;
-        display: block;
+        //display: block;
+        flex-direction: column;
         .locations-container {
             margin-top: 50px;
             width: 100%;

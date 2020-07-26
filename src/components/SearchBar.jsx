@@ -1,12 +1,13 @@
 import React from "react";
 import Autocomplete from "react-google-autocomplete";
-import { Select } from "semantic-ui-react";
-import '../stylesheets/SearchBar.scss';
+import { Select, Radio } from "semantic-ui-react";
+import "../stylesheets/SearchBar.scss";
 
 class SearchBar extends React.Component {
   state = {
-    category: null
-  }
+    category: null,
+    mapView: true
+  };
   getCity = (addressArray) => {
     let city = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -75,13 +76,20 @@ class SearchBar extends React.Component {
       },
     });
   };
+
+  toggleView = () => {
+    this.setState(st => ({
+      mapView: !st.mapView
+    }))
+  }
+
   render() {
     const categories = [
       { key: "art", value: "art", text: "Art" },
       { key: "photo", value: "photo", text: "Photography" },
       { key: "nature", value: "nature", text: "Nature" },
-      { key: "other", value: "other", text: "Other" }
-    ]
+      { key: "other", value: "other", text: "Other" },
+    ];
     return (
       <div className="search-bar">
         <Autocomplete
@@ -100,7 +108,10 @@ class SearchBar extends React.Component {
           onPlaceSelected={this.props.onPlaceSelected}
           types={["(regions)"]}
         />
-        <Select placeholder='Category' options={categories}></Select>
+        <div className="options">
+          <Select placeholder="Category" options={categories}></Select>
+          <Radio onClick={this.toggleView} className="view-toggle" toggle label={this.state.mapView ? 'list' : 'map'} />
+        </div>
       </div>
     );
   }

@@ -178,6 +178,9 @@ class LocationsMap extends React.Component {
       latValue = place.geometry.location.lat(),
       lngValue = place.geometry.location.lng();
     // Set these values in the state.
+    sessionStorage.setItem("latitude", latValue)
+    sessionStorage.setItem("longitude", lngValue)
+    this.props.filterLocations()
     this.setState({
       address: address ? address : "",
       area: area ? area : "",
@@ -191,7 +194,8 @@ class LocationsMap extends React.Component {
         lat: latValue,
         lng: lngValue,
       },
-    });
+    });   
+    console.log(sessionStorage)
   };
   render() {
     const AsyncMap = withScriptjs(
@@ -223,7 +227,7 @@ class LocationsMap extends React.Component {
             onPlaceSelected={this.onPlaceSelected}
             types={["(regions)"]}
           /> */}
-          <SearchBar place={this.state.place} onPlaceSelected={this.onPlaceSelected}/>
+          <SearchBar filterLocations={this.props.filterLocations} place={this.state.place} onPlaceSelected={this.onPlaceSelected}/>
         </GoogleMap>
       ))
     ); 

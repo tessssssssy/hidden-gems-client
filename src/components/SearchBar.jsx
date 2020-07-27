@@ -75,6 +75,7 @@ class SearchBar extends React.Component {
         lng: lngValue,
       },
     });
+    this.props.filterLocations()
   };
 
   toggleView = () => {
@@ -105,4 +106,5 @@ class SearchBar extends React.Component {
     );
   }
 }
+
 export default SearchBar;

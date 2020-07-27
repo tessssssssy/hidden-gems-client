@@ -14,6 +14,7 @@ class EditLocation extends React.Component {
   async componentDidMount() {
     console.log("componentDidMount");
     const locations = await this.context.locations;
+    console.log(locations)
     const foundLocation = locations.find((location) => {
       return location.id === this.state.id;
     });
@@ -28,9 +29,9 @@ class EditLocation extends React.Component {
       },
       body: editedLocation
     });
-    const { image, location } = await response.json();
-    this.context.dispatch("update", {...location, image});
-    this.props.history.push("/main");
+    const { location } = await response.json();
+    this.context.dispatch("update", {...location});
+    this.props.history.push(`/location/${location.id}`);
   };
 
   render() {

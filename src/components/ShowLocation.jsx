@@ -30,9 +30,9 @@ class ShowLocation extends React.Component {
         <UploadImage location_id={location.id} reload={this.loadFromRails}/>
         {location.photos && <img src={location.photos[0].image} alt={location.name} />}
         {location.username === currentUser && (
-          <>
-            <Link to={`${location.id}/edit`}>Edit</Link>
-            <button onClick={() => this.deleteLocation(location.id)}>
+          <>{console.log(location.id)}
+            <Link to={`/location/${location.id}/edit`}>Edit</Link>
+            <button onClick={() => {this.deleteLocation(location.id); this.context.dispatch("delete",location.id)}}>
               Delete
             </button>
           </>
@@ -49,10 +49,10 @@ class ShowLocation extends React.Component {
       `${process.env.REACT_APP_BACKEND_URL}/locations/${id}`
     );
     const { location, comments } = await response.json();
-    console.log(location)
     if (location.status >= 400) {
       this.props.history.push("/notfound");
     }
+    this.context.dispatch("update", {...location});
     this.setState({ location: location, comments: comments });
   };
 

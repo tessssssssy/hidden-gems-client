@@ -6,9 +6,13 @@ import DraggableMap from './DraggableMap';
 class CreateLocation extends React.Component {
     static contextType = LocationsContext;
     sendFormData = async (newLocation) => {
+<<<<<<< HEAD
+      console.log(newLocation)
+=======
         // await this.context.dispatch("add", newLocation);
         // debugger
       try {
+>>>>>>> fad619be149c8a604603a6ef511d87833742c802
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations`, {
           method: "POST",
           headers: {
@@ -24,23 +28,12 @@ class CreateLocation extends React.Component {
       }
       catch(err) {alert(err)}
     };
-
-    // createPhoto = async (image) => {
-    //   const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations/${id}/photos`, {
-    //     method: "POST",
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem("token")}`
-    //     }, b
-    //   });
-    // }
-
     render() {
         return (
           <>
             <DraggableMap
             google={this.props.google}
             center={{lat: -37.815, lng: 144.96}}
-            height='300px'
             zoom={12}
             sendFormData={this.sendFormData}
             />

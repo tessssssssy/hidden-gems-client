@@ -48,18 +48,21 @@ class MainPage extends React.Component {
             <div className="locations-header"></div>
             {locations.map((location, index) => {
               return (
-                <div className="location" key={index}>
+                <Link className="location" to={{
+                  pathname: `/location/${location.id}`,
+                  state: location,
+                }} key={index}>
                   <img src={location.photos[0].image} />
-                  <Link
+                  {/* <Link
                     to={{
                       pathname: `/location/${location.id}`,
                       state: location,
                     }}
                   >
                     {location.name}
-                  </Link>
+                  </Link> */}
                   <p>Ratings; {location.ratings}</p>
-                </div>
+                </Link>
               );
             })}
           </div>

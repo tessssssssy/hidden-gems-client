@@ -46,7 +46,7 @@ class MainPage extends React.Component {
           />
           <div className="locations-container">
             <div className="locations-header"></div>
-            {locations.map((location, index) => {
+            {locations && locations.map((location, index) => {
               return (
                 <Link className="location" to={{
                   pathname: `/location/${location.id}`,

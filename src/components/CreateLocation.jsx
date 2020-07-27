@@ -6,13 +6,7 @@ import DraggableMap from './DraggableMap';
 class CreateLocation extends React.Component {
     static contextType = LocationsContext;
     sendFormData = async (newLocation) => {
-<<<<<<< HEAD
-      console.log(newLocation)
-=======
-        // await this.context.dispatch("add", newLocation);
-        // debugger
       try {
->>>>>>> fad619be149c8a604603a6ef511d87833742c802
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations`, {
           method: "POST",
           headers: {

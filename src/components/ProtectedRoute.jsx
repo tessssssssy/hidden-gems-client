@@ -40,7 +40,7 @@ class ProtectedRoute extends React.Component {
 
   getLocations = async () => {
     const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations`);
-    const locations = await response.json();
+    const { locations } = await response.json();
 
      this.context.dispatch("populate",{ locations });
   };

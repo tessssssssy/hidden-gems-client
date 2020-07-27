@@ -19,7 +19,7 @@ class MainPage extends React.Component {
     try {
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/locations?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`);
-      const locations = await response.json();
+      const { locations }= await response.json();
       console.log(locations);
       this.context.dispatch("populate", { locations });
     } catch (err) {

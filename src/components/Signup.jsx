@@ -1,7 +1,10 @@
 import React from "react";
 import { Form, Button } from 'semantic-ui-react';
 import '../stylesheets/Login.scss'
+import { LocationsContext } from "../context/LocationsContext";
+
 class SignUp extends React.Component {
+  static contextType = LocationsContext
   state = { username: "", email: "", password: "" };
 
   onInputChange = (event) => {
@@ -34,12 +37,24 @@ class SignUp extends React.Component {
         })
         const { jwt } = await response.json()
         localStorage.setItem("token", jwt);
+        this.setCurrentUser()
         this.props.history.push("/main");
       }
     } catch (err) {
       console.log(err.message)
     }
   };
+
+    setCurrentUser = async () =>{
+    const response_user = await fetch(`${process.env.REACT_APP_BACKEND_URL}/status/user`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          },
+        });
+        const { user } = await response_user.json()
+        sessionStorage.setItem('currentUser', user);
+        this.context.dispatch("current user", user)
+  }
 
   render() {
     const { username, email, password } = this.state;

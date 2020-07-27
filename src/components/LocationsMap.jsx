@@ -245,6 +245,8 @@ class LocationsMap extends React.Component {
     return map;
   }
 }
+
+
 // export default GoogleApiWrapper({
 //   apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
 // })(DraggableMap);

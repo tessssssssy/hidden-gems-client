@@ -94,17 +94,6 @@ class SearchBar extends React.Component {
       <div className="search-bar">
         <Autocomplete
           className="autocomplete"
-          style={{
-            width: "400px",
-            height: "40px",
-            paddingLeft: "16px",
-            marginTop: "2px",
-            marginRight: "20px",
-            marginLeft: "20px",
-            // marginBottom: "500px",
-            zIndex: "1100",
-            //position: "absolute"
-          }}
           onPlaceSelected={this.props.onPlaceSelected}
           types={["(regions)"]}
         />

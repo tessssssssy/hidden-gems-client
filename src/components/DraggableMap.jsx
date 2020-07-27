@@ -12,6 +12,8 @@ import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
 import { GoogleMapsAPI } from "../client-config";
 import LocationForm from "./LocationForm";
+import SearchBar from "./SearchBar";
+import "../stylesheets/DraggableMap.scss";
 
 Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
 Geocode.enableDebug();
@@ -24,6 +26,7 @@ class DraggableMap extends React.Component {
       city: "",
       area: "",
       state: "",
+      infoWindow: true,
       mapPosition: {
         lat: this.props.center.lat,
         lng: this.props.center.lng,
@@ -42,13 +45,13 @@ class DraggableMap extends React.Component {
       this.setState({
         name: this.props.location.name,
         tagline: this.props.location.tagline,
-        description: this.props.location.description
-      })
+        description: this.props.location.description,
+      });
     }
-  }
+  };
   componentDidMount() {
-    console.log("component did mount")
-    this.prefillForm()
+    console.log("component did mount");
+    this.prefillForm();
     Geocode.fromLatLng(
       this.state.mapPosition.lat,
       this.state.mapPosition.lng
@@ -165,8 +168,8 @@ class DraggableMap extends React.Component {
     const key = event.target.id;
     if (event.target?.files) {
       this.setState({
-        [key]: event.target.files[0]
-      })
+        [key]: event.target.files[0],
+      });
     } else {
       this.setState({
         [key]: event.target.value,
@@ -178,7 +181,9 @@ class DraggableMap extends React.Component {
    *
    * @param event
    */
-  onInfoWindowClose = (event) => {};
+  onInfoWindowClose = (event) => {
+    this.setState({infoWindow: false})
+  };
 
   /**
    * When the marker is dragged you get the lat and long using the functions available from event object.
@@ -202,6 +207,7 @@ class DraggableMap extends React.Component {
           area: area ? area : "",
           city: city ? city : "",
           state: state ? state : "",
+          infoWindow: false,
           markerPosition: {
             lat: newLat,
             lng: newLng,
@@ -258,9 +264,9 @@ class DraggableMap extends React.Component {
       latitude: this.state.markerPosition.lat,
       longitude: this.state.markerPosition.lng,
     };
-    const data = new FormData()
+    const data = new FormData();
     for (let key in formData) {
-      data.append(`location[${key}]`, formData[key])
+      data.append(`location[${key}]`, formData[key]);
     }
     this.props.sendFormData(data);
   };
@@ -277,6 +283,7 @@ class DraggableMap extends React.Component {
           }}
         >
           {/* InfoWindow on top of marker */}
+          { this.state.infoWindow &&
           <InfoWindow
             onClose={this.onInfoWindowClose}
             position={{
@@ -286,14 +293,14 @@ class DraggableMap extends React.Component {
           >
             <div>
               <span style={{ padding: 0, margin: 0 }}>
-                {this.state.address || "Drag pin to location"}
+                {"Drag pin to location"}
               </span>
             </div>
-          </InfoWindow>
+          </InfoWindow> }
           {/*Marker*/}
           <Marker
             google={this.props.google}
-            name={"Dolores park"}
+            // name={"Dolores park"}
             draggable={true}
             onDragEnd={this.onMarkerDragEnd}
             position={{
@@ -303,25 +310,44 @@ class DraggableMap extends React.Component {
           />
           <Marker />
           {/* For Auto complete Search Box */}
+          <div className="search-bar">
           <Autocomplete
-            style={{
-              width: "100%",
-              height: "40px",
-              paddingLeft: "16px",
-              marginTop: "2px",
-              marginBottom: "500px",
-            }}
+          className="autocomplete"
+            // style={{
+            //   width: "100%",
+            //   height: "40px",
+            //   paddingLeft: "16px",
+            //   marginTop: "2px",
+            //   marginBottom: "500px",
+            //   position: "relative",
+            //   bottom: "100vh"
+            // }}
             onPlaceSelected={this.onPlaceSelected}
             types={["(regions)"]}
           />
+          </div>
         </GoogleMap>
       ))
     );
     let map;
     if (this.props.center.lat !== undefined) {
       map = (
-        <div>
-          <Form onSubmit={this.onFormSubmit} encType="multipart/form-data">
+        <div className="draggable-map">
+          <AsyncMap
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk&libraries=places`}
+            loadingElement={<div style={{ height: `100%` }} />}
+            containerElement={
+              <div style={{ height: "90vh", width: "100%", position: "relative", top: "10vh" }} />
+            }
+            mapElement={<div style={{ height: `100%` }} />}
+          />
+          <div className="form-container">
+            <h1>Add New Location</h1>
+          <Form
+            className="location-form"
+            onSubmit={this.onFormSubmit}
+            encType="multipart/form-data"
+          >
             <Form.Field>
               <label htmlFor="">Address</label>
               <input
@@ -333,7 +359,7 @@ class DraggableMap extends React.Component {
                 value={this.state.address}
               />
             </Form.Field>
-            <Form.Field>
+            <Form.Field className="hidden">
               <label htmlFor="">Latitude</label>
               <input
                 type="text"
@@ -344,7 +370,7 @@ class DraggableMap extends React.Component {
                 value={this.state.markerPosition.lat}
               />
             </Form.Field>
-            <Form.Field>
+            <Form.Field className="hidden">
               <label htmlFor="">Longitude</label>
               <input
                 type="text"
@@ -390,18 +416,12 @@ class DraggableMap extends React.Component {
                 type="file"
                 name="image"
                 id="image"
-                
                 onChange={this.onChange}
               />
             </Form.Field>
             <Button type="submit">Submit</Button>
           </Form>
-          <AsyncMap
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk&libraries=places`}
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: this.props.height }} />}
-            mapElement={<div style={{ height: `100%` }} />}
-          />
+          </div>
         </div>
       );
     } else {

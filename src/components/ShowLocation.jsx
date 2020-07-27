@@ -28,7 +28,7 @@ class ShowLocation extends React.Component {
         <span>Ratings: {location.ratings} (based on {location.numberOfRatings} user)</span>
         <RatingBar location_id={location.id} reload={this.loadFromRails}/>
         <UploadImage location_id={location.id} reload={this.loadFromRails}/>
-        {location.photos && <img src={location.photos[1].image} alt={location.name} />}
+        {location.photos && <img src={location.photos[0].image} alt={location.name} />}
         {location.username === currentUser && (
           <>
             <Link to={`${location.id}/edit`}>Edit</Link>

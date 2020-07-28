@@ -2,6 +2,7 @@ import React from "react";
 import { LocationsContext } from "../context/LocationsContext";
 import moment from "moment";
 import { Button, Checkbox, Form } from "semantic-ui-react";
+import '../stylesheets/Comments.scss';
 
 class Comments extends React.Component {
   static contextType = LocationsContext;
@@ -137,7 +138,7 @@ class Comments extends React.Component {
   render() {
     console.log(this.context);
     return (
-      <>
+      <div className="comments">
         <p>Comments</p>
         {this.state && this.renderComments(this.state.comments)}
         {this.state.create && (<><Form onSubmit={this.onFormSubmitCreate}>
@@ -156,6 +157,7 @@ class Comments extends React.Component {
           <Form.Field>
             <label>Edit Comment</label>
             <textarea
+              rows={4}
               onChange={this.onInputChange}
               value={this.state.body}
               id="body"
@@ -163,7 +165,7 @@ class Comments extends React.Component {
           </Form.Field>
           <Button type="submit">Update</Button>
         </Form></>)}
-      </>
+      </div>
     );
   }
 }

@@ -87,7 +87,7 @@ class ShowMap extends React.Component {
     let map;
     if (this.props.location.latitude !== undefined) {
       map = (
-        <div className="map-container">
+        <div className="show-map-container">
           <AsyncMap
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}

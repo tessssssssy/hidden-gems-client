@@ -167,6 +167,7 @@ class DraggableMap extends React.Component {
    * @param event
    */
   onChange = (event) => {
+    console.log(this.state.category)
     const key = event.target.id;
     if (event.target?.files) {
       this.setState({

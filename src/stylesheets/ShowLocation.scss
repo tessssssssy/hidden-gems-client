@@ -1,0 +1,22 @@
+.show-location {
+    display: flex;
+    .main-container {
+        width: 70%;
+        .content {
+            display: flex;
+            color: lightgrey;
+            .image-container {
+                img {
+                    height: 500px;
+                }
+            }
+            .location-info {
+                margin: 20px;
+            }
+        }
+    }
+    .sidebar {
+        width: 30%;
+        background-color: white;
+    }
+}

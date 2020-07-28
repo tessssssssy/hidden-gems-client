@@ -138,7 +138,7 @@ class Comments extends React.Component {
     console.log(this.context);
     return (
       <>
-        <p>Comment container here</p>
+        <p>Comments</p>
         {this.state && this.renderComments(this.state.comments)}
         {this.state.create && (<><Form onSubmit={this.onFormSubmitCreate}>
           <Form.Field>

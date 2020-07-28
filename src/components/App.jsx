@@ -32,6 +32,7 @@ class App extends React.Component {
           <Route exact path="/location/:id" component={ShowLocation} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route component={MainPage} />
         </Switch>
       </LocationsContext.Provider>
     );

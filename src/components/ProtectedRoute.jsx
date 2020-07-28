@@ -9,7 +9,7 @@ class ProtectedRoute extends React.Component {
     loading: true,
   };
 
-  async componentDidMount() {
+  componentDidMount = async() =>{
     try {
       this.getLocations();
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/status`, {
@@ -30,7 +30,14 @@ class ProtectedRoute extends React.Component {
         console.log(user)
         this.context.dispatch("current user", user);
         localStorage.setItem("token", jwt);
-        this.setAuth()
+        if (this.props.path === "/location/create"){this.setAuth()}
+        else{
+          const params_id = this.props.location.pathname.replace(/[locationiedit/]/g,"")
+          console.log(this.props)
+          const matchLocation = this.context.locations.find((location)=> {
+            return params_id==location.id
+            })
+          matchLocation.username === sessionStorage.getItem('currentUser') ? this.setAuth(): this.setLoading()}
       }
     } catch (err) {
       console.log(err.message);
@@ -40,7 +47,7 @@ class ProtectedRoute extends React.Component {
 
   getLocations = async () => {
     const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/locations`);
-    const locations = await response.json();
+    const { locations } = await response.json();
 
      this.context.dispatch("populate",{ locations });
   };
@@ -48,6 +55,7 @@ class ProtectedRoute extends React.Component {
   setLoading = () => this.setState({ loading: false });
 
   setAuth = () => this.setState({ auth: true, loading: false });
+
 
   render() {
     const { loading, auth } = this.state;

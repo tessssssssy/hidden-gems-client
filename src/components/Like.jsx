@@ -23,10 +23,10 @@ class RatingBar extends React.Component {
         },
       }
     );
-    console.log(response.status)
-    if(response.status === 201){
+    console.log(response.status);
+    if (response.status === 201) {
       const likes = JSON.parse(sessionStorage.getItem("likes"));
-      sessionStorage.setItem("likes",JSON.stringify([...likes,this.state.location_id]));
+      sessionStorage.setItem("likes",JSON.stringify([...likes, this.state.location_id]));
     }
   };
 
@@ -41,22 +41,30 @@ class RatingBar extends React.Component {
         },
       }
     );
-    if(response.status === 200){
+    if (response.status === 200) {
       let likes = JSON.parse(sessionStorage.getItem("likes"));
-      likes = likes.filter((like)=>{return like !== this.state.location_id})
-      sessionStorage.setItem("likes",JSON.stringify(likes));
+      likes = likes.filter((like) => {
+        return like !== this.state.location_id;
+      });
+      sessionStorage.setItem("likes", JSON.stringify(likes));
     }
   };
 
   componentDidMount() {
-    this.checkLike();
+    sessionStorage.getItem("likes") && this.checkLike();
   }
 
   checkLike() {
-    const likes = JSON.parse(this.state.likes);
-    const like = likes.find((e) => e == this.state.location_id);
-    if (like !== undefined) {
-      this.setState({ rating: 1, maxRating: 1 });
+    try {
+      const likes = JSON.parse(this.state.likes);
+      const like = likes.find((e) => e == this.state.location_id);
+      if (like !== undefined) {
+        this.setState({ rating: 1, maxRating: 1 });
+      }
+    } catch (err) {
+      console.log(err);
+      sessionStorage.clear();
+      this.props.history.push("/login");
     }
   }
 

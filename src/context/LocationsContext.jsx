@@ -21,6 +21,7 @@ function dispatch(action, value) {
       })
       break;
     case "update": 
+      console.log("WE ARE UPDATING")
       this.setState((state) => {
         const locations = state.locations.map((location) => {
           if (value.id === location.id) {

@@ -25,9 +25,9 @@ class ShowLocation extends React.Component {
     let currentUser = sessionStorage.getItem("currentUser")
     return (
       <div>
-        <h1>{location.name}  {currentUser && <Like location_id={location.id} reload={this.loadFromRails}/>}</h1>
+        <h1>{location.name}  {currentUser && <Like {...this.props} location_id={location.id} reload={this.loadFromRails}/>}</h1>
         <span>Ratings: {location.ratings} (based on {location.numberOfRatings} user)</span>
-        {currentUser && <RatingBar location_id={location.id} reload={this.loadFromRails}/>}
+        {currentUser && <RatingBar {...this.props} location_id={location.id} reload={this.loadFromRails}/>}
         <UploadImage location_id={location.id} reload={this.loadFromRails}/>
         {location.photos && <img src={location.photos[0].image} alt={location.name} />}
         {location.username === currentUser && (
@@ -61,6 +61,9 @@ class ShowLocation extends React.Component {
   };
 
   render() {
+    console.log(this.context.locations)
+    console.log(this.state)
+    console.log("render")
     const { location, comments } = this.state;
     return (
       <>

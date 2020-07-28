@@ -28,11 +28,12 @@ class RatingBar extends React.Component {
         body: JSON.stringify(data),
       }
     );
-    if(response.status===201){
+    if (response.status === 201) {
       const ratings = JSON.parse(sessionStorage.getItem("ratings"));
-      sessionStorage.setItem("ratings",JSON.stringify([...ratings,{location_id: this.state.location_id, stars: rating}]));
+      sessionStorage.setItem("ratings",JSON.stringify([...ratings,{ location_id: this.state.location_id, stars: rating }])
+      );
     }
-    this.setState({disabled: "disabled"})
+    this.setState({ disabled: "disabled" });
     this.props.reload();
   };
 
@@ -41,15 +42,23 @@ class RatingBar extends React.Component {
   }
 
   checkRating() {
-    const ratings = JSON.parse(this.state.ratings);
-    const rating = ratings.find((e) => e.location_id == this.state.location_id);
-    if (rating === undefined) {
-      console.log(rating)
-      this.setState({ rating: 0 })}
-    else {this.setState({rating: rating.stars, disabled: "disabled"})
+    try {
+      const ratings = JSON.parse(this.state.ratings);
+      const rating = ratings.find(
+        (e) => e.location_id == this.state.location_id
+      );
+      if (rating === undefined) {
+        console.log(rating);
+        this.setState({ rating: 0 });
+      } else {
+        this.setState({ rating: rating.stars, disabled: "disabled" });
+      }
+    } catch (err) {
+      console.log(err);
+      sessionStorage.clear();
+      this.props.history.push("/login");
     }
   }
-
 
   render = () => {
     let currentUser = sessionStorage.getItem("currentUser");
@@ -58,7 +67,12 @@ class RatingBar extends React.Component {
       <>
         {currentUser && (
           <>
-            <Rating rating={this.state.rating} disabled={this.state.disabled}maxRating={5} onRate={this.handleRate} />
+            <Rating
+              rating={this.state.rating}
+              disabled={this.state.disabled}
+              maxRating={5}
+              onRate={this.handleRate}
+            />
             <pre hidden>{JSON.stringify(this.state, null, 2)}</pre>
           </>
         )}

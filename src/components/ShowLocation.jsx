@@ -67,7 +67,9 @@ class ShowLocation extends React.Component {
          
           </div>
           <div className="photo-grid">
-
+            {this.state.location.photos.map(photo =>{
+              return <img src={photo.image}/>
+            })}
           </div>
         </div>
         <div className="sidebar">

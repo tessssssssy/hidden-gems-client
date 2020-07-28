@@ -1,7 +1,9 @@
 .show-location {
     display: flex;
+    height: 100vh;
     .main-container {
         width: 70%;
+        overflow: scroll;
         .content {
             display: flex;
             color: lightgrey;
@@ -14,9 +16,17 @@
                 margin: 20px;
             }
         }
+        .photo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            img {
+                width: 33%;
+            }
+        }
     }
     .sidebar {
         width: 30%;
         background-color: white;
     }
 }
+

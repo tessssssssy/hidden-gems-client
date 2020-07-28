@@ -221,6 +221,7 @@ class LocationsMap extends React.Component {
             return (
               <>
                 <Marker
+                  icon='https://img.icons8.com/fluent/48/000000/marker-storm.png'
                   onClick={() => this.showInfoWindow(location)}
                   google={this.props.google}
                   position={{

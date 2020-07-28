@@ -42,13 +42,13 @@ class ShowLocation extends React.Component {
   };
 
   getLocation = async () => {
+    console.log(this.state)
     const id = this.props.match.params.id;
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/locations/${id}`
     );
-    const res = await response.json();
-    const { location, comments } = res
-    if (res.status >= 400) {
+    const { location, comments } = await response.json();
+    if (location.status >= 400) {
       this.props.history.push("/notfound");
     }
     this.context.dispatch("update", {...location});

@@ -339,7 +339,7 @@ class DraggableMap extends React.Component {
             containerElement={
               <div style={{ height: "90vh", width: "100%", position: "relative", top: "10vh" }} />
             }
-            mapElement={<div style={{ height: `100%` }} />}
+            mapElement={<div className="google-map" style={{ height: `100%`, position: "relative" }} />}
           />
           <div className="form-container">
             <h1>Add New Location</h1>
@@ -348,12 +348,12 @@ class DraggableMap extends React.Component {
             onSubmit={this.onFormSubmit}
             encType="multipart/form-data"
           >
-            <Form.Field>
+            <Form.Field >
               <label htmlFor="">Address</label>
               <input
                 type="text"
                 name="address"
-                className="form-control"
+                className="form-control read-only"
                 onChange={this.onChange}
                 readOnly="readOnly"
                 value={this.state.address}
@@ -408,6 +408,7 @@ class DraggableMap extends React.Component {
                 value={this.state.description}
                 name="description"
                 id="description"
+                rows={5}
               />
             </Form.Field>
             <Form.Field>

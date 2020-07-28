@@ -2,6 +2,7 @@ import React from "react";
 
 import {
   withGoogleMap,
+  GoogleApiWrapper,
   GoogleMap,
   withScriptjs,
   Marker,
@@ -10,15 +11,30 @@ import {
 
 import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
-import { GoogleMapsAPI } from "../client-config";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import "../stylesheets/LocationsMap.scss";
+
+import photography from './camera.png';
+import art from './art.png';
+import architecture from './architecture.png';
+import nature from './nature.png';
+import other from './other.png';
 
 // Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
 // Geocode.enableDebug();
 
 class LocationsMap extends React.Component {
+  static defaultProps = {
+    icons: {
+      photography: photography,
+      art: art,
+      architecture: architecture,
+      nature: nature,
+      other: other
+    }
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -206,6 +222,20 @@ class LocationsMap extends React.Component {
     console.log(this.props.locations)
   };
 
+  getIcon(category) {
+    const { art, photography, architecture, nature, other } = this.props.icons
+    if (category === "art") {
+      return art
+    } else if (category === "Photography") {
+      return photography
+    } else if (category === "Architecture") {
+      return architecture
+    } else if (category === "Nature") {
+      return nature 
+    } else {
+      return other
+    }
+  }
   render() {
     const AsyncMap = withScriptjs(
       withGoogleMap((props) => (
@@ -218,10 +248,13 @@ class LocationsMap extends React.Component {
           }}
         >
           {this.props.locations.map((location, index) => {
+            console.log(location.category)
             return (
               <>
                 <Marker
-                  icon='https://img.icons8.com/fluent/48/000000/marker-storm.png'
+                  icon={{
+                    url: this.getIcon(location.category),
+                    }}
                   onClick={() => this.showInfoWindow(location)}
                   google={this.props.google}
                   position={{
@@ -281,6 +314,6 @@ class LocationsMap extends React.Component {
 
 // export default GoogleApiWrapper({
 //   apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
-// })(DraggableMap);
+// })(LocationsMap);
 
 export default LocationsMap;

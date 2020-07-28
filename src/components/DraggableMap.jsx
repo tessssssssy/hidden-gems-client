@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Checkbox, Form } from "semantic-ui-react";
+import { Button, Checkbox, Form, Select } from "semantic-ui-react";
 import {
   withGoogleMap,
   GoogleMap,
@@ -46,6 +46,7 @@ class DraggableMap extends React.Component {
         name: this.props.location.name,
         tagline: this.props.location.tagline,
         description: this.props.location.description,
+        category: this.props.location.category,
       });
     }
   };
@@ -93,7 +94,8 @@ class DraggableMap extends React.Component {
       this.state.state !== nextState.state ||
       this.state.name !== nextState.name ||
       this.state.tagline !== nextState.tagline ||
-      this.state.description !== nextState.description
+      this.state.description !== nextState.description ||
+      this.state.category !== nextState.category
     ) {
       return true;
     } else if (this.props.center.lat === nextProps.center.lat) {
@@ -182,7 +184,7 @@ class DraggableMap extends React.Component {
    * @param event
    */
   onInfoWindowClose = (event) => {
-    this.setState({infoWindow: false})
+    this.setState({ infoWindow: false });
   };
 
   /**
@@ -263,6 +265,7 @@ class DraggableMap extends React.Component {
       image: this.state.image,
       latitude: this.state.markerPosition.lat,
       longitude: this.state.markerPosition.lng,
+      category: this.state.category
     };
     const data = new FormData();
     for (let key in formData) {
@@ -272,6 +275,13 @@ class DraggableMap extends React.Component {
   };
 
   render() {
+    const categories = [
+      { key: "art", value: "art", text: "Art" },
+      { key: "photo", value: "photo", text: "Photography" },
+      { key: "nature", value: "nature", text: "Nature" },
+      { key: "architecture", value: "architecture", text: "Architecture" },
+      { key: "other", value: "other", text: "Other" },
+    ];
     const AsyncMap = withScriptjs(
       withGoogleMap((props) => (
         <GoogleMap
@@ -283,20 +293,21 @@ class DraggableMap extends React.Component {
           }}
         >
           {/* InfoWindow on top of marker */}
-          { this.state.infoWindow &&
-          <InfoWindow
-            onClose={this.onInfoWindowClose}
-            position={{
-              lat: this.state.markerPosition.lat + 0.0018,
-              lng: this.state.markerPosition.lng,
-            }}
-          >
-            <div>
-              <span style={{ padding: 0, margin: 0 }}>
-                {"Drag pin to location"}
-              </span>
-            </div>
-          </InfoWindow> }
+          {this.state.infoWindow && (
+            <InfoWindow
+              onClose={this.onInfoWindowClose}
+              position={{
+                lat: this.state.markerPosition.lat + 0.0018,
+                lng: this.state.markerPosition.lng,
+              }}
+            >
+              <div>
+                <span style={{ padding: 0, margin: 0 }}>
+                  {"Drag pin to location"}
+                </span>
+              </div>
+            </InfoWindow>
+          )}
           {/*Marker*/}
           <Marker
             google={this.props.google}
@@ -311,20 +322,20 @@ class DraggableMap extends React.Component {
           <Marker />
           {/* For Auto complete Search Box */}
           <div className="search-bar">
-          <Autocomplete
-          className="autocomplete"
-            // style={{
-            //   width: "100%",
-            //   height: "40px",
-            //   paddingLeft: "16px",
-            //   marginTop: "2px",
-            //   marginBottom: "500px",
-            //   position: "relative",
-            //   bottom: "100vh"
-            // }}
-            onPlaceSelected={this.onPlaceSelected}
-            types={["(regions)"]}
-          />
+            <Autocomplete
+              className="autocomplete"
+              // style={{
+              //   width: "100%",
+              //   height: "40px",
+              //   paddingLeft: "16px",
+              //   marginTop: "2px",
+              //   marginBottom: "500px",
+              //   position: "relative",
+              //   bottom: "100vh"
+              // }}
+              onPlaceSelected={this.onPlaceSelected}
+              types={["(regions)"]}
+            />
           </div>
         </GoogleMap>
       ))
@@ -337,91 +348,117 @@ class DraggableMap extends React.Component {
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}
             containerElement={
-              <div style={{ height: "90vh", width: "100%", position: "relative", top: "10vh" }} />
+              <div
+                style={{
+                  height: "90vh",
+                  width: "100%",
+                  position: "relative",
+                  top: "10vh",
+                }}
+              />
             }
-            mapElement={<div className="google-map" style={{ height: `100%`, position: "relative" }} />}
+            mapElement={
+              <div
+                className="google-map"
+                style={{ height: `100%`, position: "relative" }}
+              />
+            }
           />
           <div className="form-container">
-            {this.props.location ? <h1>Edit {this.props.location.name}</h1> : <h1>Add New Location</h1>}
-          <Form
-            className="location-form"
-            onSubmit={this.onFormSubmit}
-            encType="multipart/form-data"
-          >
-            <Form.Field >
-              <label htmlFor="">Address</label>
-              <input
-                type="text"
-                name="address"
-                className="form-control read-only"
-                onChange={this.onChange}
-                readOnly="readOnly"
-                value={this.state.address}
-              />
-            </Form.Field>
-            <Form.Field className="hidden">
-              <label htmlFor="">Latitude</label>
-              <input
-                type="text"
-                name="address"
-                className="form-control"
-                onChange={this.onChange}
-                readOnly="readOnly"
-                value={this.state.markerPosition.lat}
-              />
-            </Form.Field>
-            <Form.Field className="hidden">
-              <label htmlFor="">Longitude</label>
-              <input
-                type="text"
-                name="address"
-                className="form-control"
-                onChange={this.onChange}
-                readOnly="readOnly"
-                value={this.state.markerPosition.lng}
-              />
-            </Form.Field>
-            <Form.Field>
-              <label htmlFor="name">Name</label>
-              <input
-                onChange={this.onChange}
-                value={this.state.name}
-                id="name"
-                name="name"
-                placeholder="Name"
-              />
-            </Form.Field>
-            <Form.Field>
-              <label htmlFor="tagline">Tagline</label>
-              <input
-                onChange={this.onChange}
-                value={this.state.tagline}
-                id="tagline"
-                name="tagline"
-                placeholder="Tagline"
-              />
-            </Form.Field>
-            <Form.Field>
-              <label htmlFor="description">Description</label>
-              <textarea
-                onChange={this.onChange}
-                value={this.state.description}
-                name="description"
-                id="description"
-                rows={5}
-              />
-            </Form.Field>
-            <Form.Field>
-              <label htmlFor="image">Image</label>
-              <input
-                type="file"
-                name="image"
-                id="image"
-                onChange={this.onChange}
-              />
-            </Form.Field>
-            <Button type="submit">Submit</Button>
-          </Form>
+            {this.props.location ? (
+              <h1>Edit {this.props.location.name}</h1>
+            ) : (
+              <h1>Add New Location</h1>
+            )}
+            <Form
+              className="location-form"
+              onSubmit={this.onFormSubmit}
+              encType="multipart/form-data"
+            >
+              <Form.Field>
+                <label htmlFor="">Address</label>
+                <input
+                  type="text"
+                  name="address"
+                  className="form-control read-only"
+                  onChange={this.onChange}
+                  readOnly="readOnly"
+                  value={this.state.address}
+                />
+              </Form.Field>
+              <Form.Field className="hidden">
+                <label htmlFor="">Latitude</label>
+                <input
+                  type="text"
+                  name="address"
+                  className="form-control"
+                  onChange={this.onChange}
+                  readOnly="readOnly"
+                  value={this.state.markerPosition.lat}
+                />
+              </Form.Field>
+              <Form.Field className="hidden">
+                <label htmlFor="">Longitude</label>
+                <input
+                  type="text"
+                  name="address"
+                  className="form-control"
+                  onChange={this.onChange}
+                  readOnly="readOnly"
+                  value={this.state.markerPosition.lng}
+                />
+              </Form.Field>
+              <Form.Field>
+                <label htmlFor="name">Name</label>
+                <input
+                  onChange={this.onChange}
+                  value={this.state.name}
+                  id="name"
+                  name="name"
+                  placeholder="Name"
+                />
+              </Form.Field>
+              <Form.Field>
+                <label htmlFor="tagline">Tagline</label>
+                <input
+                  onChange={this.onChange}
+                  value={this.state.tagline}
+                  id="tagline"
+                  name="tagline"
+                  placeholder="Tagline"
+                />
+              </Form.Field>
+              <Form.Field>
+                <label htmlFor="description">Description</label>
+                <textarea
+                  onChange={this.onChange}
+                  value={this.state.description}
+                  name="description"
+                  id="description"
+                  rows={5}
+                />
+              </Form.Field>
+              <Form.Field>
+                <Select
+                  onChange={this.onChange}
+                  value={this.state.category}
+                  name="category"
+                  id="category"
+                  placeholder="Category"
+                  options={categories}
+                ></Select>
+              </Form.Field>
+              <Form.Field>
+                <label htmlFor="image">Image</label>
+                <input
+                  type="file"
+                  name="image"
+                  id="image"
+                  onChange={this.onChange}
+                />
+              </Form.Field>
+              <Button type="submit">Submit</Button>
+            </Form>
           </div>
         </div>
       );

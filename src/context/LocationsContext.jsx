@@ -56,4 +56,3 @@ export {
   LocationsContext,
   dispatch
 }
-

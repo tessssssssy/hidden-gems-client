@@ -342,7 +342,7 @@ class DraggableMap extends React.Component {
             mapElement={<div className="google-map" style={{ height: `100%`, position: "relative" }} />}
           />
           <div className="form-container">
-            <h1>Add New Location</h1>
+            {this.props.location ? <h1>Edit {this.props.location.name}</h1> : <h1>Add New Location</h1>}
           <Form
             className="location-form"
             onSubmit={this.onFormSubmit}

@@ -6,4 +6,16 @@
     width: 100%;
     height: 100vh;
 }
-    
+
+@media (max-width: 600px) {
+    .map-container {
+        height: 50vh;
+    }
+}
+.info-window {
+    visibility: hidden;
+ }
+ .info-window-selected {
+     display: block;
+     background-color: green;
+ }

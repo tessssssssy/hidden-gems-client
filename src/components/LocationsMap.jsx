@@ -5,14 +5,15 @@ import {
   GoogleMap,
   withScriptjs,
   Marker,
+  InfoWindow,
 } from "react-google-maps";
 
 import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
 import { GoogleMapsAPI } from "../client-config";
-
-import SearchBar from './SearchBar';
-import '../stylesheets/LocationsMap.scss';
+import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
+import "../stylesheets/LocationsMap.scss";
 
 // Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
 // Geocode.enableDebug();
@@ -21,6 +22,7 @@ class LocationsMap extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      //selectedLocation: this.props.locations[0],
       address: "",
       city: "",
       area: "",
@@ -178,9 +180,9 @@ class LocationsMap extends React.Component {
       latValue = place.geometry.location.lat(),
       lngValue = place.geometry.location.lng();
     // Set these values in the state.
-    sessionStorage.setItem("latitude", latValue)
-    sessionStorage.setItem("longitude", lngValue)
-    this.props.filterLocations()
+    sessionStorage.setItem("latitude", latValue);
+    sessionStorage.setItem("longitude", lngValue);
+    this.props.filterLocations();
     this.setState({
       address: address ? address : "",
       area: area ? area : "",
@@ -194,9 +196,16 @@ class LocationsMap extends React.Component {
         lat: latValue,
         lng: lngValue,
       },
-    });   
-    console.log(sessionStorage)
+    });
+    console.log(sessionStorage);
   };
+
+  showInfoWindow = (location) => {
+    this.setState({ selectedLocation: location });
+    console.log(this.state.selectedLocation.id);
+    console.log(this.props.locations)
+  };
+
   render() {
     const AsyncMap = withScriptjs(
       withGoogleMap((props) => (
@@ -208,29 +217,48 @@ class LocationsMap extends React.Component {
             lng: this.state.mapPosition.lng,
           }}
         >
-        {this.props.locations.map(location => {
-            return <Marker
-            google={this.props.google}
-            position={{
-              lat: location.latitude,
-              lng: location.longitude,
-            }}
-          /> })}
-          {/* <Autocomplete
-            style={{
-              width: "100px",
-              height: "40px",
-              paddingLeft: "16px",
-              marginTop: "2px",
-              marginBottom: "500px"
-            }}
+          {this.props.locations.map((location, index) => {
+            return (
+              <>
+                <Marker
+                  onClick={() => this.showInfoWindow(location)}
+                  google={this.props.google}
+                  position={{
+                    lat: location.latitude,
+                    lng: location.longitude,
+                  }}
+                />
+                {this.state.selectedLocation && location.id === this.state.selectedLocation.id && (
+                  <InfoWindow
+                    className="info-window" // {location.id === this.state.selectedLocation ? "info-window-selected" : "info-window"}
+                    position={{
+                      lat: location.latitude + 0.0018,
+                      lng: location.longitude,
+                    }}
+                  >
+                    <Link
+                      to={{
+                        pathname: `/location/${location.id}`,
+                        state: location,
+                      }}
+                      key={index}
+                      style={{ padding: 0, margin: 0 }}
+                    >
+                      {location.name}
+                    </Link>
+                  </InfoWindow>
+                )}
+              </>
+            );
+          })}
+          <SearchBar
+            filterLocations={this.props.filterLocations}
+            place={this.state.place}
             onPlaceSelected={this.onPlaceSelected}
-            types={["(regions)"]}
-          /> */}
-          <SearchBar filterLocations={this.props.filterLocations} place={this.state.place} onPlaceSelected={this.onPlaceSelected}/>
+          />
         </GoogleMap>
       ))
-    ); 
+    );
     let map;
     if (this.props.center.lat !== undefined) {
       map = (
@@ -238,7 +266,7 @@ class LocationsMap extends React.Component {
           <AsyncMap
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: '100%',  width: '100%' }} />}
+            containerElement={<div style={{ height: "100%", width: "100%" }} />}
             mapElement={<div style={{ height: `100%` }} />}
           />
         </div>
@@ -250,11 +278,8 @@ class LocationsMap extends React.Component {
   }
 }
 
-
 // export default GoogleApiWrapper({
 //   apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
 // })(DraggableMap);
 
 export default LocationsMap;
-
-

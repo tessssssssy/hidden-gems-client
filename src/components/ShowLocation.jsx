@@ -31,7 +31,7 @@ class ShowLocation extends React.Component {
         <UploadImage location_id={location.id} reload={this.loadFromRails}/>
         {location.photos && <img src={location.photos[0].image} alt={location.name} />}
         {location.username === currentUser && (
-          <>{console.log(location.id)}
+          <>
             <Link to={`/location/${location.id}/edit`}>Edit</Link>
             <button onClick={() => {this.deleteLocation(location.id); this.context.dispatch("delete",location.id)}}>
               Delete
@@ -61,9 +61,6 @@ class ShowLocation extends React.Component {
   };
 
   render() {
-    console.log(this.context.locations)
-    console.log(this.state)
-    console.log("render")
     const { location, comments } = this.state;
     return (
       <>

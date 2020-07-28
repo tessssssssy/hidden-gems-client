@@ -70,7 +70,6 @@ class RatingBar extends React.Component {
 
   render = () => {
     let currentUser = sessionStorage.getItem("currentUser");
-    console.log(this.state);
     return (
       <>
         {currentUser && (

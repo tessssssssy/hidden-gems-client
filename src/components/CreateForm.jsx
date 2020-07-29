@@ -37,8 +37,7 @@ class CreateForm extends React.Component {
                 category: event.target.innerText
             })
         }
-        
-        if (event.target?.files) {
+        else if (event.target?.files) {
           this.setState({
             [key]: event.target.files[0],
           });

@@ -371,7 +371,7 @@ class DraggableMap extends React.Component {
             ) : (
               <h1>Add New Location</h1>
             )}
-            {this.state.address && <CreateForm prefillForm={this.prefillForm} location={this.props.location} onFormSubmit={this.onFormSubmit} parentChange={this.onChange} {...this.state} categories={categories} />}
+            {this.state.address && <CreateForm location={this.props.location} onFormSubmit={this.onFormSubmit} parentChange={this.onChange} {...this.state} categories={categories} />}
             
             {/* <Form
               className="location-form"

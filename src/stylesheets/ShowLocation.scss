@@ -1,63 +1,68 @@
 .show-location {
-    display: flex;
-    height: 100vh;
-    .main-container {
-        width: 70%;
-        overflow: scroll;
-        .content {
-            display: flex;
-            color: lightgrey;
-            padding: 30px;         
-            .image-container {
-                width: 85%;
-                img {
-                    width: 100%;
-                    margin-bottom: 20px;
-                    object-fit: contain;
-                }
-            }
-            .location-info {
-                margin: 0px 20px;
-                .buttons {
-                    margin-bottom: 20px;
-                    .show-button {
-                        margin-right: 10px;
-                    }
-                }
-            }
+  display: flex;
+  height: 100vh;
+  .main-container {
+    width: 70%;
+    overflow: scroll;
+    .content {
+      display: flex;
+      color: lightgrey;
+      padding: 30px;
+      .image-container {
+        width: 85%;
+        img {
+          width: 100%;
+          margin-bottom: 20px;
+          object-fit: contain;
         }
-        .photo-grid {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 30px;
-            img {
-                width: 33%;
-            }
+      }
+      .location-info {
+        margin: 0px 20px;
+        .buttons {
+          margin-bottom: 20px;
+          .show-button {
+            margin-right: 10px;
+          }
         }
+      }
     }
-    .sidebar {
-        width: 30%;
-        background-color: white;
+    .photo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 30px;
+      img {
+        width: 33%;
+      }
+      .popup {
+          border-radius: 10px;
+          .popup-image {
+              width: 100%;
+          }
+      }
     }
+  }
+  .sidebar {
+    width: 30%;
+    background-color: white;
+  }
 }
 
 @media (max-width: 600px) {
-    .sidebar {
-        display: none;
-    }
-    .show-location {
-        .main-container {
-            width: 100%;
-            .content {
-                flex-direction: column;
-                .image-container {
-                    width: 100%;
-                }
-                .location-info {
-                    margin-left: 0px;
-                }
-            }
+  .sidebar {
+    display: none;
+  }
+  .show-location {
+    .main-container {
+      width: 100%;
+      .content {
+        flex-direction: column;
+        .image-container {
+          width: 100%;
         }
-    }  
+        .location-info {
+          margin-left: 0px;
+        }
+      }
+    }
+  }
 }
-

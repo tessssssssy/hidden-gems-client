@@ -1,7 +1,8 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { LocationsContext } from "../context/LocationsContext";
-import { Button } from "semantic-ui-react";
+import { Button, Image, Modal } from "semantic-ui-react";
+import Popup from "reactjs-popup";
 import Comments from "./Comments";
 import RatingBar from "./RatingBar";
 import Like from "./Like";
@@ -90,7 +91,28 @@ class ShowLocation extends React.Component {
           </div>
           <div className="photo-grid">
             {this.state.location.photos.map((photo) => {
-              return <img src={photo.image} />;
+              return (
+                // <Modal className="popup" trigger={<img src={photo.image}/>}>
+                //     <Modal.Content className="popup-content"image>
+                //       <Image
+                //       className="popup-image"
+                //         wrapped
+                //         size="large"
+                //         src={photo.image}
+                //       />
+                //     </Modal.Content>
+                //   </Modal>
+                <Popup
+                  trigger={<img src={photo.image}/>}
+                  modal
+                  closeOnDocumentClick
+                >
+                  <span className="popup">
+                    <img className="popup-image" src={photo.image}/>
+                    {/* <p>Posted by {photo.user.username}</p> */}
+                    </span>
+                </Popup>
+              );
             })}
           </div>
         </div>
@@ -130,7 +152,7 @@ class ShowLocation extends React.Component {
       console.log(err);
     }
   };
-  
+
   loadFromRails = () => {
     this.getLocation();
   };

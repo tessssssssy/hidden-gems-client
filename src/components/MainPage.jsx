@@ -94,11 +94,13 @@ class MainPage extends React.Component {
                         >
                           {location.name}
                         </Link>
-                        <Rating maxRating={5} rating={location.ratings} />
+                        <Rating maxRating={5} icon="star" disabled={true} rating={location.ratings} />
                       </div>
                       <div className="location-content">
-                      <img src={location.photos[0].image} />
-                      <p>{location.description}</p>
+                        <div className="image-container">
+                          <img src={location.photos[0].image} />
+                        </div>
+                        <p>{location.description}</p>
                       </div>
                     </div>
                   );

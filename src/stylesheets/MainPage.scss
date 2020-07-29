@@ -1,8 +1,8 @@
 .main-page {
     width: 100vw;
     display: flex;
+    height: 100vh;
     .locations-container {
-        // padding-top: 80px;
         width: 800px;
         z-index: 1;
         overflow: scroll;
@@ -10,19 +10,42 @@
         .locations-header {
             width: 100%;
             height: 80px;
-            position: fixed;
+            // position: fixed;
             z-index: 5;
-            // top: 80px;
             background-color: #1f1f1f;
+            display: flex;
+            align-items: center;
+            // margin-bottom: 80px;
+            .toggle {
+                margin-left: 10px;
+                label {
+                    color: lightgrey;
+                }
+            }
         }
         .location {
-            height: 300px;
+            height: 200px;
             overflow: hidden;
-            img: {
-                padding: 10px;
-                object-fit: contain;
-                
+            .location-heading {
+                color: lightgrey;
+                margin: 10px;
+                font-size: 20pt;
             }
+            .location-content {
+                display: flex;
+                img {
+                    width: 50%;
+                    padding: 10px;
+                    // object-fit: contain;
+                    // height: 150px;
+                    
+                }
+                p {
+                    margin: 10px;
+                    color: lightgrey;
+                }
+            }
+            
         }
 
     }
@@ -33,6 +56,7 @@
     .main-page {
         width: 100vw;
         //display: block;
+        overflow: scroll;
         flex-direction: column;
         .locations-container {
             margin-top: 50px;

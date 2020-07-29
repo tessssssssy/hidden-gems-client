@@ -6,11 +6,11 @@ import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
 import SearchBar from "./SearchBar";
 import "../stylesheets/MainPage.scss";
-import { Checkbox, Rating } from 'semantic-ui-react'
+import { Checkbox, Rating } from "semantic-ui-react";
 
 class MainPage extends React.Component {
   static contextType = LocationsContext;
-  state = { toggled: false }
+  state = { toggled: false };
 
   getLocations = async () => {
     const coordinates = {
@@ -20,8 +20,9 @@ class MainPage extends React.Component {
     console.log(coordinates);
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/locations?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`);
-      const { locations }= await response.json();
+        `${process.env.REACT_APP_BACKEND_URL}/locations?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`
+      );
+      const { locations } = await response.json();
       console.log(locations);
       this.context.dispatch("populate", { locations });
     } catch (err) {
@@ -35,23 +36,25 @@ class MainPage extends React.Component {
 
   setLoading = () => this.setState({ loading: false });
 
-  onToggle = (e) =>{
-    console.log("toggled")
-    if(e.target.checked){this.setState({toggled: true})}
-    else {this.setState({toggled: false })}
-  }
+  onToggle = (e) => {
+    console.log("toggled");
+    if (e.target.checked) {
+      this.setState({ toggled: true });
+    } else {
+      this.setState({ toggled: false });
+    }
+  };
 
   render() {
-    
-    let locations = this.context.locations
-    const likes = sessionStorage.getItem("likes")
-    if(this.state.toggled && likes && locations){
-      const savedLocation = locations.filter((location)=>{
-        return JSON.parse(likes).includes(location.id)
-      })
-      locations = savedLocation
-    } 
-
+    let locations = this.context.locations;
+    const likes = sessionStorage.getItem("likes");
+    if (this.state.toggled && likes && locations) {
+      const savedLocation = locations.filter((location) => {
+        return JSON.parse(likes).includes(location.id);
+      });
+      locations = savedLocation;
+    }
+    const positionFixed = { position: "fixed" };
     return (
       locations && (
         <div className="main-page">
@@ -65,38 +68,43 @@ class MainPage extends React.Component {
             locations={locations}
           />
           <div className="locations-container">
-            <div className="locations-header"></div>
-            {locations &&
-              locations.map((location, index) => {
-                return (
-                  <Link
-                    className="location"
-                    to={{
-                      pathname: `/location/${location.id}`,
-                      state: location,
-                    }}
-                    key={index}
-                  >
-                    <img src={location.photos[0].image} />
-                    {/* <Link
-                    to={{
-                      pathname: `/location/${location.id}`,
-                      state: location,
-                    }}
-                  >
-                    {location.name}
-                  </Link> */}
-                    <Rating maxRating={5} rating={location.ratings} />
-                  </Link>
-                );
-              })}
+            <div
+              className="locations-header"
+              style={locations.length >= 4 ? positionFixed : null}
+            >
+              {sessionStorage.getItem("currentUser") && (
+                <div class="ui toggle checkbox">
+                  <input type="checkbox" onClick={this.onToggle}></input>
+                  <label>Show Saved Locations</label>
+                </div>
+              )}
+            </div>
+            <div class="location-main">
+              {locations &&
+                locations.map((location, index) => {
+                  return (
+                    <div className="location">
+                      <div className="location-heading">
+                        <Link
+                          to={{
+                            pathname: `/location/${location.id}`,
+                            state: location,
+                          }}
+                          key={index}
+                        >
+                          {location.name}
+                        </Link>
+                        <Rating maxRating={5} rating={location.ratings} />
+                      </div>
+                      <div className="location-content">
+                      <img src={location.photos[0].image} />
+                      <p>{location.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
-
-          {sessionStorage.getItem("currentUser") && (<div class="ui toggle checkbox">
-            <input type="checkbox" onClick={this.onToggle} ></input>
-            <label>Toggle</label>
-          </div>)}
-          
         </div>
       )
     );

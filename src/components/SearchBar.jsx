@@ -99,7 +99,7 @@ class SearchBar extends React.Component {
         />
         <div className="options">
           <Select placeholder="Category" options={categories}></Select>
-          <Radio onClick={this.toggleView} className="view-toggle" toggle label={this.state.mapView ? 'list' : 'map'} />
+          {/* <Radio onClick={this.toggleView} className="view-toggle" toggle label={this.state.mapView ? 'list' : 'map'} /> */}
         </div>
       </div>
     );

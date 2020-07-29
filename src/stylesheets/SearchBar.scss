@@ -11,12 +11,11 @@
     width: 400px;
     height: 40px;
     padding-left: 16px;
-    margin-top: 2px;
-    margin-right: 20px;
-    margin-left: 20px;
+    margin: 10px 20px;
     z-index: 1100;
   }
   .options {
+    margin: 10px 20px;
     .view-toggle {
       visibility: hidden;
     }
@@ -26,6 +25,8 @@
 @media (max-width: 600px) {
   .search-bar {
     flex-direction: column;
+    align-items: flex-start;
+    height: 120px;
     .options {
       .view-toggle {
         visibility: visible;

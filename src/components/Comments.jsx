@@ -149,7 +149,7 @@ class Comments extends React.Component {
               id="body"
             />
           </Form.Field>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={this.state.disabled}>Submit</Button>
         </Form></>)}
           {!this.state.create && (<><Form onSubmit={this.onFormSubmitEdit}>
           <Form.Field>
@@ -161,7 +161,7 @@ class Comments extends React.Component {
               id="body"
             />
           </Form.Field>
-          <Button type="submit">Update</Button>
+          <Button type="submit" >Update</Button>
         </Form></>)}
       </div>
     );

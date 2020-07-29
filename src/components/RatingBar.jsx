@@ -38,7 +38,7 @@ class RatingBar extends React.Component {
   };
 
   componentDidMount() {
-    this.checkRating();
+    sessionStorage.getItem("ratings") && this.checkRating();
   }
 
   checkRating() {

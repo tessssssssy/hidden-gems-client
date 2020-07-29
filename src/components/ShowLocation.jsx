@@ -50,7 +50,7 @@ class ShowLocation extends React.Component {
             <h1>{location.name}   {currentUser && <Like {...this.props} location_id={location.id} reload={this.loadFromRails}/>}</h1>
             <h5>{location.tagline}</h5>
             <p>{location.description}</p>
-            <UploadImage location_id={location.id} reload={this.loadFromRails} />
+            {currentUser && <UploadImage location_id={location.id} reload={this.loadFromRails} />}
           {location.username === currentUser && (
             <>
               {console.log(location.id)}
@@ -107,6 +107,7 @@ class ShowLocation extends React.Component {
   };
 
   render() {
+    console.log('render')
     const { location, comments } = this.state;
     return (
       <>{location ? this.renderLocation(location) : this.loadFromRails()}</>

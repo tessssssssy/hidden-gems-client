@@ -94,8 +94,9 @@ class ShowLocation extends React.Component {
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/locations/${id}`
     );
-    const { location, comments } = await response.json();
-    if (location.status >= 400) {
+    const res = await response.json();
+    const { location, comments } =  res;
+    if (res.status >= 400) {
       this.props.history.push("/notfound");
     }
     this.context.dispatch("update", { ...location });

@@ -30,47 +30,67 @@ class ShowLocation extends React.Component {
       <div className="show-location">
         <div className="main-container">
           <div className="content">
-          <div className="image-container">
-            {location.photos && (
-              <img src={location.photos[0].image} alt={location.name} />
-            )}
-            <div className="rating-container">
-              <span>
-                Ratings: {location.ratings} (based on {location.numberOfRatings}{" "}
-                user)
-              </span>
-              <RatingBar
-                {...this.props}
-                location_id={location.id}
-                reload={this.loadFromRails}
-              />
+            <div className="image-container">
+              {location.photos && (
+                <img src={location.photos[0].image} alt={location.name} />
+              )}
+              <div className="rating-container">
+                <span>
+                  Ratings: {location.ratings} (based on{" "}
+                  {location.numberOfRatings} user)
+                </span>
+                <RatingBar
+                  className="rating-bar"
+                  {...this.props}
+                  location_id={location.id}
+                  reload={this.loadFromRails}
+                />
+              </div>
+            </div>
+            <div className="location-info">
+              <h1>
+                {location.name}{" "}
+                {currentUser && (
+                  <Like
+                    {...this.props}
+                    location_id={location.id}
+                    reload={this.loadFromRails}
+                  />
+                )}
+              </h1>
+              <h5>{location.tagline}</h5>
+              <p>{location.description}</p>
+              
+              {location.username === currentUser && (
+                <>
+                  {console.log(location.id)}
+                  <div className="buttons">
+                    <Button className="show-button">
+                      <Link to={`/location/${location.id}/edit`}>Edit</Link>
+                    </Button>
+                    <Button 
+                      className="show-button"
+                      onClick={() => {
+                        this.deleteLocation(location.id);
+                        this.context.dispatch("delete", location.id);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                  {currentUser && (
+                <UploadImage
+                  location_id={location.id}
+                  reload={this.loadFromRails}
+                />
+              )}
+                </>
+              )}
             </div>
           </div>
-          <div className="location-info">
-            <h1>{location.name}   {currentUser && <Like {...this.props} location_id={location.id} reload={this.loadFromRails}/>}</h1>
-            <h5>{location.tagline}</h5>
-            <p>{location.description}</p>
-            {currentUser && <UploadImage location_id={location.id} reload={this.loadFromRails} />}
-          {location.username === currentUser && (
-            <>
-              {console.log(location.id)}
-              <Button><Link to={`/location/${location.id}/edit`}>Edit</Link></Button>
-              <Button
-                onClick={() => {
-                  this.deleteLocation(location.id);
-                  this.context.dispatch("delete", location.id);
-                }}
-              >
-                Delete
-              </Button>
-            </>
-          )}
-          </div>
-         
-          </div>
           <div className="photo-grid">
-            {this.state.location.photos.map(photo =>{
-              return <img src={photo.image}/>
+            {this.state.location.photos.map((photo) => {
+              return <img src={photo.image} />;
             })}
           </div>
         </div>
@@ -95,7 +115,7 @@ class ShowLocation extends React.Component {
       `${process.env.REACT_APP_BACKEND_URL}/locations/${id}`
     );
     const res = await response.json();
-    const { location, comments } =  res;
+    const { location, comments } = res;
     if (res.status >= 400) {
       this.props.history.push("/notfound");
     }
@@ -108,7 +128,7 @@ class ShowLocation extends React.Component {
   };
 
   render() {
-    console.log('render')
+    console.log("render");
     const { location, comments } = this.state;
     return (
       <>{location ? this.renderLocation(location) : this.loadFromRails()}</>

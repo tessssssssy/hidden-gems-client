@@ -75,8 +75,9 @@ class RatingBar extends React.Component {
         {currentUser && (
           <>
             <Rating
+              style={{ color: "lightgrey"}}
               icon="heart"
-              size="large"
+              size="extra-large"
               rating={this.state.rating}
               maxRating={1}
               onRate={this.handleRate}

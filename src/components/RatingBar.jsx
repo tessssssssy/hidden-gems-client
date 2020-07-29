@@ -67,6 +67,7 @@ class RatingBar extends React.Component {
         {currentUser && (
           <>
             <Rating
+            icon="star"
               rating={this.state.rating}
               disabled={this.state.disabled}
               maxRating={5}

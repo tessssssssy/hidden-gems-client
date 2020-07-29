@@ -16,6 +16,10 @@
             display: flex;
             align-items: center;
             // margin-bottom: 80px;
+            .category {
+                width: 100px;
+                margin: 0px 10px;
+            }
             .toggle {
                 margin-left: 10px;
                 label {

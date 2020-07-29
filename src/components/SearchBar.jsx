@@ -84,12 +84,6 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const categories = [
-      { key: "art", value: "art", text: "Art" },
-      { key: "photo", value: "photo", text: "Photography" },
-      { key: "nature", value: "nature", text: "Nature" },
-      { key: "other", value: "other", text: "Other" },
-    ];
     return (
       <div className="search-bar">
         <Autocomplete
@@ -97,13 +91,8 @@ class SearchBar extends React.Component {
           onPlaceSelected={this.props.onPlaceSelected}
           types={["(regions)"]}
         />
-        <div className="options">
-          <Select placeholder="Category" options={categories}></Select>
-          {/* <Radio onClick={this.toggleView} className="view-toggle" toggle label={this.state.mapView ? 'list' : 'map'} /> */}
-        </div>
       </div>
     );
   }
 }
-
 export default SearchBar;

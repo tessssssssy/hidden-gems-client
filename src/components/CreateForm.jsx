@@ -17,6 +17,19 @@ class CreateForm extends React.Component {
           lng: this.props.markerPosition.lng,
         },
       };
+      prefillForm = () => {
+        if (this.props.location) {
+          this.setState({
+            name: this.props.location.name,
+            tagline: this.props.location.tagline,
+            description: this.props.location.description,
+          });
+        }
+      };
+      componentDidMount() {
+        this.prefillForm()
+      }
+
       onChange = (event) => {
         const key = event.target.id;
         if (event.target.childElementCount > 0) {

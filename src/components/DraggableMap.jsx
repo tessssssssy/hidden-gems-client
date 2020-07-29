@@ -14,6 +14,7 @@ import { GoogleMapsAPI } from "../client-config";
 import LocationForm from "./LocationForm";
 import SearchBar from "./SearchBar";
 import "../stylesheets/DraggableMap.scss";
+import CreateForm from './CreateForm';
 
 Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
 Geocode.enableDebug();
@@ -93,10 +94,11 @@ class DraggableMap extends React.Component {
       this.state.state !== nextState.state ||
       this.state.name !== nextState.name ||
       this.state.tagline !== nextState.tagline ||
-      this.state.description !== nextState.description
+      this.state.description !== nextState.description ||
+      this.state.category !== nextState.category
     ) {
       return true;
-    } else if (this.props.center.lat === nextProps.center.lat) {
+    } else  { // if (this.props.center.lat === nextProps.center.lat)
       return false;
     }
   }
@@ -164,6 +166,15 @@ class DraggableMap extends React.Component {
    * And function for city,state and address input
    * @param event
    */
+  
+  /**
+   * This Event triggers when the marker window is closed
+   *
+   * @param event
+   */
+  onInfoWindowClose = (event) => {
+    this.setState({ infoWindow: false });
+  };
   onChange = (event) => {
     const key = event.target.id;
     if (event.target?.files) {
@@ -176,15 +187,6 @@ class DraggableMap extends React.Component {
       });
     }
   };
-  /**
-   * This Event triggers when the marker window is closed
-   *
-   * @param event
-   */
-  onInfoWindowClose = (event) => {
-    this.setState({ infoWindow: false });
-  };
-
   /**
    * When the marker is dragged you get the lat and long using the functions available from event object.
    * Use geocode to get the address, city, area and state from the lat and lng positions.
@@ -253,16 +255,18 @@ class DraggableMap extends React.Component {
       },
     });
   };
-  onFormSubmit = (e) => {
+  onFormSubmit = (e, childState) => {
+    console.log(childState)
     e.preventDefault();
     const formData = {
       address: this.state.address,
-      name: this.state.name,
-      tagline: this.state.tagline,
-      description: this.state.description,
-      image: this.state.image,
+      name: childState.name,
+      tagline: childState.tagline,
+      description: childState.description,
+      image: childState.image,
       latitude: this.state.markerPosition.lat,
       longitude: this.state.markerPosition.lng,
+      category: childState.category
     };
     const data = new FormData();
     for (let key in formData) {
@@ -366,7 +370,9 @@ class DraggableMap extends React.Component {
             ) : (
               <h1>Add New Location</h1>
             )}
-            <Form
+            {this.state.address && <CreateForm onFormSubmit={this.onFormSubmit} parentChange={this.onChange} {...this.state} categories={categories} />}
+            
+            {/* <Form
               className="location-form"
               onSubmit={this.onFormSubmit}
               encType="multipart/form-data"
@@ -454,7 +460,7 @@ class DraggableMap extends React.Component {
                 />
               </Form.Field>
               <Button type="submit">Submit</Button>
-            </Form>
+            </Form> */}
           </div>
         </div>
       );

@@ -36,6 +36,7 @@ class UploadImage extends React.Component {
           body: data,
         }
       );
+      document.getElementById('image').value = null;
       this.state.reload();
       const res = await response.json();
       console.log(res);

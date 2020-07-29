@@ -22,9 +22,12 @@
   .form-container {
     background-color: white;
     height: 100vh;
-    position: absolute;
-    right: 0px;
+    // position: absolute;
+    // right: 0px;
+    position: relative;
     top: 80px;
+    // margin-top: 80px;
+    overflow: scroll;
     h1 {
         padding: 20px 20px 0px 20px;
     }

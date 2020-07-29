@@ -157,7 +157,7 @@ class Comments extends React.Component {
     return (
       <div className="comments">
         <p>Comments</p>
-        {this.state && this.renderComments(this.state.comments)}
+        {this.state.comments && this.renderComments(this.state.comments)}
         {this.state.create && (
           <>
             <Form

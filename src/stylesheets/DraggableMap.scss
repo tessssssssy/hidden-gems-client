@@ -51,16 +51,18 @@
   .draggable-map {
     flex-direction: column;
     .form-container {
-        width: 100%;
+        width: 100%;   
         .location-form {
+            margin-top: 300px;
             width: 100%;
             position: relative;
             bottom: 300px;
           }
     }
     .google-map {
-        // position: relative;
-        bottom: 100px;
+        position: relative;
+        // bottom: 200px;
+        height: 300px;
     }   
     .search-bar {
         flex-direction: column;

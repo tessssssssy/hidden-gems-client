@@ -18,7 +18,7 @@ code {
 
 @media (min-width: 601px) {
   #root {
-    /* height: 100vh; */
+    height: 100vh;
     overflow: hidden;
   }
 }

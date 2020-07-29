@@ -60,7 +60,7 @@ class ShowLocation extends React.Component {
               </h1>
               <h5>{location.tagline}</h5>
               <p>{location.description}</p>
-              
+
               {location.username === currentUser && (
                 <>
                   {console.log(location.id)}
@@ -68,7 +68,7 @@ class ShowLocation extends React.Component {
                     <Button className="show-button">
                       <Link to={`/location/${location.id}/edit`}>Edit</Link>
                     </Button>
-                    <Button 
+                    <Button
                       className="show-button"
                       onClick={() => {
                         this.deleteLocation(location.id);
@@ -79,11 +79,11 @@ class ShowLocation extends React.Component {
                     </Button>
                   </div>
                   {currentUser && (
-                <UploadImage
-                  location_id={location.id}
-                  reload={this.loadFromRails}
-                />
-              )}
+                    <UploadImage
+                      location_id={location.id}
+                      reload={this.loadFromRails}
+                    />
+                  )}
                 </>
               )}
             </div>
@@ -108,21 +108,29 @@ class ShowLocation extends React.Component {
     );
   };
 
-  getLocation = async () => {
-    console.log(this.state);
-    const id = this.props.match.params.id;
-    const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/locations/${id}`
-    );
-    const res = await response.json();
-    const { location, comments } = res;
-    if (res.status >= 400) {
+  checkStatus = (res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
       this.props.history.push("/notfound");
     }
-    this.context.dispatch("update", { ...location });
-    this.setState({ location: location, comments: comments });
   };
 
+  getLocation = async () => {
+    try {
+      const id = this.props.match.params.id;
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/locations/${id}`
+      );
+      const res = await this.checkStatus(response);
+      const { location, comments } = res;
+      this.context.dispatch("update", { ...location });
+      this.setState({ location: location, comments: comments });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
   loadFromRails = () => {
     this.getLocation();
   };

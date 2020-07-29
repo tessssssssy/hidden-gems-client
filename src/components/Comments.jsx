@@ -2,11 +2,18 @@ import React from "react";
 import { LocationsContext } from "../context/LocationsContext";
 import moment from "moment";
 import { Button, Checkbox, Form } from "semantic-ui-react";
-import '../stylesheets/Comments.scss';
+import "../stylesheets/Comments.scss";
 
 class Comments extends React.Component {
   static contextType = LocationsContext;
-  state = { comments: [], location_id: this.props.location_id, body: "", comment_id: null, create: true, disabled: "disabled" };
+  state = {
+    comments: [],
+    location_id: this.props.location_id,
+    body: "",
+    comment_id: null,
+    create: true,
+    disabled: "disabled",
+  };
 
   componentWillReceiveProps = (nextProps) => {
     this.setNewState(nextProps);
@@ -20,50 +27,59 @@ class Comments extends React.Component {
     if (comments.length === 0) {
       this.loadFromRails();
     } else if (comments[0] === 0) {
-      return <p style={{fontStyle: "italic"}}>No comment</p>;
+      return <p style={{ fontStyle: "italic" }}>No comment</p>;
     } else {
-      return comments.map((comment,index) => {
+      return comments.map((comment, index) => {
         return (
           <div key={index}>
             <div>
-            <i> {comment.username} </i>
-            <small>wrote </small>
-            <small>
-              {moment(comment.created_at).startOf("minute").fromNow()}
-            </small>
+              <i> {comment.username} </i>
+              <small>wrote </small>
+              <small>
+                {moment(comment.created_at).startOf("minute").fromNow()}
+              </small>
             </div>
-              <span>{comment.body}</span>
-              {comment.username === currentUser && 
+            <span>{comment.body}</span>
+            {comment.username === currentUser && (
               <>
-                <small onClick={this.onClickEdit} id={comment.id}> Edit </small>
+                <small onClick={this.onClickEdit} id={comment.id}>
+                  {" "}
+                  Edit{" "}
+                </small>
                 <small> | </small>
-                <small onClick={() => this.deleteComment(comment.id)}> Delete </small>
-              </>}
+                <small onClick={() => this.deleteComment(comment.id)}>
+                  {" "}
+                  Delete{" "}
+                </small>
+              </>
+            )}
           </div>
         );
       });
     }
   };
 
-  componentDidMount=()=>{
-    this.checkUser()
-  }
+  componentDidMount = () => {
+    this.checkUser();
+  };
 
-  checkUser=()=>{
-    (sessionStorage.getItem("currentUser") && localStorage.getItem("token")) && this.setState({disabled: ""})
-  }
+  checkUser = () => {
+    sessionStorage.getItem("currentUser") &&
+      localStorage.getItem("token") &&
+      this.setState({ disabled: "" });
+  };
   onClickEdit = (e) => {
-    this.setState({create: false})
-    this.getEditComment(e.target.id)
-  }
+    this.setState({ create: false });
+    this.getEditComment(e.target.id);
+  };
 
   getEditComment = async (id) => {
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/locations/${this.state.location_id}/comments/${id}`
     );
     const comment = await response.json();
-    this.setState({body: comment.body, comment_id: comment.id})
-  }
+    this.setState({ body: comment.body, comment_id: comment.id });
+  };
 
   getComments = async () => {
     const id = this.state.location_id;
@@ -135,36 +151,51 @@ class Comments extends React.Component {
     );
     this.loadFromRails();
   };
- 
+
   render() {
+    const formHidden = { display: "none" };
     return (
       <div className="comments">
         <p>Comments</p>
         {this.state && this.renderComments(this.state.comments)}
-        {this.state.create && (<><Form onSubmit={this.onFormSubmitCreate}>
-          <Form.Field>
-            <label>Add Comment</label>
-            <textarea
-              disabled={this.state.disabled}
-              onChange={this.onInputChange}
-              value={this.state.body}
-              id="body"
-            />
-          </Form.Field>
-          <Button type="submit" disabled={this.state.disabled}>Submit</Button>
-        </Form></>)}
-          {!this.state.create && (<><Form onSubmit={this.onFormSubmitEdit}>
-          <Form.Field>
-            <label>Edit Comment</label>
-            <textarea
-              rows={4}
-              onChange={this.onInputChange}
-              value={this.state.body}
-              id="body"
-            />
-          </Form.Field>
-          <Button type="submit" >Update</Button>
-        </Form></>)}
+        {this.state.create && (
+          <>
+            <Form
+              style={this.state.disabled ? formHidden : null}
+              onSubmit={this.onFormSubmitCreate}
+            >
+              <Form.Field>
+                <label>Add Comment</label>
+                <textarea
+                  rows={4}
+                  disabled={this.state.disabled}
+                  onChange={this.onInputChange}
+                  value={this.state.body}
+                  id="body"
+                />
+              </Form.Field>
+              <Button type="submit" disabled={this.state.disabled}>
+                Submit
+              </Button>
+            </Form>
+          </>
+        )}
+        {!this.state.create && (
+          <>
+            <Form onSubmit={this.onFormSubmitEdit}>
+              <Form.Field>
+                <label>Edit Comment</label>
+                <textarea
+                  rows={4}
+                  onChange={this.onInputChange}
+                  value={this.state.body}
+                  id="body"
+                />
+              </Form.Field>
+              <Button type="submit">Update</Button>
+            </Form>
+          </>
+        )}
       </div>
     );
   }

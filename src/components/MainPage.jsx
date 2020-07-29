@@ -46,6 +46,8 @@ class MainPage extends React.Component {
   };
 
   render() {
+    const latitude = Number(sessionStorage.getItem("latitude")) || -37.814
+    const longitude =  Number(sessionStorage.getItem("longitude")) || 144.96332
     let locations = this.context.locations;
     const likes = sessionStorage.getItem("likes");
     if (this.state.toggled && likes && locations) {
@@ -62,7 +64,7 @@ class MainPage extends React.Component {
             className="map"
             filterLocations={this.getLocations}
             google={this.props.google}
-            center={{ lat: Number(sessionStorage.getItem("latitude")), lng: Number(sessionStorage.getItem("longitude")) }}
+            center={{ lat: latitude, lng: longitude }}
             height="500px"
             zoom={12}
             locations={locations}

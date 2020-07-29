@@ -20,22 +20,24 @@ class Comments extends React.Component {
     if (comments.length === 0) {
       this.loadFromRails();
     } else if (comments[0] === 0) {
-      return <p>No comment</p>;
+      return <p style={{fontStyle: "italic"}}>No comment</p>;
     } else {
       return comments.map((comment,index) => {
         return (
           <div key={index}>
             <div>
-            <span>{comment.username}</span>
-            <span>
+            <i> {comment.username} </i>
+            <small>wrote </small>
+            <small>
               {moment(comment.created_at).startOf("minute").fromNow()}
-            </span>
+            </small>
             </div>
               <span>{comment.body}</span>
               {comment.username === currentUser && 
               <>
-                <span onClick={this.onClickEdit} id={comment.id}> Edit </span>
-                <span onClick={() => this.deleteComment(comment.id)}> Delete </span>
+                <small onClick={this.onClickEdit} id={comment.id}> Edit </small>
+                <small> | </small>
+                <small onClick={() => this.deleteComment(comment.id)}> Delete </small>
               </>}
           </div>
         );
@@ -105,7 +107,7 @@ class Comments extends React.Component {
 
   onFormSubmitEdit = async (event) => {
     event.preventDefault();
-    const data = { body: this.state.body, location_id: this.state.location_id };
+    const data = { body: this.state.body };
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/locations/${this.state.location_id}/comments/${this.state.comment_id}`,
       {
@@ -117,7 +119,7 @@ class Comments extends React.Component {
         body: JSON.stringify(data),
       }
     );
-    this.setState({ body: "" });
+    this.setState({ body: "", create: true });
     this.loadFromRails();
   };
 

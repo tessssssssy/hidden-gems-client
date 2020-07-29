@@ -79,13 +79,13 @@ class ShowLocation extends React.Component {
                       Delete
                     </Button>
                   </div>
-                  {currentUser && (
-                    <UploadImage
-                      location_id={location.id}
-                      reload={this.loadFromRails}
-                    />
-                  )}
                 </>
+              )}
+              {currentUser && (
+                <UploadImage
+                  location_id={location.id}
+                  reload={this.loadFromRails}
+                />
               )}
             </div>
           </div>

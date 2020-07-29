@@ -49,9 +49,13 @@ class Login extends React.Component {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           },
         });
-        const { user } = await response_user.json()
+        const {user, likes, ratings} = await response_user.json()
         sessionStorage.setItem('currentUser', user);
+        sessionStorage.setItem('likes', JSON.stringify(likes));
+        sessionStorage.setItem('ratings', JSON.stringify(ratings));
+        console.log(likes)
         this.context.dispatch("current user", user)
+        console.log(this.context)
   }
 
   render() {

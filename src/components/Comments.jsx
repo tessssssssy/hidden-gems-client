@@ -17,7 +17,6 @@ class Comments extends React.Component {
 
   renderComments = (comments) => {
     let currentUser = sessionStorage.getItem("currentUser");
-    console.log(currentUser);
     if (comments.length === 0) {
       this.loadFromRails();
     } else if (comments[0] === 0) {
@@ -136,7 +135,6 @@ class Comments extends React.Component {
   };
  
   render() {
-    console.log(this.context);
     return (
       <div className="comments">
         <p>Comments</p>

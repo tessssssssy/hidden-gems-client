@@ -26,7 +26,7 @@ class LoggedInNav extends React.Component {
               onClick={() => {
                 console.log("logging out");
                 localStorage.removeItem("token");
-                sessionStorage.removeItem("currentUser");
+                sessionStorage.clear();
                 this.context.dispatch("current user", false);
               }}
             >

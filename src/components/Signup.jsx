@@ -53,6 +53,8 @@ class SignUp extends React.Component {
         });
         const { user } = await response_user.json()
         sessionStorage.setItem('currentUser', user);
+        sessionStorage.setItem('likes', []);
+        sessionStorage.setItem('ratings', []);
         this.context.dispatch("current user", user)
   }
 

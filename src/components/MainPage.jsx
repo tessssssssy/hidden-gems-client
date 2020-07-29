@@ -6,9 +6,11 @@ import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
 import SearchBar from "./SearchBar";
 import "../stylesheets/MainPage.scss";
+import { Checkbox, Rating } from 'semantic-ui-react'
 
 class MainPage extends React.Component {
   static contextType = LocationsContext;
+  state = { toggled: false }
 
   getLocations = async () => {
     const coordinates = {
@@ -33,8 +35,23 @@ class MainPage extends React.Component {
 
   setLoading = () => this.setState({ loading: false });
 
+  onToggle = (e) =>{
+    console.log("toggled")
+    if(e.target.checked){this.setState({toggled: true})}
+    else {this.setState({toggled: false })}
+  }
+
   render() {
-    const { locations } = this.context;
+    
+    let locations = this.context.locations
+    const likes = sessionStorage.getItem("likes")
+    if(this.state.toggled && likes && locations){
+      const savedLocation = locations.filter((location)=>{
+        return JSON.parse(likes).includes(location.id)
+      })
+      locations = savedLocation
+    } 
+
     return (
       locations && (
         <div className="main-page">
@@ -69,11 +86,17 @@ class MainPage extends React.Component {
                   >
                     {location.name}
                   </Link> */}
-                    <p>Ratings; {location.ratings}</p>
+                    <Rating maxRating={5} rating={location.ratings} />
                   </Link>
                 );
               })}
           </div>
+
+          {sessionStorage.getItem("currentUser") && (<div class="ui toggle checkbox">
+            <input type="checkbox" onClick={this.onToggle} ></input>
+            <label>Toggle</label>
+          </div>)}
+          
         </div>
       )
     );

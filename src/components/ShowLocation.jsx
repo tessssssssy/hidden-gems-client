@@ -4,6 +4,7 @@ import { LocationsContext } from "../context/LocationsContext";
 import { Button } from "semantic-ui-react";
 import Comments from "./Comments";
 import RatingBar from "./RatingBar";
+import Like from "./Like";
 import UploadImage from "./UploadImage";
 import ShowMap from "./ShowMap";
 import "../stylesheets/ShowLocation.scss";
@@ -39,13 +40,14 @@ class ShowLocation extends React.Component {
                 user)
               </span>
               <RatingBar
+                {...this.props}
                 location_id={location.id}
                 reload={this.loadFromRails}
               />
             </div>
           </div>
           <div className="location-info">
-            <h1>{location.name}</h1>
+            <h1>{location.name}   {currentUser && <Like {...this.props} location_id={location.id} reload={this.loadFromRails}/>}</h1>
             <h5>{location.tagline}</h5>
             <p>{location.description}</p>
             <UploadImage location_id={location.id} reload={this.loadFromRails} />
@@ -106,7 +108,6 @@ class ShowLocation extends React.Component {
 
   render() {
     const { location, comments } = this.state;
-    console.log(location);
     return (
       <>{location ? this.renderLocation(location) : this.loadFromRails()}</>
     );

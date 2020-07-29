@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import { LocationsContext } from "../context/LocationsContext";
 import { Button } from "semantic-ui-react";
 import Comments from "./Comments";
@@ -115,12 +115,12 @@ class ShowLocation extends React.Component {
       `${process.env.REACT_APP_BACKEND_URL}/locations/${id}`
     );
     const res = await response.json();
-    const { location, comments } = res;
+    const { location, comments } = await res;
     if (res.status >= 400) {
       this.props.history.push("/notfound");
-    }
+    } else{
     this.context.dispatch("update", { ...location });
-    this.setState({ location: location, comments: comments });
+    this.setState({ location: location, comments: comments })}
   };
 
   loadFromRails = () => {
@@ -128,7 +128,6 @@ class ShowLocation extends React.Component {
   };
 
   render() {
-    console.log("render");
     const { location, comments } = this.state;
     return (
       <>{location ? this.renderLocation(location) : this.loadFromRails()}</>
@@ -136,4 +135,4 @@ class ShowLocation extends React.Component {
   }
 }
 
-export default ShowLocation;
+export default withRouter(ShowLocation);

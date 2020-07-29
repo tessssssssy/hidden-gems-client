@@ -137,7 +137,7 @@ class MainPage extends React.Component {
                         <div className="image-container">
                           <img src={location.photos[0].image} />
                         </div>
-                        <p>{location.description}</p>
+                        <p>{location.description.length > 120 ? location.description.substring(0,120)+"..." : location.description}</p>
                       </div>
                     </div>
                   );

@@ -102,4 +102,5 @@ class ShowMap extends React.Component {
     return map;
   }
 }
+
 export default ShowMap;

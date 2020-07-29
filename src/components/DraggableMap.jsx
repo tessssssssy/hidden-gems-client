@@ -46,7 +46,6 @@ class DraggableMap extends React.Component {
         name: this.props.location.name,
         tagline: this.props.location.tagline,
         description: this.props.location.description,
-        category: this.props.location.category,
       });
     }
   };
@@ -94,8 +93,7 @@ class DraggableMap extends React.Component {
       this.state.state !== nextState.state ||
       this.state.name !== nextState.name ||
       this.state.tagline !== nextState.tagline ||
-      this.state.description !== nextState.description ||
-      this.state.category !== nextState.category
+      this.state.description !== nextState.description
     ) {
       return true;
     } else if (this.props.center.lat === nextProps.center.lat) {
@@ -167,7 +165,6 @@ class DraggableMap extends React.Component {
    * @param event
    */
   onChange = (event) => {
-    console.log(this.state.category)
     const key = event.target.id;
     if (event.target?.files) {
       this.setState({
@@ -266,7 +263,6 @@ class DraggableMap extends React.Component {
       image: this.state.image,
       latitude: this.state.markerPosition.lat,
       longitude: this.state.markerPosition.lng,
-      category: this.state.category
     };
     const data = new FormData();
     for (let key in formData) {
@@ -280,7 +276,6 @@ class DraggableMap extends React.Component {
       { key: "art", value: "art", text: "Art" },
       { key: "photo", value: "photo", text: "Photography" },
       { key: "nature", value: "nature", text: "Nature" },
-      { key: "architecture", value: "architecture", text: "Architecture" },
       { key: "other", value: "other", text: "Other" },
     ];
     const AsyncMap = withScriptjs(
@@ -441,12 +436,12 @@ class DraggableMap extends React.Component {
               </Form.Field>
               <Form.Field>
                 <Select
+                  placeholder="Category"
+                  options={categories}
                   onChange={this.onChange}
                   value={this.state.category}
                   name="category"
                   id="category"
-                  placeholder="Category"
-                  options={categories}
                 ></Select>
               </Form.Field>
               <Form.Field>

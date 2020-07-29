@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect, withRouter } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { LocationsContext } from "../context/LocationsContext";
 import { Button } from "semantic-ui-react";
 import Comments from "./Comments";
@@ -60,7 +60,7 @@ class ShowLocation extends React.Component {
               </h1>
               <h5>{location.tagline}</h5>
               <p>{location.description}</p>
-              
+
               {location.username === currentUser && (
                 <>
                   {console.log(location.id)}
@@ -68,7 +68,7 @@ class ShowLocation extends React.Component {
                     <Button className="show-button">
                       <Link to={`/location/${location.id}/edit`}>Edit</Link>
                     </Button>
-                    <Button 
+                    <Button
                       className="show-button"
                       onClick={() => {
                         this.deleteLocation(location.id);
@@ -79,11 +79,11 @@ class ShowLocation extends React.Component {
                     </Button>
                   </div>
                   {currentUser && (
-                <UploadImage
-                  location_id={location.id}
-                  reload={this.loadFromRails}
-                />
-              )}
+                    <UploadImage
+                      location_id={location.id}
+                      reload={this.loadFromRails}
+                    />
+                  )}
                 </>
               )}
             </div>
@@ -108,26 +108,35 @@ class ShowLocation extends React.Component {
     );
   };
 
-  getLocation = async () => {
-    console.log(this.state);
-    const id = this.props.match.params.id;
-    const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/locations/${id}`
-    );
-    const res = await response.json();
-    const { location, comments } = await res;
-    if (res.status >= 400) {
+  checkStatus = (res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
       this.props.history.push("/notfound");
-    } else{
-    this.context.dispatch("update", { ...location });
-    this.setState({ location: location, comments: comments })}
+    }
   };
 
+  getLocation = async () => {
+    try {
+      const id = this.props.match.params.id;
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/locations/${id}`
+      );
+      const res = await this.checkStatus(response);
+      const { location, comments } = res;
+      this.context.dispatch("update", { ...location });
+      this.setState({ location: location, comments: comments });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
   loadFromRails = () => {
     this.getLocation();
   };
 
   render() {
+    console.log("render");
     const { location, comments } = this.state;
     return (
       <>{location ? this.renderLocation(location) : this.loadFromRails()}</>
@@ -135,4 +144,4 @@ class ShowLocation extends React.Component {
   }
 }
 
-export default withRouter(ShowLocation);
+export default ShowLocation;

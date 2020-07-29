@@ -32,7 +32,7 @@ class CreateForm extends React.Component {
 
       onChange = (event) => {
         const key = event.target.id;
-        if (event.target.childElementCount > 0) {
+        if (event.target.tagName.toLowerCase() === 'span' || event.target.childElementCount > 0) {
             this.setState({
                 category: event.target.innerText
             })

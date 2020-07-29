@@ -1,11 +1,9 @@
 import React from "react";
-import { Autocomplete, GoogleApiWrapper } from "react-google-autocomplete";
-import { Redirect } from "react-router-dom";
-import Script from "react-load-script";
-import LandingSearch from "./LandingSearch";
-import "../stylesheets/Landing.scss";
+import Autocomplete from "react-google-autocomplete";
+import "../stylesheets/SearchBar.scss";
+import { Search } from "semantic-ui-react";
 
-class Landing extends React.Component {
+class LandingSearch extends React.Component {
   getCity = (addressArray) => {
     let city = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -18,7 +16,6 @@ class Landing extends React.Component {
       }
     }
   };
-
   getArea = (addressArray) => {
     let area = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -59,6 +56,8 @@ class Landing extends React.Component {
       state = this.getState(addressArray),
       latValue = place.geometry.location.lat(),
       lngValue = place.geometry.location.lng();
+    sessionStorage.setItem("latitude", latValue);
+    sessionStorage.setItem("longitude", lngValue);
     // Set these values in the state.
     this.setState({
       address: address ? address : "",
@@ -74,25 +73,25 @@ class Landing extends React.Component {
         lng: lngValue,
       },
     });
-    console.log(this.state)
-      sessionStorage.setItem("latitude", this.state.markerPosition.lat) 
-      sessionStorage.setItem("longitude", this.state.markerPosition.lng) 
-      this.props.history.push("/main");
   };
 
   render() {
     return (
-      <div className="landing">
-        <h1>Hidden Gems</h1>
-        <h3>Find your next adventure</h3>
-        <LandingSearch onPlaceSelected={this.onPlaceSelected} />
+      <div className="landing-search-bar">
+        {/* <div class="ui search">
+          <div class="ui icon input"> */}
+        <Autocomplete
+          className="landing-autocomplete"
+          onPlaceSelected={this.props.onPlaceSelected}
+          types={["(regions)"]}
+          placeholder="enter location"
+        />
+        {/* <i aria-hidden="true" class="search icon"></i> */}
+        {/* </div>
+        </div> */}
       </div>
     );
   }
 }
 
-// export default GoogleApiWrapper({
-//   apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
-// })(Landing);
-
-export default Landing;
+export default LandingSearch;

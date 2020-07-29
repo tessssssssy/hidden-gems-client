@@ -62,7 +62,7 @@ class MainPage extends React.Component {
             className="map"
             filterLocations={this.getLocations}
             google={this.props.google}
-            center={{ lat: -37.814, lng: 144.96332 }}
+            center={{ lat: Number(sessionStorage.getItem("latitude")), lng: Number(sessionStorage.getItem("longitude")) }}
             height="500px"
             zoom={12}
             locations={locations}

@@ -1,6 +1,8 @@
 .main-page {
     width: 100vw;
     display: flex;
+    height: 100vh;
+    overflow: hidden;
     .locations-container {
         width: 800px;
         z-index: 1;

@@ -244,7 +244,7 @@ class LocationsMap extends React.Component {
           defaultZoom={this.props.zoom}
           defaultCenter={{
             lat: this.state.mapPosition.lat,
-            lng: this.state.mapPosition.lng,
+            lng: this.state.mapPosition.lng
           }}
         >
           {this.props.locations.map((location, index) => {

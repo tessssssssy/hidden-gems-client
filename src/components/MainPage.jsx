@@ -80,7 +80,7 @@ class MainPage extends React.Component {
       });
       locations = savedLocation;
     }
-
+    console.log(locations)
     const positionFixed = { position: "fixed" };
 
     return (
@@ -106,7 +106,7 @@ class MainPage extends React.Component {
               </div>
               {sessionStorage.getItem("currentUser") && (
                 <div class="ui toggle checkbox">
-                  <input type="checkbox" onSelectCapture={this.onToggle}></input>
+                  <input type="checkbox" onClick={this.onToggle}></input>
                   <label>Show Saved Locations</label>
                 </div>
               )}             

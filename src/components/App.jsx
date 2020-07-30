@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import ProtectedRoute from "./ProtectedRoute";
 import Landing from "./Landing";
 import MainPage from "./MainPage";
@@ -21,20 +22,26 @@ class App extends React.Component {
 
   render() {
     return (
-      <LocationsContext.Provider value={this.state}>
-        <Navbar />
-        <Switch>
-          <ProtectedRoute exact path="/location/:id/edit" component={EditLocation} />
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/main" component={MainPage} />
-          <Route exact path="/notfound" component={NotFound} />
-          <ProtectedRoute exact path="/location/create" component={CreateLocation} />
-          <Route exact path="/location/:id" component={ShowLocation} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <Route component={MainPage} />
-        </Switch>
-      </LocationsContext.Provider>
+      <>
+        <Helmet>
+          <title>Hidden Gems - Find your next adventure</title>
+          <meta name="Hidden Gems" content="Hidden Gems - Find your next adventure" />
+        </Helmet>
+        <LocationsContext.Provider value={this.state}>
+          <Navbar />
+          <Switch>
+            <ProtectedRoute exact path="/location/:id/edit" component={EditLocation} />
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/main" component={MainPage} />
+            <Route exact path="/notfound" component={NotFound} />
+            <ProtectedRoute exact path="/location/create" component={CreateLocation} />
+            <Route exact path="/location/:id" component={ShowLocation} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+            <Route component={MainPage} />
+          </Switch>
+        </LocationsContext.Provider>
+      </>
     );
   }
 }

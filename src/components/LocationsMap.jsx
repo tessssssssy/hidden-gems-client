@@ -9,8 +9,6 @@ import {
   InfoWindow,
 } from "react-google-maps";
 
-import { LocationsContext, dispatch } from "../context/LocationsContext";
-import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
@@ -23,7 +21,6 @@ import nature from "../images/nature.png";
 import other from "../images/other.png";
 
 class LocationsMap extends React.Component {
-  static contextType = LocationsContext;
   static defaultProps = {
     icons: {
       photography: photography,
@@ -79,20 +76,7 @@ class LocationsMap extends React.Component {
     );
   }
 
-  // /**
-  //  * Component should only update ( meaning re-render ), when the user selects the address, or drags the pin
-  //  *
-  //  * @param nextProps
-  //  * @param nextState
-  //  * @return {boolean}
-  //  */
 
-  // /**
-  //  * Get the city and set the city input value to the one selected
-  //  *
-  //  * @param addressArray
-  //  * @return {string}
-  //  */
 
   getCity = (addressArray) => {
     let city = "";
@@ -107,12 +91,6 @@ class LocationsMap extends React.Component {
     }
   };
 
-  // /**
-  //  * Get the area and set the area input value to the one selected
-  //  *
-  //  * @param addressArray
-  //  * @return {string}
-  //  */
 
   getArea = (addressArray) => {
     let area = "";
@@ -130,12 +108,7 @@ class LocationsMap extends React.Component {
       }
     }
   };
-  // /**
-  //  * Get the address and set the address input value to the one selected
-  //  *
-  //  * @param addressArray
-  //  * @return {string}
-  //  */
+
   getState = (addressArray) => {
     let state = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -150,30 +123,11 @@ class LocationsMap extends React.Component {
       }
     }
   };
-  // /**
-  //  * And function for city,state and address input
-  //  * @param event
-  //  */
+
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
-  // /**
-  //  * This Event triggers when the marker window is closed
-  //  *
-  //  * @param event
-  //  */
 
-  // /**
-  //  * When the marker is dragged you get the lat and long using the functions available from event object.
-  //  * Use geocode to get the address, city, area and state from the lat and lng positions.
-  //  * And then set those values in the state.
-  //  *
-  //  * @param event
-  //  */
-  // /**
-  //  * When the user types an address in the search box
-  //  * @param place
-  //  */
   onPlaceSelected = (place) => {
     console.log("plc", place);
     const address = place.formatted_address,
@@ -187,7 +141,6 @@ class LocationsMap extends React.Component {
     sessionStorage.setItem("latitude", latValue);
     sessionStorage.setItem("longitude", lngValue);
     console.log(sessionStorage)
-    // this.context.dispatch("populate", { locations });
     this.props.filterLocations();
     this.setState({
       address: address ? address : "",

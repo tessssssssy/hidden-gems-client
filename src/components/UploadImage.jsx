@@ -17,7 +17,7 @@ class UploadImage extends React.Component {
   submitPhoto = async (e) => {
     e.preventDefault();
     const formData = {
-      image: this.state.image,
+      image: this.state.image
     };
     // create formData
     const data = new FormData();

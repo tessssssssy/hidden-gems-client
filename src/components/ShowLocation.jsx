@@ -91,6 +91,7 @@ class ShowLocation extends React.Component {
           </div>
           <div className="photo-grid">
             {this.state.location.photos.map((photo) => {
+
               return (
                 <Popup
                   trigger={<img src={photo.image}/>}
@@ -99,7 +100,7 @@ class ShowLocation extends React.Component {
                 >
                   <span className="popup">
                     <img className="popup-image" src={photo.image}/>
-                    <p>Posted by {photo.user_id}</p>
+                    <p>Posted by {photo.username ? photo.username : "anonymous"}</p>
                     </span>
                 </Popup>
               );

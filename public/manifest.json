@@ -3,17 +3,17 @@
   "name": "Hidden Gems - Find your next adventure",
   "icons": [
     {
-      "src": "icon.ico",
+      "src": "gem_icon_color.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "icon.jpg",
+      "src": "gem_icon_color.jpg",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "icon.jpg",
+      "src": "gem_icon_color.jpg",
       "type": "image/png",
       "sizes": "512x512"
     }

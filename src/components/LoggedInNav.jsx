@@ -19,7 +19,6 @@ class LoggedInNav extends React.Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <img style={{width: "30px", height: "30px"}} src={icon}/>
             <NavLink className="nav-link" to="/main">Home</NavLink>
             <NavLink className="nav-link" to="/location/create">Add Location</NavLink>
             <NavLink

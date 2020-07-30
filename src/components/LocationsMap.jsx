@@ -9,6 +9,7 @@ import {
   InfoWindow,
 } from "react-google-maps";
 
+import { LocationsContext, dispatch } from "../context/LocationsContext";
 import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
 import { Link } from "react-router-dom";
@@ -22,6 +23,7 @@ import nature from "../images/nature.png";
 import other from "../images/other.png";
 
 class LocationsMap extends React.Component {
+  static contextType = LocationsContext;
   static defaultProps = {
     icons: {
       photography: photography,
@@ -184,6 +186,8 @@ class LocationsMap extends React.Component {
 
     sessionStorage.setItem("latitude", latValue);
     sessionStorage.setItem("longitude", lngValue);
+    console.log(sessionStorage)
+    // this.context.dispatch("populate", { locations });
     this.props.filterLocations();
     this.setState({
       address: address ? address : "",

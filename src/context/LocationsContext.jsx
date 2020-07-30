@@ -3,6 +3,8 @@ import React from 'react'
 function dispatch(action, value) {
   switch(action) {
     case "populate":
+      console.log("populating")
+      console.log(value.locations)
       this.setState( { locations: value.locations } )
       break;
     case "add":

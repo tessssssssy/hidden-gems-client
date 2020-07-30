@@ -2,27 +2,26 @@ import React from "react";
 import { LocationsContext, dispatch } from "../context/LocationsContext";
 import { Link } from "react-router-dom";
 import LocationsMap from "./LocationsMap";
-import Autocomplete from "react-google-autocomplete";
-import Geocode from "react-geocode";
-import SearchBar from "./SearchBar";
 import "../stylesheets/MainPage.scss";
-import { Checkbox, Rating, Select } from "semantic-ui-react";
+import { Rating, Select, Button } from "semantic-ui-react";
 
 class MainPage extends React.Component {
   static contextType = LocationsContext;
-  state = { toggled: false, category: "All" };
+  state = { toggled: false, category: "All"};
 
-  getLocations = async () => {
+  getLocations = async (distance) => {
     const coordinates = {
       latitude: sessionStorage.getItem("latitude") || -37.814,
       longitude: sessionStorage.getItem("longitude") || 144.96332,
     };
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/locations?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`
+        `${process.env.REACT_APP_BACKEND_URL}/locations?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&km=${distance}`
       );
-      const { locations } = await response.json();
+      const { locations, errors } = await response.json();
+      if(errors){alert(errors)}
       this.context.dispatch("populate", { locations });
+      console.log(locations)
     } catch (err) {
       console.log(err);
     }
@@ -107,9 +106,10 @@ class MainPage extends React.Component {
               {sessionStorage.getItem("currentUser") && (
                 <div class="ui toggle checkbox">
                   <input type="checkbox" onClick={this.onToggle}></input>
-                  <label>Show Saved Locations</label>
+                  <label>My Locations</label>
                 </div>
               )}
+              <Button onClick={()=> this.getLocations(128000)}>All Locations</Button>
             </div>
             <div class="location-main">
               {locations &&

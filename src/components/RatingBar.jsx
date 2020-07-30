@@ -1,5 +1,6 @@
 import React from "react";
 import { Rating } from "semantic-ui-react";
+
 class RatingBar extends React.Component {
   state = {
     rating: 0,
@@ -30,7 +31,12 @@ class RatingBar extends React.Component {
     );
     if (response.status === 201) {
       const ratings = JSON.parse(sessionStorage.getItem("ratings"));
-      sessionStorage.setItem("ratings",JSON.stringify([...ratings,{ location_id: this.state.location_id, stars: rating }])
+      sessionStorage.setItem(
+        "ratings",
+        JSON.stringify([
+          ...ratings,
+          { location_id: this.state.location_id, stars: rating },
+        ])
       );
     }
     this.setState({ disabled: "disabled" });
@@ -67,7 +73,7 @@ class RatingBar extends React.Component {
         {currentUser && (
           <>
             <Rating
-            icon="star"
+              icon="star"
               rating={this.state.rating}
               disabled={this.state.disabled}
               maxRating={5}

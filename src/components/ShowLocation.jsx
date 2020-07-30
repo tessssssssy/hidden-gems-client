@@ -91,17 +91,18 @@ class ShowLocation extends React.Component {
           </div>
           <div className="photo-grid">
             {this.state.location.photos.map((photo) => {
-
               return (
                 <Popup
-                  trigger={<img src={photo.image}/>}
+                  trigger={<img src={photo.image} />}
                   modal
                   closeOnDocumentClick
                 >
                   <span className="popup">
-                    <img className="popup-image" src={photo.image}/>
-                    <p>Posted by {photo.username ? photo.username : "anonymous"}</p>
-                    </span>
+                    <img className="popup-image" src={photo.image} />
+                    <p>
+                      Posted by {photo.username ? photo.username : "anonymous"}
+                    </p>
+                  </span>
                 </Popup>
               );
             })}
@@ -149,7 +150,6 @@ class ShowLocation extends React.Component {
   };
 
   render() {
-    console.log("render");
     const { location, comments } = this.state;
     return (
       <>{location ? this.renderLocation(location) : this.loadFromRails()}</>

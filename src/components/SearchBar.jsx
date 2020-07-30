@@ -6,8 +6,9 @@ import "../stylesheets/SearchBar.scss";
 class SearchBar extends React.Component {
   state = {
     category: null,
-    mapView: true
+    mapView: true,
   };
+
   getCity = (addressArray) => {
     let city = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -20,6 +21,7 @@ class SearchBar extends React.Component {
       }
     }
   };
+  
   getArea = (addressArray) => {
     let area = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -78,10 +80,10 @@ class SearchBar extends React.Component {
   };
 
   toggleView = () => {
-    this.setState(st => ({
-      mapView: !st.mapView
-    }))
-  }
+    this.setState((st) => ({
+      mapView: !st.mapView,
+    }));
+  };
 
   render() {
     return (
@@ -95,4 +97,5 @@ class SearchBar extends React.Component {
     );
   }
 }
+
 export default SearchBar;

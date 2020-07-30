@@ -22,14 +22,11 @@
   .form-container {
     background-color: white;
     height: 100vh;
-    // position: absolute;
-    // right: 0px;
     position: relative;
     top: 80px;
-    // margin-top: 80px;
     overflow: scroll;
     h1 {
-        padding: 20px 20px 0px 20px;
+      padding: 20px 20px 0px 20px;
     }
     .location-form {
       width: 500px;
@@ -37,8 +34,8 @@
       background-color: white;
       padding: 20px;
       .read-only {
-          border: none;
-          font-weight: bold;
+        border: none;
+        font-weight: bold;
       }
       .hidden {
         display: none;
@@ -51,28 +48,25 @@
   .draggable-map {
     flex-direction: column;
     .form-container {
-        width: 100%;   
-        .location-form {
-            margin-top: 300px;
-            width: 100%;
-            position: relative;
-            bottom: 300px;
-          }
+      width: 100%;
+      .location-form {
+        margin-top: 300px;
+        width: 100%;
+        position: relative;
+        bottom: 300px;
+      }
     }
     .google-map {
-        position: relative;
-        // bottom: 200px;
-        height: 300px;
-    }   
+      position: relative;
+      height: 300px;
+    }
     .search-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        .autocomplete {
-          width: 80%;
-        }
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      .autocomplete {
+        width: 80%;
+      }
     }
   }
 }
-
-

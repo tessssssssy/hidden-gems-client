@@ -6,7 +6,6 @@ class UploadImage extends React.Component {
   state = this.props;
 
   onChange = (event) => {
-    console.log(this.state);
     const key = event.target.id;
 
     this.setState({
@@ -17,14 +16,13 @@ class UploadImage extends React.Component {
   submitPhoto = async (e) => {
     e.preventDefault();
     const formData = {
-      image: this.state.image
+      image: this.state.image,
     };
-    // create formData
+
     const data = new FormData();
     for (let key in formData) {
       data.append(`photo[${key}]`, formData[key]);
     }
-    console.log(data);
     try {
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/locations/${this.state.location_id}/photos`,
@@ -36,13 +34,10 @@ class UploadImage extends React.Component {
           body: data,
         }
       );
-      document.getElementById('image').value = null;
+      document.getElementById("image").value = null;
       this.state.reload();
       const res = await response.json();
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   render() {
@@ -52,10 +47,9 @@ class UploadImage extends React.Component {
         onSubmit={this.submitPhoto}
         encType="multipart/form-data"
       >
-        {/* <Form.Field className="form-field"> */}
         <label htmlFor="image">Upload Image</label>
         <input onChange={this.onChange} type="file" name="image" id="image" />
-        {/* </Form.Field> */}
+
         <Button type="submit">Submit</Button>
       </form>
     );

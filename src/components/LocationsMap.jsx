@@ -15,14 +15,11 @@ import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import "../stylesheets/LocationsMap.scss";
 
-import photography from './camera.png';
-import art from './art.png';
-import architecture from './architecture.png';
-import nature from './nature.png';
-import other from './other.png';
-
-// Geocode.setApiKey("AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk");
-// Geocode.enableDebug();
+import photography from "../images/camera.png";
+import art from "../images/art.png";
+import architecture from "../images/architecture.png";
+import nature from "../images/nature.png";
+import other from "../images/other.png";
 
 class LocationsMap extends React.Component {
   static defaultProps = {
@@ -31,14 +28,13 @@ class LocationsMap extends React.Component {
       art: art,
       architecture: architecture,
       nature: nature,
-      other: other
-    }
-  }
+      other: other,
+    },
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      //selectedLocation: this.props.locations[0],
       address: "",
       city: "",
       area: "",
@@ -53,9 +49,7 @@ class LocationsMap extends React.Component {
       },
     };
   }
-  /**
-   * Get the current address from the default map position and set those values in the state
-   */
+
   componentDidMount() {
     Geocode.fromLatLng(
       this.state.mapPosition.lat,
@@ -82,20 +76,22 @@ class LocationsMap extends React.Component {
       }
     );
   }
-  /**
-   * Component should only update ( meaning re-render ), when the user selects the address, or drags the pin
-   *
-   * @param nextProps
-   * @param nextState
-   * @return {boolean}
-   */
 
-  /**
-   * Get the city and set the city input value to the one selected
-   *
-   * @param addressArray
-   * @return {string}
-   */
+  // /**
+  //  * Component should only update ( meaning re-render ), when the user selects the address, or drags the pin
+  //  *
+  //  * @param nextProps
+  //  * @param nextState
+  //  * @return {boolean}
+  //  */
+
+  // /**
+  //  * Get the city and set the city input value to the one selected
+  //  *
+  //  * @param addressArray
+  //  * @return {string}
+  //  */
+
   getCity = (addressArray) => {
     let city = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -108,12 +104,14 @@ class LocationsMap extends React.Component {
       }
     }
   };
-  /**
-   * Get the area and set the area input value to the one selected
-   *
-   * @param addressArray
-   * @return {string}
-   */
+
+  // /**
+  //  * Get the area and set the area input value to the one selected
+  //  *
+  //  * @param addressArray
+  //  * @return {string}
+  //  */
+
   getArea = (addressArray) => {
     let area = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -130,12 +128,12 @@ class LocationsMap extends React.Component {
       }
     }
   };
-  /**
-   * Get the address and set the address input value to the one selected
-   *
-   * @param addressArray
-   * @return {string}
-   */
+  // /**
+  //  * Get the address and set the address input value to the one selected
+  //  *
+  //  * @param addressArray
+  //  * @return {string}
+  //  */
   getState = (addressArray) => {
     let state = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -150,30 +148,30 @@ class LocationsMap extends React.Component {
       }
     }
   };
-  /**
-   * And function for city,state and address input
-   * @param event
-   */
+  // /**
+  //  * And function for city,state and address input
+  //  * @param event
+  //  */
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
-  /**
-   * This Event triggers when the marker window is closed
-   *
-   * @param event
-   */
+  // /**
+  //  * This Event triggers when the marker window is closed
+  //  *
+  //  * @param event
+  //  */
 
-  /**
-   * When the marker is dragged you get the lat and long using the functions available from event object.
-   * Use geocode to get the address, city, area and state from the lat and lng positions.
-   * And then set those values in the state.
-   *
-   * @param event
-   */
-  /**
-   * When the user types an address in the search box
-   * @param place
-   */
+  // /**
+  //  * When the marker is dragged you get the lat and long using the functions available from event object.
+  //  * Use geocode to get the address, city, area and state from the lat and lng positions.
+  //  * And then set those values in the state.
+  //  *
+  //  * @param event
+  //  */
+  // /**
+  //  * When the user types an address in the search box
+  //  * @param place
+  //  */
   onPlaceSelected = (place) => {
     console.log("plc", place);
     const address = place.formatted_address,
@@ -183,7 +181,7 @@ class LocationsMap extends React.Component {
       state = this.getState(addressArray),
       latValue = place.geometry.location.lat(),
       lngValue = place.geometry.location.lng();
-    // Set these values in the state.
+
     sessionStorage.setItem("latitude", latValue);
     sessionStorage.setItem("longitude", lngValue);
     this.props.filterLocations();
@@ -207,21 +205,21 @@ class LocationsMap extends React.Component {
   showInfoWindow = (location) => {
     this.setState({ selectedLocation: location });
     console.log(this.state.selectedLocation.id);
-    console.log(this.props.locations)
+    console.log(this.props.locations);
   };
 
   getIcon(category) {
-    const { art, photography, architecture, nature, other } = this.props.icons
+    const { art, photography, architecture, nature, other } = this.props.icons;
     if (category === "art") {
-      return art
+      return art;
     } else if (category === "Photography") {
-      return photography
+      return photography;
     } else if (category === "Architecture") {
-      return architecture
+      return architecture;
     } else if (category === "Nature") {
-      return nature 
+      return nature;
     } else {
-      return other
+      return other;
     }
   }
   render() {
@@ -232,17 +230,17 @@ class LocationsMap extends React.Component {
           defaultZoom={this.props.zoom}
           defaultCenter={{
             lat: this.state.mapPosition.lat,
-            lng: this.state.mapPosition.lng
+            lng: this.state.mapPosition.lng,
           }}
         >
           {this.props.locations.map((location, index) => {
-            console.log(location.category)
+            console.log(location.category);
             return (
               <>
                 <Marker
                   icon={{
                     url: this.getIcon(location.category),
-                    }}
+                  }}
                   onClick={() => this.showInfoWindow(location)}
                   google={this.props.google}
                   position={{
@@ -250,26 +248,27 @@ class LocationsMap extends React.Component {
                     lng: location.longitude,
                   }}
                 />
-                {this.state.selectedLocation && location.id === this.state.selectedLocation.id && (
-                  <InfoWindow
-                    className="info-window" // {location.id === this.state.selectedLocation ? "info-window-selected" : "info-window"}
-                    position={{
-                      lat: location.latitude + 0.0018,
-                      lng: location.longitude,
-                    }}
-                  >
-                    <Link
-                      to={{
-                        pathname: `/location/${location.id}`,
-                        state: location,
+                {this.state.selectedLocation &&
+                  location.id === this.state.selectedLocation.id && (
+                    <InfoWindow
+                      className="info-window" 
+                      position={{
+                        lat: location.latitude + 0.0018,
+                        lng: location.longitude,
                       }}
-                      key={index}
-                      style={{ padding: 0, margin: 0 }}
                     >
-                      {location.name}
-                    </Link>
-                  </InfoWindow>
-                )}
+                      <Link
+                        to={{
+                          pathname: `/location/${location.id}`,
+                          state: location,
+                        }}
+                        key={index}
+                        style={{ padding: 0, margin: 0 }}
+                      >
+                        {location.name}
+                      </Link>
+                    </InfoWindow>
+                  )}
               </>
             );
           })}
@@ -300,8 +299,5 @@ class LocationsMap extends React.Component {
   }
 }
 
-// export default GoogleApiWrapper({
-//   apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
-// })(LocationsMap);
-
 export default LocationsMap;
+

@@ -1,7 +1,7 @@
 import React from "react";
 import Autocomplete from "react-google-autocomplete";
 import "../stylesheets/SearchBar.scss";
-import { Search } from "semantic-ui-react";
+
 
 class LandingSearch extends React.Component {
   getCity = (addressArray) => {
@@ -58,7 +58,6 @@ class LandingSearch extends React.Component {
       lngValue = place.geometry.location.lng();
     sessionStorage.setItem("latitude", latValue);
     sessionStorage.setItem("longitude", lngValue);
-    // Set these values in the state.
     this.setState({
       address: address ? address : "",
       area: area ? area : "",
@@ -78,17 +77,12 @@ class LandingSearch extends React.Component {
   render() {
     return (
       <div className="landing-search-bar">
-        {/* <div class="ui search">
-          <div class="ui icon input"> */}
         <Autocomplete
           className="landing-autocomplete"
           onPlaceSelected={this.props.onPlaceSelected}
           types={["(regions)"]}
           placeholder="enter location"
         />
-        {/* <i aria-hidden="true" class="search icon"></i> */}
-        {/* </div>
-        </div> */}
       </div>
     );
   }

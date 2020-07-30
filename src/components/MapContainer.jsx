@@ -10,11 +10,10 @@ export class MapContainer extends React.Component {
     mapPosition: {
       lat: this.props.center.lat,
       lng: this.props.center.lng,
-    }
+    },
   };
 
   onPlaceSelected = (place) => {
-    console.log("plc", place);
     const address = place.formatted_address,
       addressArray = place.address_components,
       city = this.getCity(addressArray),
@@ -37,7 +36,6 @@ export class MapContainer extends React.Component {
         lng: lngValue,
       },
     });
-    console.log(this.state)
   };
   getCity = (addressArray) => {
     let city = "";
@@ -108,7 +106,7 @@ export class MapContainer extends React.Component {
     const style = {
       width: "900px",
       height: "500px",
-      position: 'relative',
+      position: "relative",
       marginLeft: "20px",
       borderRadius: "10px",
     };
@@ -162,4 +160,3 @@ export class MapContainer extends React.Component {
 export default GoogleApiWrapper({
   apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
 })(MapContainer);
-

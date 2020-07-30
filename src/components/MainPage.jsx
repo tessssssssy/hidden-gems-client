@@ -10,20 +10,18 @@ import { Checkbox, Rating, Select } from "semantic-ui-react";
 
 class MainPage extends React.Component {
   static contextType = LocationsContext;
-  state = { toggled: false, category: 'All' };
+  state = { toggled: false, category: "All" };
 
   getLocations = async () => {
     const coordinates = {
       latitude: sessionStorage.getItem("latitude") || -37.814,
       longitude: sessionStorage.getItem("longitude") || 144.96332,
     };
-    console.log(coordinates);
     try {
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/locations?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`
       );
       const { locations } = await response.json();
-      console.log(locations);
       this.context.dispatch("populate", { locations });
     } catch (err) {
       console.log(err);
@@ -37,7 +35,6 @@ class MainPage extends React.Component {
   setLoading = () => this.setState({ loading: false });
 
   onToggle = (e) => {
-    console.log("toggled");
     if (e.target.checked) {
       this.setState({ toggled: true });
     } else {
@@ -47,9 +44,9 @@ class MainPage extends React.Component {
 
   setCategory = (e) => {
     this.setState({
-      category: e.target.innerText
-    })
-  }
+      category: e.target.innerText,
+    });
+  };
 
   render() {
     // categories for select dropdown menu
@@ -58,7 +55,7 @@ class MainPage extends React.Component {
       { key: "photo", value: "photo", text: "Photography" },
       { key: "nature", value: "nature", text: "Nature" },
       { key: "other", value: "other", text: "Other" },
-      { key: "all", value: "all", text: "All" }
+      { key: "all", value: "all", text: "All" },
     ];
 
     // lat and lng values to initially center the map
@@ -67,10 +64,10 @@ class MainPage extends React.Component {
 
     let locations = this.context.locations;
 
-    if (this.state.category !== 'All') {
-      locations = locations.filter(location => {
-        return location.category === this.state.category
-      })
+    if (this.state.category !== "All") {
+      locations = locations.filter((location) => {
+        return location.category === this.state.category;
+      });
     }
 
     const likes = sessionStorage.getItem("likes");
@@ -80,7 +77,6 @@ class MainPage extends React.Component {
       });
       locations = savedLocation;
     }
-    console.log(locations)
     const positionFixed = { position: "fixed" };
 
     return (
@@ -101,15 +97,19 @@ class MainPage extends React.Component {
               style={locations.length >= 4 ? positionFixed : null}
             >
               <div className="options">
-                <Select placeholder="Category" onChange={this.setCategory} className="category" options={categories}></Select>
-                {/* <Radio onClick={this.toggleView} className="view-toggle" toggle label={this.state.mapView ? 'list' : 'map'} /> */}
+                <Select
+                  placeholder="Category"
+                  onChange={this.setCategory}
+                  className="category"
+                  options={categories}
+                ></Select>
               </div>
               {sessionStorage.getItem("currentUser") && (
                 <div class="ui toggle checkbox">
                   <input type="checkbox" onClick={this.onToggle}></input>
                   <label>Show Saved Locations</label>
                 </div>
-              )}             
+              )}
             </div>
             <div class="location-main">
               {locations &&
@@ -137,7 +137,11 @@ class MainPage extends React.Component {
                         <div className="image-container">
                           <img src={location.photos[0].image} />
                         </div>
-                        <p>{location.description.length > 120 ? location.description.substring(0,120)+"..." : location.description}</p>
+                        <p>
+                          {location.description.length > 120
+                            ? location.description.substring(0, 120) + "..."
+                            : location.description}
+                        </p>
                       </div>
                     </div>
                   );
@@ -151,4 +155,3 @@ class MainPage extends React.Component {
 }
 
 export default MainPage;
-

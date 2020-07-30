@@ -31,7 +31,7 @@ class MainPage extends React.Component {
   };
 
   async componentDidMount() {
-    await this.getLocations();
+    this.getLocations();
   }
 
   setLoading = () => this.setState({ loading: false });
@@ -151,3 +151,4 @@ class MainPage extends React.Component {
 }
 
 export default MainPage;
+

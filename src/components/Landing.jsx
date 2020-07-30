@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import Script from "react-load-script";
 import LandingSearch from "./LandingSearch";
 import "../stylesheets/Landing.scss";
+import icon from "../images/gem_icon_color.png";
 
 class Landing extends React.Component {
   getCity = (addressArray) => {
@@ -83,16 +84,12 @@ class Landing extends React.Component {
   render() {
     return (
       <div className="landing">
-        <h1>Hidden Gems</h1>
+        <h1><img style={{width: "100px"}} src={icon}/>Hidden Gems</h1>
         <h3>Find your next adventure</h3>
         <LandingSearch onPlaceSelected={this.onPlaceSelected} />
       </div>
     );
   }
 }
-
-// export default GoogleApiWrapper({
-//   apiKey: "AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk",
-// })(Landing);
 
 export default Landing;

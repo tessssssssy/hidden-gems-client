@@ -3,6 +3,7 @@ import { Link, NavLink, Redirect } from "react-router-dom";
 import { LocationsContext } from "../context/LocationsContext";
 import { Navbar, Nav } from "react-bootstrap";
 import '../stylesheets/Navbar.scss';
+import icon from "../images/gem_icon_color.png";
 
 class LoggedInNav extends React.Component {
   static contextType = LocationsContext;
@@ -18,6 +19,7 @@ class LoggedInNav extends React.Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
+            <img style={{width: "30px", height: "30px"}} src={icon}/>
             <NavLink className="nav-link" to="/main">Home</NavLink>
             <NavLink className="nav-link" to="/location/create">Add Location</NavLink>
             <NavLink

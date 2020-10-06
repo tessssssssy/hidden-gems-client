@@ -76,8 +76,6 @@ class LocationsMap extends React.Component {
     );
   }
 
-
-
   getCity = (addressArray) => {
     let city = "";
     for (let i = 0; i < addressArray.length; i++) {
@@ -90,7 +88,6 @@ class LocationsMap extends React.Component {
       }
     }
   };
-
 
   getArea = (addressArray) => {
     let area = "";
@@ -140,7 +137,7 @@ class LocationsMap extends React.Component {
 
     sessionStorage.setItem("latitude", latValue);
     sessionStorage.setItem("longitude", lngValue);
-    console.log(sessionStorage)
+    console.log(sessionStorage);
     this.props.filterLocations();
     this.setState({
       address: address ? address : "",
@@ -182,59 +179,61 @@ class LocationsMap extends React.Component {
   render() {
     const AsyncMap = withScriptjs(
       withGoogleMap((props) => (
-        <GoogleMap
-          google={this.props.google}
-          defaultZoom={this.props.zoom}
-          defaultCenter={{
-            lat: this.state.mapPosition.lat,
-            lng: this.state.mapPosition.lng,
-          }}
-        >
-          {this.props.locations.map((location, index) => {
-            console.log(location.category);
-            return (
-              <>
-                <Marker
-                  icon={{
-                    url: this.getIcon(location.category),
-                  }}
-                  onClick={() => this.showInfoWindow(location)}
-                  google={this.props.google}
-                  position={{
-                    lat: location.latitude,
-                    lng: location.longitude,
-                  }}
-                />
-                {this.state.selectedLocation &&
-                  location.id === this.state.selectedLocation.id && (
-                    <InfoWindow
-                      className="info-window" 
-                      position={{
-                        lat: location.latitude + 0.0018,
-                        lng: location.longitude,
-                      }}
-                    >
-                      <Link
-                        to={{
-                          pathname: `/location/${location.id}`,
-                          state: location,
+        <>
+        <SearchBar
+              filterLocations={this.props.filterLocations}
+              place={this.state.place}
+              onPlaceSelected={this.onPlaceSelected}
+            />
+          <GoogleMap
+            google={this.props.google}
+            defaultZoom={this.props.zoom}
+            defaultCenter={{
+              lat: this.state.mapPosition.lat,
+              lng: this.state.mapPosition.lng,
+            }}
+          >
+            {this.props.locations.map((location, index) => {
+              console.log(location.category);
+              return (
+                <>
+                  <Marker
+                    icon={{
+                      url: this.getIcon(location.category),
+                    }}
+                    onClick={() => this.showInfoWindow(location)}
+                    google={this.props.google}
+                    position={{
+                      lat: location.latitude,
+                      lng: location.longitude,
+                    }}
+                  />
+                  {this.state.selectedLocation &&
+                    location.id === this.state.selectedLocation.id && (
+                      <InfoWindow
+                        className="info-window"
+                        position={{
+                          lat: location.latitude + 0.0018,
+                          lng: location.longitude,
                         }}
-                        key={index}
-                        style={{ padding: 0, margin: 0 }}
                       >
-                        {location.name}
-                      </Link>
-                    </InfoWindow>
-                  )}
-              </>
-            );
-          })}
-          <SearchBar
-            filterLocations={this.props.filterLocations}
-            place={this.state.place}
-            onPlaceSelected={this.onPlaceSelected}
-          />
-        </GoogleMap>
+                        <Link
+                          to={{
+                            pathname: `/location/${location.id}`,
+                            state: location,
+                          }}
+                          key={index}
+                          style={{ padding: 0, margin: 0 }}
+                        >
+                          {location.name}
+                        </Link>
+                      </InfoWindow>
+                    )}
+                </>
+              );
+            })}
+          </GoogleMap>
+        </>
       ))
     );
     let map;
@@ -244,7 +243,16 @@ class LocationsMap extends React.Component {
           <AsyncMap
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9Oy5FQtKMxzvAnlMiGjoaLN6GM8_klPk&libraries=places`}
             loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: "100%", width: "100%" }} />}
+            containerElement={
+              <div
+                style={{
+                  height: "80%",
+                  width: "100%",
+                  position: "relative",
+                  top: "90px",
+                }}
+              />
+            }
             mapElement={<div style={{ height: `100%` }} />}
           />
         </div>
@@ -257,4 +265,3 @@ class LocationsMap extends React.Component {
 }
 
 export default LocationsMap;
-

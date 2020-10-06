@@ -34,11 +34,11 @@ class App extends React.Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/main" component={MainPage} />
             <Route exact path="/notfound" component={NotFound} />
-            <ProtectedRoute exact path="/location/create" component={CreateLocation} />
+            <Route exact path="/location/create" component={CreateLocation} />
             <Route exact path="/location/:id" component={ShowLocation} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
-            <Route component={MainPage} />
+            <ProtectedRoute component={MainPage} />
           </Switch>
         </LocationsContext.Provider>
       </>

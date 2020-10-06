@@ -351,10 +351,10 @@ class DraggableMap extends React.Component {
             containerElement={
               <div
                 style={{
-                  height: "90vh",
+                  height: "82vh",
                   width: "100%",
                   position: "relative",
-                  top: "10vh",
+                  top: "80px",
                 }}
               />
             }

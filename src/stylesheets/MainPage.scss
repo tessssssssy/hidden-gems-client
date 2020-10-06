@@ -3,57 +3,95 @@
     display: flex;
     overflow: hidden;
     .locations-container {
-        width: 900px;
+        width: 2000px;
         z-index: 1;
         overflow: scroll;
         height: 100vh;
+
         .locations-header {
             width: 100%;
-            height: 80px;
+            height: 90px;
             position: fixed;
             z-index: 5;
-            background-color: #1f1f1f;
+            // background-color: #1f1f1f;
+            // background-color: #0A0A0A;
+            background-color: #1A1A1A;
             display: flex;
             align-items: center;
+            box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.75);
             // margin-bottom: 80px;
             .category {
                 width: 100px;
                 margin: 0px 10px;
+                background-color: rgb(49, 53, 58);
             }
             .toggle {
                 margin-left: 10px;
                 margin-right: 10px;
                 label {
                     color: lightgrey;
+                    background-color: rgb(49, 53, 58);
                 }
             }
         }
         .location-main {
-            margin-top: 80px;
+            // background-color: #0A0A0A;
+            background-color: #1A1A1A;
+            margin-top: 90px;
             margin-bottom: 500px;
+            padding: 0px 20px 20px 20px;
+            .locations-title {
+                padding: 20px;
+                h1 {
+                    font-size: 36pt;
+                    color: grey;
+                    // padding-bottom: 10px;
+                }
+                h3 {
+                    color: white;
+                    font-weight: 300;
+                }
+            }
+            hr {
+                border-top: 1px solid rgb(49, 53, 58); 
+            }
         }
         .location {
-            height: 200px;
+            height: 250px;
             overflow: hidden;
             background-color: rgb(49, 53, 58);
-            margin: 10px;
-            padding: 10px;
-            border-radius: 5px;
+            margin: 0px 10px 10px 10px;
+            // padding-bottom: 10px;
+            // border-bottom: 1px solid grey;
+            display: flex;
+            // background-color: #1A1A1A;
+            background-color: #0A0A0A;
+            // padding: 10px;
+            // border-radius: 5px;
+            .image-container {
+                overflow: hidden;
+                width: 500px;
+                img {
+                    width: 400px;
+                    display: block;
+                    padding-bottom: 20px;
+                    overflow: hidden;
+                    // margin-left: 10px;
+                }
+            }
             .location-heading {
                 color: lightgrey;
                 margin: 10px;
-                font-size: 20pt;
+                font-size: 12pt;
+                text-transform: uppercase;
                 a {
                     color: lightgrey;
                     margin-right: 10px;
                 }
             }
             .location-content {
+                width: 400px;
                 display: flex;
-                img {
-                    width: 200px;
-                    margin-left: 10px;
-                }
                 p {
                     margin: 10px;
                     color: lightgrey;
@@ -79,12 +117,17 @@
             // overflow: scroll;
             // height: 100vh;
             .location {
-                //height: 300px;
+                height: 200px;
                 //overflow: hidden;
+                // flex-direction: column;
                 img: {
                     padding: 10px;
                     object-fit: contain;
+                    width: 200px;
                     
+                }
+                .location-info {
+                    width: 200px;
                 }
             }
     
@@ -96,4 +139,5 @@
     .main-page {
         height: 100vh;
     }
+    
 }

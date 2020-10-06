@@ -137,6 +137,7 @@ class LocationsMap extends React.Component {
 
     sessionStorage.setItem("latitude", latValue);
     sessionStorage.setItem("longitude", lngValue);
+    sessionStorage.setItem("city", city);
     console.log(sessionStorage);
     this.props.filterLocations();
     this.setState({

@@ -60,7 +60,7 @@ class MainPage extends React.Component {
     // lat and lng values to initially center the map
     const latitude = Number(sessionStorage.getItem("latitude")) || -37.814;
     const longitude = Number(sessionStorage.getItem("longitude")) || 144.96332;
-
+    const city = sessionStorage.getItem("city");
     let locations = this.context.locations;
 
     if (this.state.category !== "All") {
@@ -109,13 +109,23 @@ class MainPage extends React.Component {
                   <label>My Locations</label>
                 </div>
               )}
-              <Button onClick={()=> this.getLocations(128000)}>All Locations</Button>
+              <Button basic color='teal' onClick={()=> this.getLocations(128000)}>All Locations</Button>
             </div>
+            
             <div class="location-main">
+            <div className="locations-title">
+              <h1>Places to see in {city}...</h1>
+              <h3>Scroll down or click on the map icons to explore unique and interesting places in {city}.</h3>
+            </div>
               {locations &&
                 locations.map((location, index) => {
                   return (
+                    <>
                     <div className="location">
+                      <div className="image-container">
+                          <img src={location.photos[0].image} />
+                        </div>
+                      <div className="location-info">
                       <div className="location-heading">
                         <Link
                           to={{
@@ -134,16 +144,16 @@ class MainPage extends React.Component {
                         />
                       </div>
                       <div className="location-content">
-                        <div className="image-container">
-                          <img src={location.photos[0].image} />
-                        </div>
                         <p>
                           {location.description.length > 120
                             ? location.description.substring(0, 120) + "..."
                             : location.description}
                         </p>
                       </div>
+                      </div>
                     </div>
+                    <hr/>
+                    </>
                   );
                 })}
             </div>

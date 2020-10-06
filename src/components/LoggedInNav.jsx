@@ -15,7 +15,7 @@ class LoggedInNav extends React.Component {
   }
   render() {
     return (
-      <Navbar className="navbar" bg="dark" expand="lg">
+      <Navbar className="navbar" expand="lg">
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">

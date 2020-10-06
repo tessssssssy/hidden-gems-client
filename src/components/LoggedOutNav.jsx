@@ -8,7 +8,7 @@ class LoggedOutNav extends React.Component {
   static contextType = LocationsContext;
   render() {
     return (
-      <Navbar bg="dark" expand="lg">
+      <Navbar className="navbar" expand="lg">
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">

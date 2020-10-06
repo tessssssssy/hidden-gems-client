@@ -5,8 +5,11 @@
   height: 80px;
   display: flex;
   align-items: center;
-  bottom: 92vh;
-  background-color: #1f1f1f;
+  bottom: 91vh;
+  box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.75);
+  // background-color: #1f1f1f;
+  // background-color: #0A0A0A;
+  background-color: #1A1A1A;
   .autocomplete {
     width: 400px;
     height: 40px;

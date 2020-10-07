@@ -11,6 +11,8 @@ import Navbar from "./Navbar";
 import Login from "./Login";
 import Signup from "./Signup"
 import NotFound from "./NotFound";
+
+import gem from "../images/gem_icon_color.png";
 import '../stylesheets/App.scss';
 
 
@@ -28,6 +30,7 @@ class App extends React.Component {
           <meta name="Hidden Gems" content="Hidden Gems - Find your next adventure" />
         </Helmet>
         <LocationsContext.Provider value={this.state}>
+          <header className="header"><img src={gem} alt="gem icon"/><h1>Hidden Gems</h1></header>
           <Navbar />
           <Switch>
             <ProtectedRoute exact path="/location/:id/edit" component={EditLocation} />

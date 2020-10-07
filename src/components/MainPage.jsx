@@ -115,6 +115,7 @@ class MainPage extends React.Component {
             <div class="location-main">
             <div className="locations-title">
               <h1>Places to see in {city}...</h1>
+              <hr/>
               <h3>Scroll down or click on the map icons to explore unique and interesting places in {city}.</h3>
             </div>
               {locations &&

@@ -3,3 +3,22 @@
     font-family: 'Quicksand';
     font-weight: 300;
 }
+
+.header {
+    text-align: center;
+    // padding-top: 10px;
+    background-color: #1A1A1A;
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    img {
+        width: 30px;
+        margin-right: 5px;
+    }
+    h1 {
+        color: white;
+        // text-transform: uppercase;
+        font-family: 'Dancing Script', cursive;
+        font-size: 24pt;
+    }
+}

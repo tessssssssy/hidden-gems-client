@@ -127,14 +127,14 @@ class LocationsMap extends React.Component {
 
   onPlaceSelected = (place) => {
     console.log("plc", place);
-    const address = place.formatted_address,
+    let address = place.formatted_address,
       addressArray = place.address_components,
       city = this.getCity(addressArray),
       area = this.getArea(addressArray),
       state = this.getState(addressArray),
       latValue = place.geometry.location.lat(),
       lngValue = place.geometry.location.lng();
-
+    city = place.formatted_address.split(' ')[0];
     sessionStorage.setItem("latitude", latValue);
     sessionStorage.setItem("longitude", lngValue);
     sessionStorage.setItem("city", city);
@@ -154,7 +154,6 @@ class LocationsMap extends React.Component {
         lng: lngValue,
       },
     });
-    console.log(sessionStorage);
   };
 
   showInfoWindow = (location) => {

@@ -30,7 +30,7 @@ class App extends React.Component {
           <meta name="Hidden Gems" content="Hidden Gems - Find your next adventure" />
         </Helmet>
         <LocationsContext.Provider value={this.state}>
-          <header className="header"><img src={gem} alt="gem icon"/><h1>Hidden Gems</h1></header>
+          {/* <header className="header"><img src={gem} alt="gem icon"/><h1>Hidden Gems</h1></header> */}
           <Navbar />
           <Switch>
             <ProtectedRoute exact path="/location/:id/edit" component={EditLocation} />
